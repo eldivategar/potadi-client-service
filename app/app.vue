@@ -1,53 +1,43 @@
 <script setup lang="ts">
-// Nuxt 4 + Nuxt UI v4 + Motion
+useHead({
+  title: 'Potadi - Diagnosa Penyakit Daun Kentang dalam Sekejap',
+  meta: [
+    {
+      name: 'description',
+      content:
+        'Sistem diagnostik botanik berbasis Computer Vision untuk mendeteksi penyakit daun kentang (Early Blight, Late Blight, Healthy) secara akurat dan instan tanpa internet.'
+    },
+    { property: 'og:title', content: 'Potadi - Diagnosa Penyakit Daun Kentang dalam Sekejap' },
+    {
+      property: 'og:description',
+      content:
+        'Sistem diagnostik botanik berbasis Computer Vision untuk mendeteksi penyakit daun kentang secara akurat dan 100% offline.'
+    },
+    { property: 'og:image', content: '/og-logo.png' },
+    { property: 'og:type', content: 'website' },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:title', content: 'Potadi - Diagnosa Penyakit Daun Kentang dalam Sekejap' },
+    {
+      name: 'twitter:description',
+      content:
+        'Sistem diagnostik botanik berbasis Computer Vision untuk mendeteksi penyakit daun kentang secara akurat dan 100% offline.'
+    },
+    { name: 'twitter:image', content: '/og-logo.png' }
+  ],
+  link: [
+    { rel: 'icon', type: 'image/png', href: '/og-logo.png' },
+    { rel: 'apple-touch-icon', href: '/og-logo.png' }
+  ]
+})
 </script>
+
 
 <template>
   <UApp>
     <NuxtRouteAnnouncer />
-    <div
-      class="min-h-screen bg-neutral-950 text-white flex flex-col items-center justify-center p-6"
-    >
-      <Motion
-        :initial="{ opacity: 0, y: 20 }"
-        :animate="{ opacity: 1, y: 0 }"
-        :transition="{ duration: 0.6, ease: 'easeOut' }"
-        class="text-center space-y-5 max-w-md"
-      >
-        <div
-          class="inline-flex items-center justify-center p-3 rounded-2xl bg-neutral-900 border border-neutral-800 shadow-inner"
-        >
-          <UIcon name="i-ph-sparkle-fill" class="size-8 text-emerald-400" />
-        </div>
-
-        <div class="space-y-1">
-          <h1
-            class="text-3xl font-bold tracking-tight bg-linear-to-r from-emerald-400 to-teal-200 bg-clip-text text-transparent"
-          >
-            Potadi Client Service
-          </h1>
-          <p class="text-neutral-400 text-sm">
-            Nuxt 4 + Nuxt UI v4 + Tailwind CSS v4 + Motion
-          </p>
-        </div>
-
-        <div class="flex items-center justify-center gap-3 pt-2">
-          <UButton
-            label="Get Started"
-            color="primary"
-            variant="solid"
-            icon="i-ph-rocket-launch-duotone"
-            to="https://nuxt.com/docs"
-            target="_blank"
-          />
-          <UButton
-            label="Documentation"
-            color="neutral"
-            variant="outline"
-            icon="i-ph-book-open-text-duotone"
-          />
-        </div>
-      </Motion>
+    <div class="min-h-screen bg-[#F8FAF9] dark:bg-[#09090B] text-slate-900 dark:text-slate-100 antialiased selection:bg-emerald-500/30 selection:text-emerald-800 dark:selection:text-emerald-200 font-sans transition-colors duration-300">
+      <NuxtPage />
     </div>
   </UApp>
 </template>
+
