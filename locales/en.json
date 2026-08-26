@@ -1,0 +1,445 @@
+{
+  "nav": {
+    "threat": "Blight Threat",
+    "catalog": "Symptom Catalog",
+    "howItWorks": "How It Works",
+    "tech": "AI Specs",
+    "benefits": "Field Ergonomics",
+    "ctaButton": "Start Diagnosis",
+    "ctaButtonStudio": "Start Diagnosis in Studio",
+    "themeToggleLight": "Switch to Light Mode",
+    "themeToggleDark": "Switch to Dark Mode",
+    "langToggle": "Select Language",
+    "langId": "Bahasa Indonesia",
+    "langEn": "English"
+  },
+  "hero": {
+    "eyebrow": "BOTANICAL VISION AI DIAGNOSTIC SYSTEM",
+    "headlinePart1": "Potato Foliar Disease Diagnosis",
+    "headlinePart2": "in Milliseconds",
+    "subtext": "Accurate, early detection of potato leaf blight (Early & Late Blight) directly in the field with 100% offline edge inference.",
+    "ctaPrimary": "Start Diagnosis Now",
+    "ctaSecondary": "Explore Field Symptoms",
+    "trustLatencyLabel": "MODEL LATENCY",
+    "trustAccuracyLabel": "VALIDATION ACCURACY",
+    "trustAccessLabel": "FIELD ACCESS",
+    "trustAccessValue": "100% Offline",
+    "badgeOnDevice": "100% On-Device ML",
+    "badgeValidation": "98.6% Research Validation",
+    "telemetryLive": "LIVE VISION TELEMETRY",
+    "telemetryInference": "INFERENCE:",
+    "sampleSwitcherTitle": "TEST FIELD LEAF SAMPLES:",
+    "sampleSwitcherHint": "Click to simulate diagnostic scan",
+    "samples": {
+      "earlyBlight": {
+        "label": "Early Blight (Alternaria)",
+        "status": "Detected: Early Blight",
+        "summary": "Target-board concentric ring lesions characteristic of Alternaria solani on lower foliage."
+      },
+      "lateBlight": {
+        "label": "Late Blight (Phytophthora)",
+        "status": "Danger: Late Blight",
+        "summary": "Aggressive water-soaked lesions from Phytophthora infestans causing rapid foliage rot."
+      },
+      "healthy": {
+        "label": "Healthy Foliage",
+        "status": "Pathogen-Free: Safe",
+        "summary": "Vibrant green chlorophyll density without lesions, optimal photosynthetic efficiency."
+      }
+    }
+  },
+  "threat": {
+    "headline": "The Destructive Reality of Potato Blight: Destroying",
+    "headlineHighlight": "70% of Crop Yield",
+    "headlineSuffix": "in a Matter of Days",
+    "description": "Pathogens {p1} and {p2} multiply with extreme velocity in cool, misty highland microclimates. A 1–2 day identification delay routinely destroys entire commercial potato beds.",
+    "tagRisk": "FIELD RISK",
+    "stat1": {
+      "value": "70%",
+      "metric": "Potential Harvest Failure",
+      "description": "Total commercial tuber loss if fungal spores disperse without rapid agronomic intervention."
+    },
+    "stat2": {
+      "value": "7–14",
+      "unit": "Days",
+      "metric": "Field Infection Cycle",
+      "description": "Rate at which foliar pathogens engulf entire cultivation plots in humid, fog-prone weather."
+    },
+    "stat3": {
+      "value": "< 24",
+      "unit": "Hours",
+      "metric": "Critical Action Window",
+      "description": "Action timeframe before irreversible foliar necrosis permanently degrades tuber size."
+    }
+  },
+  "catalog": {
+    "title": "Pathology Catalog & Rapid Intervention Protocol",
+    "subtitle": "Inspect visual symptom markers, infection progression, and standardized agronomic treatment protocols across all three foliar classes.",
+    "taxonomyLabel": "PATHOGEN / TAXONOMY:",
+    "diagnosticProtocol": "DIAGNOSTIC PROTOCOL SPECIFICATION",
+    "symptomsTitle": "FIELD VISUAL SYMPTOMS:",
+    "fieldActionsTitle": "PRACTICAL FIELD ACTIONS:",
+    "solutionsTitle": "FUNGICIDE & CONTROL FORMULATION:",
+    "chemicalLabel": "Chemical / Synthetic Formulation:",
+    "organicLabel": "Organic / Biological Control:",
+    "diseases": {
+      "earlyBlight": {
+        "tabName": "Early Blight (Alternaria)",
+        "name": "Potato Early Blight",
+        "scientific": "Alternaria solani",
+        "statusBadge": "Severity Level: Moderate",
+        "symptoms": [
+          "Dark brown or black necrotic spots exhibiting distinct concentric circular rings (target-board pattern).",
+          "Chlorotic yellowing around lesions caused by fungal alternaric acid toxins.",
+          "Symptoms originate on mature foliage in lower canopy and progressively climb upward."
+        ],
+        "treatments": [
+          {
+            "title": "Targeted Pruning",
+            "detail": "Prune heavily infected lower leaves and discard far from cultivation beds to halt airborne conidia."
+          },
+          {
+            "title": "Canopy Moisture Control",
+            "detail": "Avoid late-afternoon overhead sprinkler irrigation to keep foliar surfaces dry throughout the night."
+          }
+        ],
+        "chemicalSolution": "Protective Fungicide: Mancozeb 80% WP (2-3 g/L) or Chlorothalonil 75% WP.",
+        "organicSolution": "Neem seed extract biopesticide or Trichoderma harzianum soil-foliar formulations."
+      },
+      "lateBlight": {
+        "tabName": "Late Blight (Phytophthora)",
+        "name": "Late Blight Foliar & Tuber Rot",
+        "scientific": "Phytophthora infestans",
+        "statusBadge": "Severity Level: High Danger (Emergency)",
+        "symptoms": [
+          "Water-soaked, grayish-green lesions rapidly expanding into dark purplish-brown necrosis.",
+          "Fine white downy mildew sporulation on the underside of leaves during cool, foggy conditions.",
+          "Lesions travel rapidly along petioles, stems, and wash into soil causing severe tuber rot."
+        ],
+        "treatments": [
+          {
+            "title": "Strict Quarantine & Sanitization",
+            "detail": "Immediately rogue and incinerate heavily infected plants. Never compost infected foliage!"
+          },
+          {
+            "title": "Bed & Ridge Protection",
+            "detail": "Increase ridge soil hilling around stem bases to prevent zoospore rain-wash into underground tubers."
+          }
+        ],
+        "chemicalSolution": "Systemic Fungicide: Metalaxyl-M + Mancozeb, Dimethomorph, or Cymoxanil.",
+        "organicSolution": "Measured Bordeaux mixture (copper sulfate + hydrated lime) preventive sprays."
+      },
+      "healthy": {
+        "tabName": "Healthy Foliage",
+        "name": "Optimal & Disease-Free Foliage",
+        "scientific": "Solanum tuberosum L.",
+        "statusBadge": "Status: Pathogen-Free (Safe)",
+        "symptoms": [
+          "Uniformly vibrant deep green leaf surfaces with no chlorosis, necrosis, or water lesions.",
+          "Strong vascular leaf veins, supple elasticity, and robust flowering canopy development.",
+          "Maximized photosynthetic output promoting Grade-A tuber bulking in root beds."
+        ],
+        "treatments": [
+          {
+            "title": "Balanced Nutrition",
+            "detail": "Maintain optimal Potassium (K) and Phosphorus (P) ratios to reinforce cell walls against fungal penetration."
+          },
+          {
+            "title": "Routine Field Inspection",
+            "detail": "Conduct Potadi visual scans every 3 days during high-rainfall periods in highland terrain."
+          }
+        ],
+        "chemicalSolution": "No curative fungicides required. Apply preventive contact copper spray prior to continuous rain.",
+        "organicSolution": "Liquid organic bio-fertilizer and mycorrhizal inoculants for root immunity reinforcement."
+      }
+    }
+  },
+  "howItWorks": {
+    "title": "Rapid Field Diagnosis in 4 Simple Steps",
+    "subtitle": "From leaf photography under intense sunlight to precise, ready-to-apply chemical and organic dosages.",
+    "step1": {
+      "phase": "DATA CAPTURE",
+      "badge": "Camera / Gallery",
+      "viewfinderTitle": "Interactive Field Viewfinder",
+      "viewfinderDesc": "Center the leaf inside the frame under ambient daylight",
+      "autoTargeting": "AUTO TARGETING",
+      "title": "Capture Leaf Photo in the Field",
+      "desc": "Aim your smartphone camera directly at symptomatic potato leaves. Engineered for high outdoor contrast, glove-friendly touch, and instant browser execution."
+    },
+    "step2": {
+      "phase": "EDGE COMPUTATION",
+      "badge": "ON-DEVICE",
+      "metricLabel": "MODEL INFERENCE LATENCY",
+      "title": "On-Device Neural AI Vision",
+      "desc": "Deep neural networks extract lesion texture and color distributions locally without transmitting imagery to remote servers."
+    },
+    "step3": {
+      "phase": "PROBABILITY ANALYSIS",
+      "badge": "TRIAGE STATUS",
+      "title": "High-Precision Pathology Triage",
+      "desc": "Calibrated confidence scores cleanly separate benign dry lesions from aggressive, epidemic water rot."
+    },
+    "step4": {
+      "phase": "ACTION PROTOCOL",
+      "badge": "Practical Solutions",
+      "badge1Title": "Verified Active Ingredients",
+      "badge1Desc": "Specific fungicide names (Mancozeb / Metalaxyl) with exact dosage per sprayer knapsack.",
+      "badge2Title": "Crop Sanitization",
+      "badge2Desc": "Isolation procedures and ridge moisture management to eliminate spore contagion cycles.",
+      "title": "Immediate Agronomic Action Recommendations",
+      "desc": "Free from obscure jargon. Farmers and agronomists receive actionable field instructions ready for immediate application."
+    }
+  },
+  "tech": {
+    "eyebrow": "TECHNOLOGY SPECIFICATIONS & VISION INFERENCE",
+    "title": "High-Speed Computing Precision for the Field",
+    "engineLabel": "ENGINE:",
+    "specs": {
+      "latency": {
+        "label": "INFERENCE LATENCY",
+        "value": "< 28 ms",
+        "subtext": "Zero server network delay with pure local neural execution"
+      },
+      "accuracy": {
+        "label": "DATASET ACCURACY",
+        "value": "98.6%",
+        "subtext": "Validated against thousands of certified potato leaf samples"
+      },
+      "offline": {
+        "label": "OFFLINE ARCHITECTURE",
+        "value": "100%",
+        "subtext": "Executes entirely in the browser via WebAssembly/ONNX"
+      },
+      "classes": {
+        "label": "DIAGNOSTIC CLASSES",
+        "value": "3 Classes",
+        "subtext": "Early Blight, Late Blight, and Disease-Free Healthy Foliage"
+      }
+    }
+  },
+  "benefits": {
+    "title": "Engineered for the Harsh Realities of Farmers",
+    "subtitle": "Harmonizing outdoor field ergonomics with the rigorous precision of diagnostic computer vision.",
+    "standardLabel": "ERGONOMIC STANDARD:",
+    "items": {
+      "item1": {
+        "title": "High Contrast Under Blazing Sunlight",
+        "description": "Calibrated with high contrast ratios (WCAG AA/AAA) ensuring diagnostic status and chemical dosages remain razor-sharp under bright midday field glare.",
+        "tag": "FIELD LEGIBILITY",
+        "highlight": "Contrast Ratio > 7:1"
+      },
+      "item2": {
+        "title": "Ergonomic 48px Touch Targets",
+        "description": "All primary action buttons and navigational controls maintain a minimum 48px × 48px hit area, perfect for wet, muddy, or gloved hands.",
+        "tag": "TOUCH ERGONOMICS",
+        "highlight": "Min 48px Target"
+      },
+      "item3": {
+        "title": "100% Independent Without Cellular Data",
+        "description": "Highland potato hills frequently suffer from zero cellular signal. Potadi runs neural models locally in the browser with zero data plan requirements.",
+        "tag": "EDGE OFFLINE",
+        "highlight": "Zero Data Dependency"
+      },
+      "item4": {
+        "title": "Directly Actionable Field Recommendations",
+        "description": "Diagnostics immediately specify active chemical ingredients (Mancozeb, Chlorothalonil), tank dosage ratios, and isolation steps ready for execution.",
+        "tag": "ACTION ORIENTED",
+        "highlight": "Clear Field Protocol"
+      }
+    }
+  },
+  "cta": {
+    "badge": "DIAGNOSTIC STUDIO AVAILABLE NOW",
+    "title": "Safeguard Your Potato Harvest from Crop Failure Today",
+    "desc": "Point your smartphone camera at potato foliage directly in the garden. Receive millisecond pathogen diagnostics without delay.",
+    "button": "Launch Diagnostic Studio",
+    "perks": [
+      "Completely Free",
+      "Runs In Browser",
+      "100% Offline Ready",
+      "Zero Data Tracking"
+    ]
+  },
+  "footer": {
+    "brandDesc": "Precision Computer Vision System for Early Detection of Potato Foliar Blight in Agricultural Fields.",
+    "engineModel": "Vision Model v1.0.4",
+    "engineReady": "100% On-Device Ready",
+    "navHeading": "NAVIGATION",
+    "appHeading": "APPLICATION",
+    "classificationHeading": "CLASSIFICATION",
+    "contactHeading": "CONTACT & COLLABORATION",
+    "collabAction": "Field Trials & Collaboration",
+    "disclaimerTitle": "Disclaimer:",
+    "disclaimerText": "Artificial intelligence diagnostic output serves as a preliminary field screening instrument. Consult local agricultural extension officers or laboratory assays for confirmatory phytopathological verification.",
+    "rightsReserved": "All rights reserved."
+  },
+  "appStudio": {
+    "backHome": "Back to Home",
+    "title": "Diagnostic Studio",
+    "statusActive": "ON-DEVICE ACTIVE",
+    "nav": {
+      "dashboard": "Dashboard",
+      "dashboardSub": "Overview & insights",
+      "diagnosis": "Leaf Diagnosis",
+      "diagnosisSub": "Leaf disease analysis",
+      "history": "History",
+      "historySub": "Diagnostic history",
+      "backToLanding": "Back to Landing Page",
+      "telemetryLabel": "Farm Telemetry",
+      "mode": "Theme",
+      "modeLight": "Light",
+      "modeDark": "Dark",
+      "language": "Language",
+      "collapseSidebar": "Collapse Sidebar",
+      "expandSidebar": "Expand Sidebar"
+    },
+    "userProfile": {
+      "name": "Field Agronomist",
+      "role": "Dieng Plateau • Block B",
+      "profileMenu": "Profile Menu",
+      "settings": "Account Settings",
+      "backToLanding": "Back to Landing Page",
+      "logout": "Log Out",
+      "logoutToast": "User session has been ended"
+    },
+    "dashboard": {
+      "title": "Field Health Summary",
+      "subtitle": "Real-time potato foliage monitoring & microclimate risk forecast",
+      "lastInspected": "Last Inspected",
+      "hero": {
+        "liveBadge": "LIVE DATA",
+        "headline": "Monitor your potato crop health",
+        "subtext": "Precision Computer Vision detects late and early blight instantly in the browser without internet.",
+        "startDiagnosis": "Start New Diagnosis"
+      },
+      "recommendation": {
+        "title": "Today's Agronomic Recommendation",
+        "tip": "Highland humidity at 88% accelerates Phytophthora spore germination. Inspect lower canopy foliage and avoid late-afternoon overhead sprinkler irrigation.",
+        "action": "Open Field Diagnosis"
+      },
+      "metrics": {
+        "totalScanned": "Foliage Checked",
+        "totalScannedSub": "Locally processed images",
+        "healthyRatio": "Healthy Foliage Ratio",
+        "healthyRatioSub": "Optimal chlorophyll status",
+        "earlyBlight": "Early Blight",
+        "earlyBlightSub": "Concentric target rings",
+        "lateBlight": "Emergency Blight",
+        "lateBlightSub": "Emergency foliar rot"
+      },
+      "weather": {
+        "title": "MICROCLIMATE & SPORE RISK INDEX",
+        "location": "Highland Plateau (1,800m ASL)",
+        "humidity": "Humidity",
+        "temperature": "Ambient Temp",
+        "rainProb": "Fog/Rain Probability",
+        "riskLevel": "High Spore Risk Warning",
+        "riskDesc": "Relative humidity >85% accelerates Phytophthora infestans zoospore germination within 6–8 hours.",
+        "mitigationAction": "Mitigation: Inspect lower canopy beds and apply protective contact spray prior to afternoon fog."
+      },
+      "recentDetections": "Recent Detections",
+      "noDetections": "No previous scans yet.",
+      "startNewDiagnosis": "Start New Diagnosis",
+      "viewAllHistory": "View All History"
+    },
+    "history": {
+      "title": "Field Diagnostic History",
+      "subtitle": "Archive of potato leaf diagnostic scans and field intervention recipes",
+      "filters": {
+        "all": "All",
+        "earlyBlight": "Early Blight",
+        "lateBlight": "Late Blight",
+        "healthy": "Healthy"
+      },
+      "viewRecipe": "View Treatment Protocol",
+      "deleteItem": "Delete",
+      "clearAll": "Clear All History",
+      "emptyTitle": "No Diagnostic History Found",
+      "emptyDesc": "Start scanning potato leaves in the field to build your pathology record history.",
+      "confirmClearTitle": "Clear Entire History?",
+      "confirmClearDesc": "All saved diagnostic records stored on this device will be permanently removed.",
+      "btnCancel": "Cancel",
+      "btnConfirmDelete": "Yes, Clear All",
+      "toastSaved": "Diagnosis saved to history",
+      "recipeModal": {
+        "title": "Field Treatment & Action Protocol",
+        "diagnosedAt": "Diagnosed At:",
+        "close": "Close Recipe"
+      }
+    },
+    "inputTabs": {
+      "real": "Camera / Upload",
+      "preset": "Preset Samples"
+    },
+    "upload": {
+      "dropTitle": "Drag & drop leaf photo here",
+      "dropSub": "or choose a quick option below",
+      "openCamera": "Open Phone Camera",
+      "chooseFile": "Choose Image File",
+      "changeImage": "Change Photo",
+      "removeImage": "Remove Photo",
+      "supportedFormats": "Supports JPG, PNG, WEBP (Max 10MB)",
+      "customLeafLabel": "Custom Leaf Photo"
+    },
+    "viewfinder": {
+      "title": "LEAF VIEWFINDER",
+      "sub": "LIVE HUD FEED",
+      "targetLock": "TARGET LOCK",
+      "scanning": "SCANNING LEAF LESIONS & TEXTURE...",
+      "chooseSampleHint": "SELECT QUICK TEST SAMPLE:"
+    },
+    "buttons": {
+      "analyze": "Analyze Leaf Now",
+      "reanalyze": "Re-Analyze Leaf Image",
+      "processing": "Processing Neural Inference..."
+    },
+    "results": {
+      "badgeLabel": "DIAGNOSTIC INFERENCE RESULTS",
+      "confidenceLabel": "Confidence Score",
+      "statusLabel": "Severity Level",
+      "tabs": {
+        "symptoms": "Field Symptoms",
+        "protocol": "24h Mitigation",
+        "solutions": "Fungicide & Dosage"
+      },
+      "chemicalHeading": "Chemical Formulation (14–16L Knapsack):",
+      "organicHeading": "Organic & Biological Control:",
+      "knapsackHint": "Application dosage per standard knapsack sprayer:",
+      "tankDosage": "Dosage: 30–45 grams (2–3 tbsp) per 16 Liter water tank."
+    },
+    "researcher": {
+      "toggle": "Researcher Mode (ML Telemetry)",
+      "badge": "RESEARCH TELEMETRY",
+      "distributionTitle": "CLASS PROBABILITY DISTRIBUTION:",
+      "latencyLabel": "INFERENCE LATENCY",
+      "resolutionLabel": "INPUT RESOLUTION",
+      "modelArchLabel": "MODEL ARCHITECTURE",
+      "engineLabel": "ACCELERATION ENGINE",
+      "engineValue": "ONNX Runtime / WASM SIMD",
+      "modelArchValue": "MobileNetV4 + Attention (FP16)"
+    },
+    "samples": {
+      "earlyBlight": {
+        "label": "Early Blight (Alternaria)",
+        "scientificName": "Alternaria solani",
+        "status": "DETECTED: EARLY BLIGHT",
+        "severity": "Severity Level: Moderate",
+        "solution": "Apply protective fungicide with active ingredient Mancozeb 80% WP (2 g/L water) and prune lower foliage showing concentric target spots."
+      },
+      "lateBlight": {
+        "label": "Late Blight (Phytophthora)",
+        "scientificName": "Phytophthora infestans",
+        "status": "DETECTED: LATE BLIGHT (EMERGENCY)",
+        "severity": "Severity Level: High Danger (Emergency)",
+        "solution": "Severe water-soaked lesion threat! Immediately isolate infected crops and apply systemic fungicide (Metalaxyl-M / Dimethomorph) before tuber rot occurs."
+      },
+      "healthy": {
+        "label": "Healthy Foliage",
+        "scientificName": "Solanum tuberosum L.",
+        "status": "STATUS: OPTIMAL LEAF (PATHOGEN-FREE)",
+        "severity": "Status: Pathogen-Free (Safe)",
+        "solution": "Chlorophyll density and cellular structure optimal. Maintain balanced Potassium (K) nutrition and inspect every 3 days."
+      }
+    }
+  }
+}

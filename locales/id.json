@@ -1,0 +1,445 @@
+{
+  "nav": {
+    "threat": "Ancaman Hawar",
+    "catalog": "Katalog Gejala",
+    "howItWorks": "Cara Kerja",
+    "tech": "Spesifikasi AI",
+    "benefits": "Ergonomi Lapangan",
+    "ctaButton": "Mulai Diagnosa",
+    "ctaButtonStudio": "Mulai Diagnosa di Studio",
+    "themeToggleLight": "Beralih ke Light Mode",
+    "themeToggleDark": "Beralih ke Dark Mode",
+    "langToggle": "Pilih Bahasa",
+    "langId": "Bahasa Indonesia",
+    "langEn": "English"
+  },
+  "hero": {
+    "eyebrow": "SISTEM DIAGNOSTIK BOTANIK VISION AI",
+    "headlinePart1": "Diagnosa Penyakit Daun Kentang",
+    "headlinePart2": "dalam Sekejap",
+    "subtext": "Identifikasi dini hawar daun (Early & Late Blight) langsung di lahan kentang secara presisi dan 100% offline.",
+    "ctaPrimary": "Mulai Diagnosa Sekarang",
+    "ctaSecondary": "Lihat Gejala Lapangan",
+    "trustLatencyLabel": "LATENSI MODEL",
+    "trustAccuracyLabel": "AKURASI VALIDASI",
+    "trustAccessLabel": "AKSES LAHAN",
+    "trustAccessValue": "100% Offline",
+    "badgeOnDevice": "100% On-Device ML",
+    "badgeValidation": "Validasi Riset 98.6%",
+    "telemetryLive": "LIVE VISION TELEMETRY",
+    "telemetryInference": "INFERENCE:",
+    "sampleSwitcherTitle": "UJI SAMPEL DAUN LAPANGAN:",
+    "sampleSwitcherHint": "Klik untuk simulasi diagnosa",
+    "samples": {
+      "earlyBlight": {
+        "label": "Hawar Dini (Early Blight)",
+        "status": "Terdeteksi: Early Blight",
+        "summary": "Pola cincin melingkar khas jamur Alternaria solani pada daun bagian bawah."
+      },
+      "lateBlight": {
+        "label": "Hawar Daun (Late Blight)",
+        "status": "Bahaya: Late Blight",
+        "summary": "Bercak basah agresif patogen Phytophthora infestans yang memicu busuk daun cepat."
+      },
+      "healthy": {
+        "label": "Daun Sehat (Healthy)",
+        "status": "Bebas Patogen: Aman",
+        "summary": "Jaringan klorofil hijau pekat tanpa lesi, fotosintesis tanaman berjalan optimal."
+      }
+    }
+  },
+  "threat": {
+    "headline": "Ancaman Nyata Hawar Daun: Menghancurkan",
+    "headlineHighlight": "70% Hasil Panen",
+    "headlineSuffix": "dalam Hitungan Hari",
+    "description": "Patogen {p1} dan {p2} berkembang biak sangat cepat di dataran tinggi yang dingin dan berkabut. Keterlambatan identifikasi 1–2 hari sering kali berujung pada kerusakan seluruh bedengan kentang.",
+    "tagRisk": "RISIKO LAPANGAN",
+    "stat1": {
+      "value": "70%",
+      "metric": "Potensi Gagal Panen",
+      "description": "Kehilangan umbi total jika spora hawar daun menyebar tanpa intervensi agronomis tepat."
+    },
+    "stat2": {
+      "value": "7–14",
+      "unit": "Hari",
+      "metric": "Siklus Kerusakan Lahan",
+      "description": "Kecepatan patogen menginfeksi seluruh petak lahan pada kondisi lembap dan berkabut."
+    },
+    "stat3": {
+      "value": "< 24",
+      "unit": "Jam",
+      "metric": "Jendela Aksi Kritis",
+      "description": "Batas waktu diagnosa akurat sebelum jaringan daun mati permanen dan menurunkan kualitas umbi."
+    }
+  },
+  "catalog": {
+    "title": "Katalog Patologi & Panduan Intervensi Cepat",
+    "subtitle": "Kenali perbedaan visual, pola serangan patogen, serta langkah penanganan standar agronomi untuk ketiga kelas daun kentang.",
+    "taxonomyLabel": "PATOGEN / TAKSONOMI:",
+    "diagnosticProtocol": "DIAGNOSTIC PROTOCOL SPECIFICATION",
+    "symptomsTitle": "CIRI VISUAL GEJALA DI LAHAN:",
+    "fieldActionsTitle": "LANGKAH PRAKTIS PETANI:",
+    "solutionsTitle": "FORMULASI OBAT & PENGENDALIAN:",
+    "chemicalLabel": "Kimiawi / Kimia Sintetik:",
+    "organicLabel": "Organik / Hayati:",
+    "diseases": {
+      "earlyBlight": {
+        "tabName": "Hawar Dini (Early Blight)",
+        "name": "Hawar Dini Kentang",
+        "scientific": "Alternaria solani",
+        "statusBadge": "Tingkat Serangan: Sedang",
+        "symptoms": [
+          "Bercak cokelat tua atau kehitaman dengan pola cincin melingkar konsentris (seperti target papan panah).",
+          "Area daun di sekitar bercak menguning (klorosis) akibat racun yang diproduksi jamur.",
+          "Gejala bermula dari daun tua di bagian bawah kanopi tanaman lalu merambat ke atas."
+        ],
+        "treatments": [
+          {
+            "title": "Pemangkasan Selektif",
+            "detail": "Pangkas daun tua yang terinfeksi dan buang jauh dari area bedengan untuk menghentikan spora."
+          },
+          {
+            "title": "Manajemen Kelembapan",
+            "detail": "Hindari penyiraman model sprinkler pada sore hari untuk menjaga daun tetap kering di malam hari."
+          }
+        ],
+        "chemicalSolution": "Fungisida Protektif: Mankozeb 80% WP (2-3 g/L) atau Klorotalonil 75% WP.",
+        "organicSolution": "Ekstrak bio-pestisida daun mimba (neem) atau formulasi Trichoderma harzianum."
+      },
+      "lateBlight": {
+        "tabName": "Hawar Daun (Late Blight)",
+        "name": "Hawar Daun Busuk Basah",
+        "scientific": "Phytophthora infestans",
+        "statusBadge": "Tingkat Serangan: Bahaya Tinggi (Darurat)",
+        "symptoms": [
+          "Bercak basah berwarna hijau keabu-abuan yang dengan cepat berubah menjadi cokelat kehitaman.",
+          "Lapisan jamur halus berwarna putih keabuan pada sisi bawah daun saat kondisi berkabut atau lembap.",
+          "Lesi menyebar dengan sangat cepat ke tangkai daun, batang, dan membusukkan umbi di dalam tanah."
+        ],
+        "treatments": [
+          {
+            "title": "Isolasi & Sanitasi Total",
+            "detail": "Cabut dan musnahkan tanaman yang terinfeksi parah. Jangan jadikan kompos!"
+          },
+          {
+            "title": "Perlindungan Bedengan",
+            "detail": "Tinggikan guludan tanah di sekitar pangkal batang untuk mencegah spora terbawa air hujan ke umbi."
+          }
+        ],
+        "chemicalSolution": "Fungisida Sistemik: Metalaksil-M + Mankozeb, Dimetomorf, atau Simoksanil.",
+        "organicSolution": "Semprotan larutan tembaga hidroksida (Bordeaux mixture) konsentrasi terukur."
+      },
+      "healthy": {
+        "tabName": "Daun Sehat (Healthy)",
+        "name": "Kondisi Daun Prima & Optimal",
+        "scientific": "Solanum tuberosum L.",
+        "statusBadge": "Status: Bebas Patogen (Aman)",
+        "symptoms": [
+          "Permukaan helai daun berwarna hijau segar merata tanpa bercak lesi, nekrosis, atau klorosis.",
+          "Tulang daun tampak kokoh, tekstur elastis, dan pembungaan berkembang sempurna.",
+          "Fotosintesis optimal untuk pembentukan bobot umbi kentang grade A."
+        ],
+        "treatments": [
+          {
+            "title": "Pemupukan Berimbang",
+            "detail": "Jaga rasio Kalium (K) dan Fosfor (P) untuk memperkuat dinding sel daun dari penetrasi jamur."
+          },
+          {
+            "title": "Inspeksi Rutin",
+            "detail": "Lakukan pemindaian visual Potadi 3 hari sekali selama musim penghujan di area dataran tinggi."
+          }
+        ],
+        "chemicalSolution": "Tidak memerlukan fungisida kuratif. Aplikasikan fungisida kontak preventif jika musim hujan tiba.",
+        "organicSolution": "Aplikasi pupuk organik cair (POC) hayati dan mikoriza untuk kekebalan alami perakaran."
+      }
+    }
+  },
+  "howItWorks": {
+    "title": "Alur Diagnosa Cepat dalam 4 Langkah Lapangan",
+    "subtitle": "Dari pemotretan helai daun di bawah sinar matahari hingga rekomendasi dosis obat yang siap diaplikasikan.",
+    "step1": {
+      "phase": "PENGAMBILAN DATA",
+      "badge": "Kamera / Galeri",
+      "viewfinderTitle": "Viewfinder Lapangan Interaktif",
+      "viewfinderDesc": "Cukup arahkan daun di tengah frame dengan pencahayaan alami",
+      "autoTargeting": "AUTO TARGETING",
+      "title": "Ambil Foto Daun di Lahan",
+      "desc": "Arahkan kamera smartphone ke daun kentang yang dicurigai bergejala. Sistem ramah sentuhan, responsif di bawah sinar matahari, dan bekerja langsung dari browser ponsel petani."
+    },
+    "step2": {
+      "phase": "KOMPUTASI EDGE",
+      "badge": "ON-DEVICE",
+      "metricLabel": "WAKTU KOMPUTASI MODEL",
+      "title": "AI Vision On-Device",
+      "desc": "Jaringan syaraf tiruan memproses pola lesi daun secara lokal tanpa mengirim data ke server."
+    },
+    "step3": {
+      "phase": "ANALISIS PROBABILITAS",
+      "badge": "TRIAGE STATUS",
+      "title": "Triage Klasifikasi Presisi",
+      "desc": "Skor keyakinan tinggi membedakan bercak kering melingkar dari busuk basah agresif."
+    },
+    "step4": {
+      "phase": "AKSI PENGENDALIAN",
+      "badge": "Solusi Praktis",
+      "badge1Title": "Bahan Aktif Teruji",
+      "badge1Desc": "Rekomendasi nama fungisida (Mankozeb / Metalaksil) lengkap dengan dosis takar per tangki semprot.",
+      "badge2Title": "Sanitasi Tanaman",
+      "badge2Desc": "Langkah isolasi dan manajemen kelembapan bedengan untuk memutus rantai spora di lahan.",
+      "title": "Rekomendasi Tindakan Agronomi Langsung",
+      "desc": "Bebas dari kalimat teoritis rumit. Petani dan agronomis mendapatkan instruksi aksi lapangan yang bisa langsung dieksekusi hari itu juga."
+    }
+  },
+  "tech": {
+    "eyebrow": "SPESIFIKASI TEKNOLOGI & INFERENSI VISION",
+    "title": "Presisi Komputasi Cepat untuk Lapangan",
+    "engineLabel": "ENGINE:",
+    "specs": {
+      "latency": {
+        "label": "LATENSI INFERENSI",
+        "value": "< 28 ms",
+        "subtext": "Komputasi neural lokal tanpa delay request server"
+      },
+      "accuracy": {
+        "label": "AKURASI DATASET",
+        "value": "98.6%",
+        "subtext": "Validasi model pada ribuan sampel citra daun kentang"
+      },
+      "offline": {
+        "label": "ARSITEKTUR OFFLINE",
+        "value": "100%",
+        "subtext": "Berjalan sepenuhnya di browser (WebAssembly/ONNX)"
+      },
+      "classes": {
+        "label": "SPESIALISASI KELAS",
+        "value": "3 Kelas",
+        "subtext": "Early Blight, Late Blight, dan Daun Sehat Prima"
+      }
+    }
+  },
+  "benefits": {
+    "title": "Dirancang Khusus untuk Realitas Petani di Lapangan",
+    "subtitle": "Kami memadukan kenyamanan ergonomi di area pertanian terbuka dengan ketelitian sistem diagnostik presisi.",
+    "standardLabel": "STANDAR ERGONOMI:",
+    "items": {
+      "item1": {
+        "title": "Kontras Tinggi di Bawah Terik Matahari",
+        "description": "Didesain dengan rasio kontras tinggi (WCAG AA/AAA) agar status diagnosa dan takaran fungisida tetap terbaca tajam saat petani berada di lahan terbuka pada siang hari.",
+        "tag": "FIELD LEGIBILITY",
+        "highlight": "Rasio Kontras > 7:1"
+      },
+      "item2": {
+        "title": "Target Sentuh Ergonomis 48px",
+        "description": "Semua tombol aksi dan kontrol navigasi dirancang dengan target sentuh minimum 48px × 48px, ramah untuk jemari petani yang basah, kotor, atau memakai sarung tangan kerja.",
+        "tag": "TOUCH ERGONOMICS",
+        "highlight": "Min 48px Target"
+      },
+      "item3": {
+        "title": "100% Mandiri Tanpa Sinyal Internet",
+        "description": "Lahan kentang sering berada di lereng pegunungan minim sinyal. Potadi menjalankan model komputasi neural secara lokal di peramban tanpa membutuhkan paket data.",
+        "tag": "EDGE OFFLINE",
+        "highlight": "Zero Data Dependency"
+      },
+      "item4": {
+        "title": "Panduan Praktis Siap Eksekusi",
+        "description": "Hasil diagnosa langsung menyajikan nama bahan aktif obat (Mankozeb, Klorotalonil), dosis per tangki semprot, dan langkah sanitasi yang bisa langsung dieksekusi.",
+        "tag": "ACTION ORIENTED",
+        "highlight": "Langkah Lapangan Jelas"
+      }
+    }
+  },
+  "cta": {
+    "badge": "STUDIO DIAGNOSTIK TERSEDIA SEKARANG",
+    "title": "Lindungi Tanaman Kentang dari Ancaman Gagal Panen Hari Ini",
+    "desc": "Gunakan kamera ponsel Anda untuk memindai daun langsung di kebun. Dapatkan diagnosa patogen dalam hitungan milidetik.",
+    "button": "Buka Diagnostic Studio",
+    "perks": [
+      "Gratis Digunakan",
+      "Berjalan Langsung di Browser",
+      "100% Offline Ready",
+      "Privasi Data Terjaga"
+    ]
+  },
+  "footer": {
+    "brandDesc": "Sistem Computer Vision Presisi untuk Deteksi Dini Hawar Daun Kentang di Lahan Pertanian.",
+    "engineModel": "Model Vision v1.0.4",
+    "engineReady": "100% On-Device Ready",
+    "navHeading": "NAVIGASI",
+    "appHeading": "APLIKASI",
+    "classificationHeading": "KLASIFIKASI",
+    "contactHeading": "KONTAK & KOLABORASI",
+    "collabAction": "Kolaborasi & Uji Lahan",
+    "disclaimerTitle": "Disclaimer:",
+    "disclaimerText": "Hasil diagnosa kecerdasan buatan berfungsi sebagai instrumen skrining awal lapangan. Konsultasikan dengan petugas penyuluh pertanian setempat atau uji laboratorium untuk verifikasi fitopatologi lanjutan.",
+    "rightsReserved": "All rights reserved."
+  },
+  "appStudio": {
+    "backHome": "Kembali ke Beranda",
+    "title": "Diagnostic Studio",
+    "statusActive": "ON-DEVICE ACTIVE",
+    "nav": {
+      "dashboard": "Dashboard",
+      "dashboardSub": "Overview & insights",
+      "diagnosis": "Diagnosa Daun",
+      "diagnosisSub": "Analisis penyakit daun",
+      "history": "Riwayat",
+      "historySub": "Riwayat diagnosa",
+      "backToLanding": "Ke Halaman Utama",
+      "telemetryLabel": "Farm Telemetry",
+      "mode": "Mode",
+      "modeLight": "Terang",
+      "modeDark": "Gelap",
+      "language": "Bahasa",
+      "collapseSidebar": "Tutup Sidebar",
+      "expandSidebar": "Buka Sidebar"
+    },
+    "userProfile": {
+      "name": "Agronomis Lapangan",
+      "role": "Lahan Dieng • Blok B",
+      "profileMenu": "Menu Profil",
+      "settings": "Pengaturan Akun",
+      "backToLanding": "Ke Halaman Utama",
+      "logout": "Keluar Akun",
+      "logoutToast": "Sesi pengguna telah diakhiri"
+    },
+    "dashboard": {
+      "title": "Ringkasan Kesehatan Lahan",
+      "subtitle": "Monitoring inspeksi daun kentang secara real-time & prediksi risiko cuaca",
+      "lastInspected": "Inspeksi Terakhir",
+      "hero": {
+        "liveBadge": "LIVE DATA",
+        "headline": "Pantau kesehatan lahan kentangmu",
+        "subtext": "Sistem Computer Vision presisi mendeteksi infeksi hawar daun secara instan di browser tanpa internet.",
+        "startDiagnosis": "Mulai Diagnosa Baru"
+      },
+      "recommendation": {
+        "title": "Rekomendasi Agronomi Hari Ini",
+        "tip": "Tingkat kelembapan 88% di dataran tinggi berpotensi memicu perkecambahan spora Phytophthora. Segera periksa daun kanopi bawah dan tunda irigasi sprinkler di sore hari.",
+        "action": "Buka Diagnosa Lapangan"
+      },
+      "metrics": {
+        "totalScanned": "Daun Diperiksa",
+        "totalScannedSub": "Citra diproses lokal",
+        "healthyRatio": "Rasio Daun Sehat",
+        "healthyRatioSub": "Kondisi klorofil prima",
+        "earlyBlight": "Hawar Dini",
+        "earlyBlightSub": "Gejala cincin konsentris",
+        "lateBlight": "Hawar Darurat",
+        "lateBlightSub": "Status darurat basah"
+      },
+      "weather": {
+        "title": "INDEKS MIKROIKLIM & RISIKO SPORA",
+        "location": "Dataran Tinggi (1.800 mdpl)",
+        "humidity": "Kelembapan",
+        "temperature": "Suhu Udara",
+        "rainProb": "Peluang Kabut/Hujan",
+        "riskLevel": "Waspada Risiko Tinggi",
+        "riskDesc": "Kelembapan >85% memicu perkecambahan spora Phytophthora infestans dalam waktu 6–8 jam.",
+        "mitigationAction": "Langkah Mitigasi: Periksa kanopi bawah dan siapkan fungisida protektif sebelum kabut sore."
+      },
+      "recentDetections": "Deteksi Terakhir",
+      "noDetections": "Belum ada riwayat pemindaian.",
+      "startNewDiagnosis": "Mulai Diagnosa Baru",
+      "viewAllHistory": "Lihat Semua Riwayat"
+    },
+    "history": {
+      "title": "Riwayat Diagnosa Lapangan",
+      "subtitle": "Catatan hasil pemindaian daun kentang beserta panduan resep tindakan agronomi",
+      "filters": {
+        "all": "Semua",
+        "earlyBlight": "Hawar Dini",
+        "lateBlight": "Hawar Daun",
+        "healthy": "Daun Sehat"
+      },
+      "viewRecipe": "Buka Resep Tindakan",
+      "deleteItem": "Hapus",
+      "clearAll": "Hapus Semua Riwayat",
+      "emptyTitle": "Belum Ada Riwayat Diagnosa",
+      "emptyDesc": "Mulai pemindaian daun kentang pertama Anda untuk menyimpan catatan patologi lahan.",
+      "confirmClearTitle": "Hapus Seluruh Riwayat?",
+      "confirmClearDesc": "Semua catatan hasil diagnosa daun yang tersimpan di perangkat ini akan dihapus secara permanen.",
+      "btnCancel": "Batal",
+      "btnConfirmDelete": "Ya, Hapus Semua",
+      "toastSaved": "Diagnosa berhasil disimpan ke riwayat",
+      "recipeModal": {
+        "title": "Resep & Protokol Tindakan Lapangan",
+        "diagnosedAt": "Waktu Diagnosa:",
+        "close": "Tutup Resep"
+      }
+    },
+    "inputTabs": {
+      "real": "Kamera / Unggah",
+      "preset": "Sampel Bawaan"
+    },
+    "upload": {
+      "dropTitle": "Tarik & lepas foto daun di sini",
+      "dropSub": "atau gunakan opsi cepat di bawah ini",
+      "openCamera": "Buka Kamera HP",
+      "chooseFile": "Pilih Berkas Citra",
+      "changeImage": "Ganti Foto",
+      "removeImage": "Hapus Foto",
+      "supportedFormats": "Mendukung JPG, PNG, WEBP (Maks 10MB)",
+      "customLeafLabel": "Foto Daun Kustom"
+    },
+    "viewfinder": {
+      "title": "VIEWFINDER DAUN",
+      "sub": "LIVE HUD FEED",
+      "targetLock": "TARGET LOCK",
+      "scanning": "MEMINDAI POLA LESI & TEKSTUR DAUN...",
+      "chooseSampleHint": "PILIH SAMPEL UJI CEPAT:"
+    },
+    "buttons": {
+      "analyze": "Analisis Daun Sekarang",
+      "reanalyze": "Analisis Ulang Citra",
+      "processing": "Memproses Inferensi Neural..."
+    },
+    "results": {
+      "badgeLabel": "HASIL INFERENSI DIAGNOSTIK",
+      "confidenceLabel": "Keyakinan Model",
+      "statusLabel": "Tingkat Keparahan",
+      "tabs": {
+        "symptoms": "Gejala Lapangan",
+        "protocol": "Tindakan 24 Jam",
+        "solutions": "Solusi Obat & Dosis"
+      },
+      "chemicalHeading": "Formulasi Kimiawi (Tangki Semprot 14–16L):",
+      "organicHeading": "Pengendalian Organik & Hayati:",
+      "knapsackHint": "Takaran aplikasi per tangki semprot standar:",
+      "tankDosage": "Dosis: 30–45 gram (2–3 sdm) per tangki 16 Liter air."
+    },
+    "researcher": {
+      "toggle": "Mode Peneliti (ML Telemetry)",
+      "badge": "RESEARCH TELEMETRY",
+      "distributionTitle": "DISTRIBUSI PROBABILITAS KELAS:",
+      "latencyLabel": "LATENSI INFERENSI",
+      "resolutionLabel": "RESOLUSI INPUT",
+      "modelArchLabel": "ARSITEKTUR MODEL",
+      "engineLabel": "ENGINE AKSELERASI",
+      "engineValue": "ONNX Runtime / WASM SIMD",
+      "modelArchValue": "MobileNetV4 + Attention (FP16)"
+    },
+    "samples": {
+      "earlyBlight": {
+        "label": "Hawar Dini (Early Blight)",
+        "scientificName": "Alternaria solani",
+        "status": "TERDETEKSI: EARLY BLIGHT",
+        "severity": "Tingkat Serangan: Sedang",
+        "solution": "Aplikasikan fungisida protektif berbahan aktif Mankozeb 80% WP (2 g/L air) dan pangkas daun bawah yang bercak cincin konsentris."
+      },
+      "lateBlight": {
+        "label": "Hawar Daun (Late Blight)",
+        "scientificName": "Phytophthora infestans",
+        "status": "TERDETEKSI: LATE BLIGHT (DARURAT)",
+        "severity": "Tingkat Serangan: Bahaya Tinggi (Darurat)",
+        "solution": "Bahaya busuk basah! Segera isolasi tanaman dan semprot fungisida sistemik Metalaksil-M / Dimetomorf sebelum merambat ke umbi."
+      },
+      "healthy": {
+        "label": "Daun Sehat (Healthy Foliage)",
+        "scientificName": "Solanum tuberosum L.",
+        "status": "STATUS: DAUN PRIMA (BEBAS PATOGEN)",
+        "severity": "Status: Bebas Patogen (Aman)",
+        "solution": "Kondisi klorofil dan jaringan daun optimal. Pertahankan nutrisi kalium seimbang dan pantau berkala tiap 3 hari."
+      }
+    }
+  }
+}

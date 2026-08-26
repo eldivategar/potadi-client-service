@@ -1,0 +1,2450 @@
+{
+  "info": {
+    "_postman_id": "17907609-2be3-48d3-9a9a-e0ab16e83918",
+    "name": "Potadi API V2 - Hono.js",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "29046600"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Sign In",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "{{base_url}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"test@potadi.com\",\n    \"password\": \"password123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/auth/sign-in/email",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "sign-in",
+                "email"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Origin",
+                    "value": "{{base_url}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"email\": \"test@potadi.com\",\n    \"password\": \"password123\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/v1/auth/sign-in/email",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "sign-in",
+                    "email"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": ":status",
+                  "value": 200
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "https://api.potadi.sazlab.app"
+                },
+                {
+                  "key": "access-control-expose-headers",
+                  "value": "Content-Length"
+                },
+                {
+                  "key": "cache-control",
+                  "value": "public, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "content-encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "cross-origin-opener-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "cross-origin-resource-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "date",
+                  "value": "Mon, 17 Aug 2026 16:39:37 GMT"
+                },
+                {
+                  "key": "origin-agent-cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "referrer-policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "server",
+                  "value": "Vercel"
+                },
+                {
+                  "key": "set-cookie",
+                  "value": "__Secure-better-auth.session_token=j0VAsljXO2PFZ9IHC6bS5hR7xuajis8T.SbV%2BX7Jh3BSP7xk3FjQh0RWys%2F5993I6fgENckGkqHU%3D; Max-Age=604800; Path=/; HttpOnly; Secure; SameSite=Lax"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "x-permitted-cross-domain-policies",
+                  "value": "none"
+                },
+                {
+                  "key": "x-vercel-cache",
+                  "value": "MISS"
+                },
+                {
+                  "key": "x-vercel-id",
+                  "value": "sin1::iad1::mlppv-1786984775615-e0d2eb17ac4a"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "0"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Success\",\n    \"data\": {\n        \"redirect\": false,\n        \"token\": \"j0VAsljXO2PFZ9IHC6bS5hR7xuajis8T\",\n        \"user\": {\n            \"name\": \"Test User\",\n            \"email\": \"test@potadi.com\",\n            \"emailVerified\": false,\n            \"image\": null,\n            \"createdAt\": \"2026-08-17T08:38:03.067Z\",\n            \"updatedAt\": \"2026-08-17T08:38:03.067Z\",\n            \"id\": \"RXZufU3WMjcXoUuZzqrJKhRETExyovup\"\n        }\n    }\n}"
+            },
+            {
+              "name": "401 Invalid email or password",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Origin",
+                    "value": "{{base_url}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"email\": \"test1@potadi.com\",\n    \"password\": \"password123\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/v1/auth/sign-in/email",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "sign-in",
+                    "email"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": ":status",
+                  "value": 401
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "https://api.potadi.sazlab.app"
+                },
+                {
+                  "key": "access-control-expose-headers",
+                  "value": "Content-Length"
+                },
+                {
+                  "key": "cache-control",
+                  "value": "public, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "cross-origin-opener-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "cross-origin-resource-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "date",
+                  "value": "Mon, 17 Aug 2026 16:45:54 GMT"
+                },
+                {
+                  "key": "origin-agent-cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "referrer-policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "server",
+                  "value": "Vercel"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "x-permitted-cross-domain-policies",
+                  "value": "none"
+                },
+                {
+                  "key": "x-vercel-cache",
+                  "value": "MISS"
+                },
+                {
+                  "key": "x-vercel-id",
+                  "value": "sin1::iad1::s5r8x-1786985152116-0b4455e82a0e"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "0"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"message\": \"Invalid email or password\",\n    \"data\": null\n}"
+            }
+          ]
+        },
+        {
+          "name": "Sign Up",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "{{base_url}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"test@potadi.com\",\n    \"password\": \"password123\",\n    \"name\": \"Test User\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/auth/sign-up/email",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "sign-up",
+                "email"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Origin",
+                    "value": "{{base_url}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"email\": \"test2@potadi.com\",\n    \"password\": \"password123\",\n    \"name\": \"Test User 2\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/v1/auth/sign-up/email",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "sign-up",
+                    "email"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": ":status",
+                  "value": 200
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "https://api.potadi.sazlab.app"
+                },
+                {
+                  "key": "access-control-expose-headers",
+                  "value": "Content-Length"
+                },
+                {
+                  "key": "cache-control",
+                  "value": "public, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "content-encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "cross-origin-opener-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "cross-origin-resource-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "date",
+                  "value": "Mon, 17 Aug 2026 16:47:03 GMT"
+                },
+                {
+                  "key": "origin-agent-cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "referrer-policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "server",
+                  "value": "Vercel"
+                },
+                {
+                  "key": "set-cookie",
+                  "value": "__Secure-better-auth.session_token=Xi3ueTuNffiUIRQOlae0DrZF97YOcCNZ.hU7YFu8ih6%2FaCWqbVs2yTPWCo8l2UlmvGCUGIdiO9BI%3D; Max-Age=604800; Path=/; HttpOnly; Secure; SameSite=Lax"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "x-permitted-cross-domain-policies",
+                  "value": "none"
+                },
+                {
+                  "key": "x-vercel-cache",
+                  "value": "MISS"
+                },
+                {
+                  "key": "x-vercel-id",
+                  "value": "sin1::iad1::f9vrq-1786985221561-db0bde67f44a"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "0"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Success\",\n    \"data\": {\n        \"token\": \"Xi3ueTuNffiUIRQOlae0DrZF97YOcCNZ\",\n        \"user\": {\n            \"name\": \"Test User 2\",\n            \"email\": \"test2@potadi.com\",\n            \"emailVerified\": false,\n            \"image\": null,\n            \"createdAt\": \"2026-08-17T16:47:02.514Z\",\n            \"updatedAt\": \"2026-08-17T16:47:02.514Z\",\n            \"id\": \"pkibthshFyuCto13xhkpevTSMt2Rdbph\"\n        }\n    }\n}"
+            },
+            {
+              "name": "402 User exists",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Origin",
+                    "value": "{{base_url}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"email\": \"test@potadi.com\",\n    \"password\": \"password123\",\n    \"name\": \"Test User\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/v1/auth/sign-up/email",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "sign-up",
+                    "email"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity",
+              "code": 422,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Access-Control-Expose-Headers",
+                  "value": "Content-Length"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Cross-Origin-Resource-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-DNS-Prefetch-Control",
+                  "value": "off"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Origin-Agent-Cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "X-Download-Options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "X-Permitted-Cross-Domain-Policies",
+                  "value": "none"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 17 Aug 2026 08:45:14 GMT"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "81"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"message\": \"User already exists. Use another email.\",\n    \"data\": null\n}"
+            }
+          ]
+        },
+        {
+          "name": "Sign In with Google (Get URL)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "{{base_url}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"provider\": \"google\",\r\n    \"callbackURL\": \"http://localhost:8000/api/v1/auth/callback/google\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/auth/sign-in/social",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "sign-in",
+                "social"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Forgot Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "{{base_url}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"test@potadi.com\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/auth/request-password-reset",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "request-password-reset"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Origin",
+                    "value": "{{base_url}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"email\": \"test@potadi.com\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/v1/auth/request-password-reset",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "request-password-reset"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:8000"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Access-Control-Expose-Headers",
+                  "value": "Content-Length"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Cross-Origin-Resource-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-DNS-Prefetch-Control",
+                  "value": "off"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Origin-Agent-Cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "X-Download-Options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "X-Permitted-Cross-Domain-Policies",
+                  "value": "none"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 17 Aug 2026 10:57:09 GMT"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "143"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Success\",\n    \"data\": {\n        \"status\": true,\n        \"message\": \"If this email exists in our system, check your email for the reset link\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Reset Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "{{base_url}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"newPassword\": \"password123\",\r\n    \"token\": \"5W7DvCvW1x8bO2aL5FHzCuTU\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/auth/reset-password",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "reset-password"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Origin",
+                    "value": "{{base_url}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"newPassword\": \"password123\",\r\n    \"token\": \"5W7DvCvW1x8bO2aL5FHzCuTU\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/v1/auth/reset-password",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "reset-password"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:8000"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Access-Control-Expose-Headers",
+                  "value": "Content-Length"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Cross-Origin-Resource-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-DNS-Prefetch-Control",
+                  "value": "off"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Origin-Agent-Cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "X-Download-Options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "X-Permitted-Cross-Domain-Policies",
+                  "value": "none"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 17 Aug 2026 10:58:59 GMT"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "59"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Success\",\n    \"data\": {\n        \"status\": true\n    }\n}"
+            },
+            {
+              "name": "400 Invalid token",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Origin",
+                    "value": "{{base_url}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"newPassword\": \"password123\",\r\n    \"token\": \"5W7DvCvW1x8bO2aL5FHzCuTU\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/v1/auth/reset-password",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "auth",
+                    "reset-password"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": ":status",
+                  "value": 400
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "https://api.potadi.sazlab.app"
+                },
+                {
+                  "key": "access-control-expose-headers",
+                  "value": "Content-Length"
+                },
+                {
+                  "key": "cache-control",
+                  "value": "public, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "cross-origin-opener-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "cross-origin-resource-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "date",
+                  "value": "Mon, 17 Aug 2026 16:47:55 GMT"
+                },
+                {
+                  "key": "origin-agent-cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "referrer-policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "server",
+                  "value": "Vercel"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "x-permitted-cross-domain-policies",
+                  "value": "none"
+                },
+                {
+                  "key": "x-vercel-cache",
+                  "value": "MISS"
+                },
+                {
+                  "key": "x-vercel-id",
+                  "value": "sin1::iad1::4f4z7-1786985274284-3a9c5857a6d5"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "0"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"message\": \"Invalid token\",\n    \"data\": null\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Diagnose",
+      "item": [
+        {
+          "name": "Upload and Predict",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": "/C:/Users/tegar/Downloads/TiBo.jpg"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/diagnose",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "diagnose"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "image",
+                      "type": "file",
+                      "src": "/C:/Users/tegar/Downloads/TiBo.jpg"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/v1/diagnose",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "diagnose"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": ":status",
+                  "value": 201
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "http://localhost:8000"
+                },
+                {
+                  "key": "access-control-expose-headers",
+                  "value": "Content-Length"
+                },
+                {
+                  "key": "cache-control",
+                  "value": "public, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "cross-origin-opener-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "cross-origin-resource-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "date",
+                  "value": "Mon, 17 Aug 2026 16:40:26 GMT"
+                },
+                {
+                  "key": "origin-agent-cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "referrer-policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "server",
+                  "value": "Vercel"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "x-permitted-cross-domain-policies",
+                  "value": "none"
+                },
+                {
+                  "key": "x-vercel-cache",
+                  "value": "MISS"
+                },
+                {
+                  "key": "x-vercel-id",
+                  "value": "sin1::iad1::ntlbj-1786984820282-883577c4e8cd"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "0"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Disease detected successfully\",\n    \"data\": {\n        \"id\": \"65f6d04c-ba14-48df-b2c2-9941f9d63b6b\",\n        \"userId\": \"RXZufU3WMjcXoUuZzqrJKhRETExyovup\",\n        \"imageUrl\": \"https://cdn.potadi.sazlab.app/diagnoses/RXZufU3WMjcXoUuZzqrJKhRETExyovup/4feaf2f7-9ab4-4cd2-9242-e356646c0f4d.jpg\",\n        \"label\": \"early_blight\",\n        \"confidence\": 54.45,\n        \"details\": {\n            \"healthy\": 27.52,\n            \"late_blight\": 18.03,\n            \"early_blight\": 54.45\n        },\n        \"createdAt\": \"2026-08-17T16:40:26.608Z\"\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Paginated List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/diagnose?page=1&page_size=25",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "diagnose"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "page_size",
+                  "value": "25"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 Data exists",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/v1/diagnose?page=1&page_size=25",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "diagnose"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "25"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:8000"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Access-Control-Expose-Headers",
+                  "value": "Content-Length"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Cross-Origin-Resource-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-DNS-Prefetch-Control",
+                  "value": "off"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Origin-Agent-Cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "X-Download-Options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "X-Permitted-Cross-Domain-Policies",
+                  "value": "none"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 17 Aug 2026 09:46:50 GMT"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "1613"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Diagnoses retrieved successfully\",\n    \"data\": {\n        \"results\": [\n            {\n                \"id\": \"a7b1c8e4-4d79-4f28-b37b-ce4d8ea36831\",\n                \"userId\": \"RXZufU3WMjcXoUuZzqrJKhRETExyovup\",\n                \"imageUrl\": \"https://cdn.potadi.sazlab.app/diagnoses/RXZufU3WMjcXoUuZzqrJKhRETExyovup/07d165ac-a0d0-4d3b-a600-88f5a1eca39e.jpg\",\n                \"label\": \"early_blight\",\n                \"confidence\": 54.45,\n                \"details\": {\n                    \"healthy\": 27.52,\n                    \"late_blight\": 18.03,\n                    \"early_blight\": 54.45\n                },\n                \"createdAt\": \"2026-08-17T08:53:26.702Z\"\n            },\n            {\n                \"id\": \"b332c48e-7fc9-457a-a3e1-304416b689b8\",\n                \"userId\": \"RXZufU3WMjcXoUuZzqrJKhRETExyovup\",\n                \"imageUrl\": \"https://cdn.potadi.sazlab.app/diagnoses/RXZufU3WMjcXoUuZzqrJKhRETExyovup/9cdfeb88-6eea-4dcf-b5d0-3ea9761dc48a.jpg\",\n                \"label\": \"early_blight\",\n                \"confidence\": 54.45,\n                \"details\": {\n                    \"healthy\": 27.52,\n                    \"late_blight\": 18.03,\n                    \"early_blight\": 54.45\n                },\n                \"createdAt\": \"2026-08-17T08:53:07.313Z\"\n            },\n            {\n                \"id\": \"02a3bd31-3044-4887-b8ed-1c9eb658cc9a\",\n                \"userId\": \"RXZufU3WMjcXoUuZzqrJKhRETExyovup\",\n                \"imageUrl\": \"https://cdn.potadi.sazlab.app/diagnoses/RXZufU3WMjcXoUuZzqrJKhRETExyovup/c3b569d0-c2de-460c-822a-65db5b17ecee.jpg\",\n                \"label\": \"early_blight\",\n                \"confidence\": 54.45,\n                \"details\": {\n                    \"healthy\": 27.52,\n                    \"late_blight\": 18.03,\n                    \"early_blight\": 54.45\n                },\n                \"createdAt\": \"2026-08-17T08:49:26.995Z\"\n            },\n            {\n                \"id\": \"f8d4ccb6-4a8c-43ed-8a73-a051f402291d\",\n                \"userId\": \"RXZufU3WMjcXoUuZzqrJKhRETExyovup\",\n                \"imageUrl\": \"https://cdn.potadi.sazlab.app/diagnoses/RXZufU3WMjcXoUuZzqrJKhRETExyovup/d07713e6-1ef4-446c-af40-732a723fee45.jpg\",\n                \"label\": \"early_blight\",\n                \"confidence\": 54.45,\n                \"details\": {\n                    \"healthy\": 27.52,\n                    \"late_blight\": 18.03,\n                    \"early_blight\": 54.45\n                },\n                \"createdAt\": \"2026-08-17T08:49:06.767Z\"\n            }\n        ],\n        \"pagination\": {\n            \"total\": 4,\n            \"page\": 1,\n            \"pageSize\": 25,\n            \"totalPages\": 1\n        }\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get All",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/diagnose/all",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "diagnose",
+                "all"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 Data exists",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/v1/diagnose/all",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "diagnose",
+                    "all"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": ":status",
+                  "value": 200
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "http://localhost:8000"
+                },
+                {
+                  "key": "access-control-expose-headers",
+                  "value": "Content-Length"
+                },
+                {
+                  "key": "age",
+                  "value": "0"
+                },
+                {
+                  "key": "cache-control",
+                  "value": "public, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "content-encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "cross-origin-opener-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "cross-origin-resource-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "date",
+                  "value": "Mon, 17 Aug 2026 16:30:53 GMT"
+                },
+                {
+                  "key": "origin-agent-cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "referrer-policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "server",
+                  "value": "Vercel"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "x-permitted-cross-domain-policies",
+                  "value": "none"
+                },
+                {
+                  "key": "x-vercel-cache",
+                  "value": "MISS"
+                },
+                {
+                  "key": "x-vercel-id",
+                  "value": "sin1::iad1::b8h6r-1786984251883-3c8ea7751366"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "0"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"All diagnoses retrieved successfully\",\n    \"data\": [\n        {\n            \"id\": \"a7b1c8e4-4d79-4f28-b37b-ce4d8ea36831\",\n            \"userId\": \"RXZufU3WMjcXoUuZzqrJKhRETExyovup\",\n            \"imageUrl\": \"https://cdn.potadi.sazlab.app/diagnoses/RXZufU3WMjcXoUuZzqrJKhRETExyovup/07d165ac-a0d0-4d3b-a600-88f5a1eca39e.jpg\",\n            \"label\": \"early_blight\",\n            \"confidence\": 54.45,\n            \"details\": {\n                \"healthy\": 27.52,\n                \"late_blight\": 18.03,\n                \"early_blight\": 54.45\n            },\n            \"createdAt\": \"2026-08-17T08:53:26.702Z\"\n        },\n        {\n            \"id\": \"b332c48e-7fc9-457a-a3e1-304416b689b8\",\n            \"userId\": \"RXZufU3WMjcXoUuZzqrJKhRETExyovup\",\n            \"imageUrl\": \"https://cdn.potadi.sazlab.app/diagnoses/RXZufU3WMjcXoUuZzqrJKhRETExyovup/9cdfeb88-6eea-4dcf-b5d0-3ea9761dc48a.jpg\",\n            \"label\": \"early_blight\",\n            \"confidence\": 54.45,\n            \"details\": {\n                \"healthy\": 27.52,\n                \"late_blight\": 18.03,\n                \"early_blight\": 54.45\n            },\n            \"createdAt\": \"2026-08-17T08:53:07.313Z\"\n        },\n        {\n            \"id\": \"02a3bd31-3044-4887-b8ed-1c9eb658cc9a\",\n            \"userId\": \"RXZufU3WMjcXoUuZzqrJKhRETExyovup\",\n            \"imageUrl\": \"https://cdn.potadi.sazlab.app/diagnoses/RXZufU3WMjcXoUuZzqrJKhRETExyovup/c3b569d0-c2de-460c-822a-65db5b17ecee.jpg\",\n            \"label\": \"early_blight\",\n            \"confidence\": 54.45,\n            \"details\": {\n                \"healthy\": 27.52,\n                \"late_blight\": 18.03,\n                \"early_blight\": 54.45\n            },\n            \"createdAt\": \"2026-08-17T08:49:26.995Z\"\n        },\n        {\n            \"id\": \"f8d4ccb6-4a8c-43ed-8a73-a051f402291d\",\n            \"userId\": \"RXZufU3WMjcXoUuZzqrJKhRETExyovup\",\n            \"imageUrl\": \"https://cdn.potadi.sazlab.app/diagnoses/RXZufU3WMjcXoUuZzqrJKhRETExyovup/d07713e6-1ef4-446c-af40-732a723fee45.jpg\",\n            \"label\": \"early_blight\",\n            \"confidence\": 54.45,\n            \"details\": {\n                \"healthy\": 27.52,\n                \"late_blight\": 18.03,\n                \"early_blight\": 54.45\n            },\n            \"createdAt\": \"2026-08-17T08:49:06.767Z\"\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Count",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/diagnose/count",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "diagnose",
+                "count"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Get Count",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/v1/diagnose/count",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "diagnose",
+                    "count"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": ":status",
+                  "value": 200
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "http://localhost:8000"
+                },
+                {
+                  "key": "access-control-expose-headers",
+                  "value": "Content-Length"
+                },
+                {
+                  "key": "age",
+                  "value": "0"
+                },
+                {
+                  "key": "cache-control",
+                  "value": "public, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "content-encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "cross-origin-opener-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "cross-origin-resource-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "date",
+                  "value": "Mon, 17 Aug 2026 16:49:36 GMT"
+                },
+                {
+                  "key": "origin-agent-cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "referrer-policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "server",
+                  "value": "Vercel"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "x-permitted-cross-domain-policies",
+                  "value": "none"
+                },
+                {
+                  "key": "x-vercel-cache",
+                  "value": "MISS"
+                },
+                {
+                  "key": "x-vercel-id",
+                  "value": "sin1::iad1::6gn9b-1786985375977-675744aadcf3"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "0"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Diagnoses count retrieved successfully\",\n    \"data\": [\n        {\n            \"label\": \"early_blight\",\n            \"count\": 5\n        }\n    ]\n}"
+            },
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/v1/diagnose/count",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "diagnose",
+                    "count"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": ":status",
+                  "value": 200
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "http://localhost:8000"
+                },
+                {
+                  "key": "access-control-expose-headers",
+                  "value": "Content-Length"
+                },
+                {
+                  "key": "age",
+                  "value": "0"
+                },
+                {
+                  "key": "cache-control",
+                  "value": "public, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "content-encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "cross-origin-opener-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "cross-origin-resource-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "date",
+                  "value": "Mon, 17 Aug 2026 16:49:36 GMT"
+                },
+                {
+                  "key": "origin-agent-cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "referrer-policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "server",
+                  "value": "Vercel"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "x-permitted-cross-domain-policies",
+                  "value": "none"
+                },
+                {
+                  "key": "x-vercel-cache",
+                  "value": "MISS"
+                },
+                {
+                  "key": "x-vercel-id",
+                  "value": "sin1::iad1::6gn9b-1786985375977-675744aadcf3"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "0"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Diagnoses count retrieved successfully\",\n    \"data\": [\n        {\n            \"label\": \"early_blight\",\n            \"count\": 5\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/diagnose/{{diagnose_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "diagnose",
+                "{{diagnose_id}}"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/v1/diagnose/:diagnose_id",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "diagnose",
+                    ":diagnose_id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "diagnose_id",
+                      "value": "02a3bd31-3044-4887-b8ed-1c9eb658cc9a"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "http://localhost:8000"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "Access-Control-Expose-Headers",
+                  "value": "Content-Length"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "Vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "Cross-Origin-Resource-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Cross-Origin-Opener-Policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "Referrer-Policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "Strict-Transport-Security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "X-Content-Type-Options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "X-DNS-Prefetch-Control",
+                  "value": "off"
+                },
+                {
+                  "key": "X-Frame-Options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "X-XSS-Protection",
+                  "value": "0"
+                },
+                {
+                  "key": "Origin-Agent-Cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "X-Download-Options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "X-Permitted-Cross-Domain-Policies",
+                  "value": "none"
+                },
+                {
+                  "key": "Date",
+                  "value": "Mon, 17 Aug 2026 09:24:27 GMT"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "435"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Diagnosis retrieved successfully\",\n    \"data\": {\n        \"id\": \"02a3bd31-3044-4887-b8ed-1c9eb658cc9a\",\n        \"userId\": \"RXZufU3WMjcXoUuZzqrJKhRETExyovup\",\n        \"imageUrl\": \"https://cdn.potadi.sazlab.app/diagnoses/RXZufU3WMjcXoUuZzqrJKhRETExyovup/c3b569d0-c2de-460c-822a-65db5b17ecee.jpg\",\n        \"label\": \"early_blight\",\n        \"confidence\": 54.45,\n        \"details\": {\n            \"healthy\": 27.52,\n            \"late_blight\": 18.03,\n            \"early_blight\": 54.45\n        },\n        \"createdAt\": \"2026-08-17T08:49:26.995Z\"\n    }\n}"
+            },
+            {
+              "name": "404 Not found",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/v1/diagnose/:diagnose_id",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "diagnose",
+                    ":diagnose_id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "diagnose_id",
+                      "value": "02a3bd31-3044-4887-b8ed-1c9eb658cc9b"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": ":status",
+                  "value": 404
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "http://localhost:8000"
+                },
+                {
+                  "key": "access-control-expose-headers",
+                  "value": "Content-Length"
+                },
+                {
+                  "key": "age",
+                  "value": "0"
+                },
+                {
+                  "key": "cache-control",
+                  "value": "public, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "content-encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "cross-origin-opener-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "cross-origin-resource-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "date",
+                  "value": "Mon, 17 Aug 2026 16:50:11 GMT"
+                },
+                {
+                  "key": "origin-agent-cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "referrer-policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "server",
+                  "value": "Vercel"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "x-permitted-cross-domain-policies",
+                  "value": "none"
+                },
+                {
+                  "key": "x-vercel-cache",
+                  "value": "MISS"
+                },
+                {
+                  "key": "x-vercel-id",
+                  "value": "sin1::iad1::6s685-1786985409691-8fd9415c2baa"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "0"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"message\": \"Diagnosis not found\",\n    \"data\": null\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete Diagnosis",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/diagnose/:diagnose_id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "diagnose",
+                ":diagnose_id"
+              ],
+              "variable": [
+                {
+                  "key": "diagnose_id",
+                  "value": "02a3bd31-3044-4887-b8ed-1c9eb658cc9a"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/v1/diagnose/:diagnose_id",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "diagnose",
+                    ":diagnose_id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "diagnose_id",
+                      "value": "02a3bd31-3044-4887-b8ed-1c9eb658cc9a"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": ":status",
+                  "value": 200
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "http://localhost:8000"
+                },
+                {
+                  "key": "access-control-expose-headers",
+                  "value": "Content-Length"
+                },
+                {
+                  "key": "cache-control",
+                  "value": "public, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "content-encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "cross-origin-opener-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "cross-origin-resource-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "date",
+                  "value": "Mon, 17 Aug 2026 16:51:00 GMT"
+                },
+                {
+                  "key": "origin-agent-cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "referrer-policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "server",
+                  "value": "Vercel"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "x-permitted-cross-domain-policies",
+                  "value": "none"
+                },
+                {
+                  "key": "x-vercel-cache",
+                  "value": "MISS"
+                },
+                {
+                  "key": "x-vercel-id",
+                  "value": "sin1::iad1::frjnz-1786985458271-6adda2babcc6"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "0"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Prediction successfully deleted\",\n    \"data\": null\n}"
+            },
+            {
+              "name": "404 Not found",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/v1/diagnose/:diagnose_id",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "v1",
+                    "diagnose",
+                    ":diagnose_id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "diagnose_id",
+                      "value": "02a3bd31-3044-4887-b8ed-1c9eb658cc9a"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": ":status",
+                  "value": 404
+                },
+                {
+                  "key": "access-control-allow-credentials",
+                  "value": "true"
+                },
+                {
+                  "key": "access-control-allow-origin",
+                  "value": "http://localhost:8000"
+                },
+                {
+                  "key": "access-control-expose-headers",
+                  "value": "Content-Length"
+                },
+                {
+                  "key": "cache-control",
+                  "value": "public, max-age=0, must-revalidate"
+                },
+                {
+                  "key": "content-encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "cross-origin-opener-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "cross-origin-resource-policy",
+                  "value": "same-origin"
+                },
+                {
+                  "key": "date",
+                  "value": "Mon, 17 Aug 2026 16:51:10 GMT"
+                },
+                {
+                  "key": "origin-agent-cluster",
+                  "value": "?1"
+                },
+                {
+                  "key": "referrer-policy",
+                  "value": "no-referrer"
+                },
+                {
+                  "key": "server",
+                  "value": "Vercel"
+                },
+                {
+                  "key": "strict-transport-security",
+                  "value": "max-age=15552000; includeSubDomains"
+                },
+                {
+                  "key": "vary",
+                  "value": "Origin"
+                },
+                {
+                  "key": "x-content-type-options",
+                  "value": "nosniff"
+                },
+                {
+                  "key": "x-dns-prefetch-control",
+                  "value": "off"
+                },
+                {
+                  "key": "x-download-options",
+                  "value": "noopen"
+                },
+                {
+                  "key": "x-frame-options",
+                  "value": "SAMEORIGIN"
+                },
+                {
+                  "key": "x-permitted-cross-domain-policies",
+                  "value": "none"
+                },
+                {
+                  "key": "x-vercel-cache",
+                  "value": "MISS"
+                },
+                {
+                  "key": "x-vercel-id",
+                  "value": "sin1::iad1::4chqh-1786985468886-906d1e6e21e0"
+                },
+                {
+                  "key": "x-xss-protection",
+                  "value": "0"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": false,\n    \"message\": \"Record not found or unauthorized\",\n    \"data\": null\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/v1/health",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "health"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Healthy",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/health",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "health"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": [
+            {
+              "key": ":status",
+              "value": 200
+            },
+            {
+              "key": "access-control-allow-credentials",
+              "value": "true"
+            },
+            {
+              "key": "access-control-allow-origin",
+              "value": "http://localhost:8000"
+            },
+            {
+              "key": "access-control-expose-headers",
+              "value": "Content-Length"
+            },
+            {
+              "key": "age",
+              "value": "0"
+            },
+            {
+              "key": "cache-control",
+              "value": "public, max-age=0, must-revalidate"
+            },
+            {
+              "key": "content-encoding",
+              "value": "br"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            },
+            {
+              "key": "cross-origin-opener-policy",
+              "value": "same-origin"
+            },
+            {
+              "key": "cross-origin-resource-policy",
+              "value": "same-origin"
+            },
+            {
+              "key": "date",
+              "value": "Mon, 17 Aug 2026 16:26:51 GMT"
+            },
+            {
+              "key": "origin-agent-cluster",
+              "value": "?1"
+            },
+            {
+              "key": "referrer-policy",
+              "value": "no-referrer"
+            },
+            {
+              "key": "server",
+              "value": "Vercel"
+            },
+            {
+              "key": "strict-transport-security",
+              "value": "max-age=15552000; includeSubDomains"
+            },
+            {
+              "key": "vary",
+              "value": "Origin"
+            },
+            {
+              "key": "x-content-type-options",
+              "value": "nosniff"
+            },
+            {
+              "key": "x-dns-prefetch-control",
+              "value": "off"
+            },
+            {
+              "key": "x-download-options",
+              "value": "noopen"
+            },
+            {
+              "key": "x-frame-options",
+              "value": "SAMEORIGIN"
+            },
+            {
+              "key": "x-permitted-cross-domain-policies",
+              "value": "none"
+            },
+            {
+              "key": "x-vercel-cache",
+              "value": "MISS"
+            },
+            {
+              "key": "x-vercel-id",
+              "value": "sin1::iad1::9xwz5-1786984011409-a998a6dcbc52"
+            },
+            {
+              "key": "x-xss-protection",
+              "value": "0"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"success\": true,\n    \"message\": \"API is running smoothly\",\n    \"data\": {\n        \"status\": \"ok\"\n    }\n}"
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000"
+    },
+    {
+      "key": "diagnose_id",
+      "value": "id_here"
+    }
+  ]
+}
