@@ -32,8 +32,8 @@ useHead({
 </script>
 
 <template>
-  <main class="overflow-x-hidden w-full max-w-full min-h-screen bg-[#F8FAF9] dark:bg-[#09090B] text-slate-900 dark:text-slate-100 relative selection:bg-emerald-500/30 selection:text-emerald-800 dark:selection:text-emerald-200 transition-colors duration-300">
-    <!-- Full-Page Symmetrical Background Harmonic Waves -->
+  <main class="overflow-x-hidden w-full max-w-full min-h-screen bg-[#EEF3F0] dark:bg-[#111413] text-slate-900 dark:text-slate-100 relative selection:bg-emerald-500/30 selection:text-emerald-800 dark:selection:text-emerald-200 transition-colors duration-350 ease-out">
+    <!-- Full-Page Symmetrical Background Harmonic Waves & Neumorphic Ambience -->
     <LandingBackgroundWaves />
 
     <!-- Floating Island Navbar -->

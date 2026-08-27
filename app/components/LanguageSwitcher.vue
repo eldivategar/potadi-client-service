@@ -46,30 +46,30 @@ const handleSelect = (code: "id" | "en") => {
           onSelect: () => handleSelect(loc.code as 'id' | 'en'),
           class:
             loc.code === currentLocale
-              ? 'text-emerald-700 dark:text-emerald-400 font-bold bg-emerald-500/10'
-              : 'text-slate-700 dark:text-slate-300',
+              ? 'bg-emerald-50 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300 font-bold'
+              : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5',
         })),
       ]"
       :ui="{
         content:
-          'w-52 p-1.5 rounded-2xl bg-white/95 dark:bg-neutral-900/95 backdrop-blur-xl border border-black/10 dark:border-white/10 shadow-2xl z-50',
-        item: 'rounded-xl text-xs py-2.5 px-3 font-medium transition-colors cursor-pointer flex items-center justify-between',
+          'w-52 p-1.5 rounded-2xl bg-white/95 dark:bg-neutral-900/95 backdrop-blur-2xl shadow-xl z-50 border border-slate-200 dark:border-white/10',
+        item: 'rounded-xl text-xs py-2 px-3 font-medium transition-all cursor-pointer flex items-center justify-between',
       }"
     >
       <button
         type="button"
-        class="h-9 px-2.5 sm:px-3 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center gap-1.5 text-xs font-mono text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-black/10 dark:hover:bg-white/10 active:scale-95 transition-all duration-150 cursor-pointer"
+        class="h-8.5 px-3 rounded-full border border-slate-200 dark:border-white/10 bg-slate-100/80 hover:bg-slate-200 dark:bg-white/5 dark:hover:bg-white/10 flex items-center gap-1.5 text-xs font-semibold text-slate-700 dark:text-slate-200 transition-colors cursor-pointer active:scale-95"
         aria-label="Select Language"
       >
         <span class="text-sm leading-none select-none">{{ currentFlag }}</span>
         <span class="font-bold tracking-wider uppercase">{{ currentLocale }}</span>
-        <UIcon name="i-ph-caret-down-bold" class="size-3 opacity-60" />
+        <UIcon name="i-ph-caret-down-bold" class="size-3 text-slate-500" />
       </button>
     </UDropdownMenu>
 
     <template #fallback>
       <div
-        class="h-9 px-3 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center gap-1.5 text-xs font-mono text-slate-400"
+        class="h-8.5 px-3 rounded-full border border-slate-200 dark:border-white/10 bg-slate-100/80 flex items-center gap-1.5 text-xs text-slate-400"
       >
         <span class="text-sm leading-none">🇮🇩</span>
         <span>ID</span>

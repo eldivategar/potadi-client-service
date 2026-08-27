@@ -1,16 +1,17 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
-import AppSidebar from "~/components/app/Sidebar.vue";
-import AppMobileHeader from "~/components/app/MobileHeader.vue";
-import AppBottomNav from "~/components/app/BottomNav.vue";
+import { ref, computed, onUnmounted } from "vue";
 import AppViewfinder from "~/components/app/Viewfinder.vue";
 import AppTriageResults from "~/components/app/TriageResults.vue";
 import { useDiagnosisHistory } from "~/composables/useDiagnosisHistory";
-import { useSidebar } from "~/composables/useSidebar";
+import { useDiagnose, normalizeDiagnosisLabel, type LeafClassData, type BackendDiagnosisData } from "~/composables/useDiagnose";
+
+definePageMeta({
+  layout: "app",
+});
 
 const { t } = useI18n();
 const { addRecord } = useDiagnosisHistory();
-const { isCollapsed } = useSidebar();
+const { diagnoseImage, isScanning, scanError } = useDiagnose();
 
 useHead({
   title: "Diagnosa Daun - Potadi Botanical Vision AI",
@@ -18,37 +19,10 @@ useHead({
     {
       name: "description",
       content:
-        "Studio pemindaian daun kentang dan triage tindakan agronomi presisi berbasis on-device AI.",
+        "Studio pemindaian daun kentang dan triage tindakan agronomi presisi berbasis Cloud AI.",
     },
   ],
 });
-
-interface LeafTreatment {
-  title: string;
-  detail: string;
-}
-
-interface LeafClassData {
-  id: "early-blight" | "late-blight" | "healthy";
-  catalogKey: "earlyBlight" | "lateBlight" | "healthy";
-  labelKey: string;
-  scientificName: string;
-  image: string;
-  severityKey: string;
-  severityType: "moderate" | "emergency" | "safe";
-  confidence: string;
-  confidenceNum: number;
-  latency: string;
-  probabilities: {
-    earlyBlight: number;
-    lateBlight: number;
-    healthy: number;
-  };
-  symptoms: string[];
-  treatments: LeafTreatment[];
-  chemicalSolution: string;
-  organicSolution: string;
-}
 
 const sampleList = computed<LeafClassData[]>(() => [
   {
@@ -158,107 +132,223 @@ const sampleList = computed<LeafClassData[]>(() => [
 // State management
 const inputMode = ref<"preset" | "real">("real");
 const selectedPresetId = ref<"early-blight" | "late-blight" | "healthy">("early-blight");
+const selectedFile = ref<File | null>(null);
+const uploadedFileName = ref<string | null>(null);
 const uploadedImageUrl = ref<string | null>(null);
-const customImageAnalysisId = ref<"early-blight" | "late-blight" | "healthy">("early-blight");
 
+// Real image diagnosis result
+const realDiagnosisResult = ref<LeafClassData | null>(null);
+
+// Cache diagnosis results per preset sample
+const presetResults = ref<Record<string, LeafClassData | null>>({
+  "early-blight": null,
+  "late-blight": null,
+  "healthy": null,
+});
+
+const localErrorMessage = ref<string | null>(null);
 const activeTab = ref<"symptoms" | "protocol" | "solutions">("symptoms");
 const isResearcherMode = ref(false);
-const isScanning = ref(false);
 const showSavedToast = ref(false);
 
 // Active leaf data for triage display
-const currentDiagnosis = computed(() => {
-  const activeId =
-    inputMode.value === "preset"
-      ? selectedPresetId.value
-      : uploadedImageUrl.value
-        ? customImageAnalysisId.value
-        : selectedPresetId.value;
-  return sampleList.value.find((s) => s.id === activeId) || sampleList.value[0]!;
+const currentDiagnosis = computed<LeafClassData | null>(() => {
+  if (inputMode.value === "preset") {
+    return presetResults.value[selectedPresetId.value] || null;
+  }
+  return realDiagnosisResult.value;
 });
+
+const hasInferenceResult = computed(() => !!currentDiagnosis.value);
 
 // Active display image in viewfinder
 const activeViewfinderImage = computed(() => {
-  if (inputMode.value === "real" && uploadedImageUrl.value) {
-    return uploadedImageUrl.value;
+  if (inputMode.value === "real") {
+    return uploadedImageUrl.value || "/images/sample-leafs/early-blight.jpg";
   }
-  return currentDiagnosis.value.image;
+  const selected = sampleList.value.find((s) => s.id === selectedPresetId.value);
+  return selected ? selected.image : "/images/sample-leafs/early-blight.jpg";
 });
 
-// Trigger full scan cycle with laser HUD and auto-save
-const triggerScan = () => {
-  if (isScanning.value) return;
-  isScanning.value = true;
-  setTimeout(() => {
-    isScanning.value = false;
+// Helper to fetch preset static image and convert to File object
+const fetchImageAsFile = async (url: string, fileName: string): Promise<File> => {
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Gagal memuat citra sampel: ${response.statusText}`);
+  }
+  const blob = await response.blob();
+  const mimeType = blob.type || "image/jpeg";
+  return new File([blob], fileName, { type: mimeType });
+};
 
-    // Auto-save result to history
-    const diag = currentDiagnosis.value;
+// Helper to format backend ML diagnosis response into frontend LeafClassData structure
+const formatDiagnosisResult = (
+  raw: BackendDiagnosisData,
+  latencyMs: number,
+  fallbackImage: string
+): LeafClassData => {
+  const norm = normalizeDiagnosisLabel(raw.label);
+  const confRaw = Number(raw.confidence) || 0;
+  const confValue = confRaw > 1 ? confRaw : confRaw * 100;
+
+  const details = raw.details || {};
+  const earlyRaw = Number(details.early_blight ?? (norm.id === "early-blight" ? confValue : 0));
+  const lateRaw = Number(details.late_blight ?? (norm.id === "late-blight" ? confValue : 0));
+  const healthyRaw = Number(details.healthy ?? (norm.id === "healthy" ? confValue : 0));
+
+  const earlyProb = earlyRaw > 1 ? earlyRaw : earlyRaw * 100;
+  const lateProb = lateRaw > 1 ? lateRaw : lateRaw * 100;
+  const healthyProb = healthyRaw > 1 ? healthyRaw : healthyRaw * 100;
+
+  return {
+    id: norm.id,
+    catalogKey: norm.catalogKey,
+    labelKey: `catalog.diseases.${norm.catalogKey}.tabName`,
+    scientificName: norm.scientificName,
+    image: raw.imageUrl || fallbackImage,
+    severityKey: `catalog.diseases.${norm.catalogKey}.statusBadge`,
+    severityType: norm.severityType,
+    confidence: `${confValue.toFixed(1)}%`,
+    confidenceNum: Number(confValue.toFixed(1)),
+    latency: `${latencyMs} ms`,
+    probabilities: {
+      earlyBlight: Number(earlyProb.toFixed(1)),
+      lateBlight: Number(lateProb.toFixed(1)),
+      healthy: Number(healthyProb.toFixed(1)),
+    },
+    symptoms: [
+      t(`catalog.diseases.${norm.catalogKey}.symptoms.0`),
+      t(`catalog.diseases.${norm.catalogKey}.symptoms.1`),
+      t(`catalog.diseases.${norm.catalogKey}.symptoms.2`),
+    ],
+    treatments: [
+      {
+        title: t(`catalog.diseases.${norm.catalogKey}.treatments.0.title`),
+        detail: t(`catalog.diseases.${norm.catalogKey}.treatments.0.detail`),
+      },
+      {
+        title: t(`catalog.diseases.${norm.catalogKey}.treatments.1.title`),
+        detail: t(`catalog.diseases.${norm.catalogKey}.treatments.1.detail`),
+      },
+    ],
+    chemicalSolution: t(`catalog.diseases.${norm.catalogKey}.chemicalSolution`),
+    organicSolution: t(`catalog.diseases.${norm.catalogKey}.organicSolution`),
+  };
+};
+
+// Trigger scan: Live API Inference when user explicitly clicks the action button
+const triggerScan = async () => {
+  if (isScanning.value) return;
+  localErrorMessage.value = null;
+
+  try {
+    let fileToDiagnose: File | null = null;
+    let fallbackImageUrl = "";
+
+    if (inputMode.value === "preset") {
+      const selected = sampleList.value.find((s) => s.id === selectedPresetId.value) || sampleList.value[0]!;
+      fileToDiagnose = await fetchImageAsFile(selected.image, `sample-${selected.id}.jpg`);
+      fallbackImageUrl = selected.image;
+    } else {
+      if (!selectedFile.value) {
+        localErrorMessage.value = "Silakan pilih foto daun terlebih dahulu.";
+        return;
+      }
+      fileToDiagnose = selectedFile.value;
+      fallbackImageUrl = uploadedImageUrl.value || "/images/sample-leafs/early-blight.jpg";
+    }
+
+    const { raw, latencyMs } = await diagnoseImage(fileToDiagnose);
+    const realResult = formatDiagnosisResult(raw, latencyMs, fallbackImageUrl);
+
+    if (inputMode.value === "preset") {
+      presetResults.value[selectedPresetId.value] = realResult;
+    } else {
+      realDiagnosisResult.value = realResult;
+    }
+
+    // Save to history (stored in DB on backend & local cache)
     addRecord({
-      catalogKey: diag.catalogKey,
-      label: t(diag.labelKey),
-      scientificName: diag.scientificName,
-      severityType: diag.severityType,
-      severityLabel: t(diag.severityKey),
-      confidence: diag.confidence,
-      confidenceNum: diag.confidenceNum,
-      latency: diag.latency,
-      image: activeViewfinderImage.value,
-      symptoms: diag.symptoms,
-      treatments: diag.treatments,
-      chemicalSolution: diag.chemicalSolution,
-      organicSolution: diag.organicSolution,
+      id: raw.id,
+      timestamp: raw.createdAt || new Date().toISOString(),
+      catalogKey: realResult.catalogKey,
+      label: t(realResult.labelKey),
+      scientificName: realResult.scientificName,
+      severityType: realResult.severityType,
+      severityLabel: t(realResult.severityKey),
+      confidence: realResult.confidence,
+      confidenceNum: realResult.confidenceNum,
+      latency: realResult.latency,
+      image: realResult.image,
+      symptoms: realResult.symptoms,
+      treatments: realResult.treatments,
+      chemicalSolution: realResult.chemicalSolution,
+      organicSolution: realResult.organicSolution,
     });
 
-    // Show temporary toast notification
     showSavedToast.value = true;
     setTimeout(() => {
       showSavedToast.value = false;
     }, 3000);
-  }, 1100);
+  } catch (err: any) {
+    localErrorMessage.value = err.message || "Gagal melakukan diagnosa pada citra.";
+  }
 };
 
-// Select a preset leaf sample
+// Select a preset leaf sample: just updates selection, no auto-scan!
 const selectPreset = (id: "early-blight" | "late-blight" | "healthy") => {
   selectedPresetId.value = id;
-  triggerScan();
+  localErrorMessage.value = null;
 };
 
+// Switch input tab: no auto-scan!
+const setInputMode = (mode: "preset" | "real") => {
+  inputMode.value = mode;
+  localErrorMessage.value = null;
+};
+
+// Select/upload file: shows preview, resets previous result, no auto-scan!
 const processFile = (file: File) => {
-  if (!file.type.startsWith("image/")) return;
+  if (!file.type.startsWith("image/")) {
+    localErrorMessage.value = "Format berkas tidak valid. Harap pilih berkas gambar (JPG, PNG, WEBP).";
+    return;
+  }
+
+  // Max 15MB size check
+  if (file.size > 15 * 1024 * 1024) {
+    localErrorMessage.value = "Ukuran gambar terlalu besar. Maksimum 15MB.";
+    return;
+  }
+
+  localErrorMessage.value = null;
+  selectedFile.value = file;
+  uploadedFileName.value = file.name;
+  realDiagnosisResult.value = null;
+  inputMode.value = "real";
+
   const reader = new FileReader();
   reader.onload = (e) => {
     uploadedImageUrl.value = e.target?.result as string;
-    inputMode.value = "real";
-    // Simulated smart on-device inference for custom uploads
-    const lowerName = file.name.toLowerCase();
-    if (lowerName.includes("late") || lowerName.includes("phytophthora")) {
-      customImageAnalysisId.value = "late-blight";
-    } else if (lowerName.includes("health") || lowerName.includes("sehat")) {
-      customImageAnalysisId.value = "healthy";
-    } else {
-      customImageAnalysisId.value = "early-blight";
-    }
-    triggerScan();
   };
   reader.readAsDataURL(file);
 };
 
 const removeUploadedImage = () => {
+  selectedFile.value = null;
+  uploadedFileName.value = null;
   uploadedImageUrl.value = null;
+  realDiagnosisResult.value = null;
+  localErrorMessage.value = null;
 };
+
+onUnmounted(() => {
+  selectedFile.value = null;
+  uploadedImageUrl.value = null;
+});
 </script>
 
 <template>
-  <div
-    class="min-h-screen bg-[#F8FAF9] dark:bg-[#09090B] text-slate-900 dark:text-slate-100 flex flex-col transition-colors duration-300 antialiased selection:bg-emerald-500/30 selection:text-emerald-800 dark:selection:text-emerald-200"
-  >
-    <!-- Desktop Left Fixed Sidebar (>= 1024px) -->
-    <AppSidebar />
-
-    <!-- Mobile Top Header (< 1024px) -->
-    <AppMobileHeader />
-
+  <div>
     <!-- Toast Notification for Auto-Save -->
     <Transition
       enter-active-class="transition duration-200 ease-out"
@@ -270,47 +360,42 @@ const removeUploadedImage = () => {
     >
       <div
         v-if="showSavedToast"
-        class="fixed top-16 left-1/2 -translate-x-1/2 z-50 px-4 py-2 rounded-full bg-emerald-600 text-white font-mono text-xs font-bold shadow-xl flex items-center gap-2"
+        class="fixed top-16 left-1/2 -translate-x-1/2 z-50 px-4 py-2 rounded-full neu-flat text-emerald-800 dark:text-emerald-300 font-mono text-xs font-bold shadow-2xl flex items-center gap-2 border border-emerald-500/30"
       >
-        <UIcon name="i-ph-check-circle-fill" class="size-4 text-white" />
+        <UIcon name="i-ph-check-circle-fill" class="size-4 text-emerald-500" />
         <span>{{ $t("appStudio.history.toastSaved") }}</span>
       </div>
     </Transition>
 
-    <!-- Main Content Area: Offset by lg:pl-72 / lg:pl-22 -->
-    <div
-      class="flex-1 flex flex-col transition-[padding] duration-300 ease-in-out"
-      :class="isCollapsed ? 'lg:pl-22' : 'lg:pl-72'"
-    >
-      <main class="flex-1 max-w-7xl w-full mx-auto p-3 sm:p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-start pb-28 lg:pb-12">
-        <!-- LEFT PANEL: VIEWFINDER, DUAL INPUT & ACTION -->
-        <AppViewfinder
-          :input-mode="inputMode"
-          :selected-preset-id="selectedPresetId"
-          :sample-list="sampleList"
-          :current-diagnosis="currentDiagnosis"
-          :active-viewfinder-image="activeViewfinderImage"
-          :uploaded-image-url="uploadedImageUrl"
-          :is-scanning="isScanning"
-          @update:input-mode="inputMode = $event"
-          @select-preset="selectPreset"
-          @process-file="processFile"
-          @remove-uploaded-image="removeUploadedImage"
-          @trigger-scan="triggerScan"
-        />
+    <main class="flex-1 max-w-7xl w-full mx-auto p-3 sm:p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-start pb-28 lg:pb-12">
+      <!-- LEFT PANEL: VIEWFINDER, DUAL INPUT & ACTION -->
+      <AppViewfinder
+        :input-mode="inputMode"
+        :selected-preset-id="selectedPresetId"
+        :sample-list="sampleList"
+        :preset-results="presetResults"
+        :current-diagnosis="currentDiagnosis"
+        :active-viewfinder-image="activeViewfinderImage"
+        :uploaded-image-url="uploadedImageUrl"
+        :uploaded-file-name="uploadedFileName"
+        :is-scanning="isScanning"
+        :has-inference-result="hasInferenceResult"
+        :error-message="localErrorMessage || scanError"
+        @update:input-mode="setInputMode"
+        @select-preset="selectPreset"
+        @process-file="processFile"
+        @remove-uploaded-image="removeUploadedImage"
+        @trigger-scan="triggerScan"
+      />
 
-        <!-- RIGHT PANEL: ACTIONABLE TRIAGE & RESULT STUDIO -->
-        <AppTriageResults
-          :current-diagnosis="currentDiagnosis"
-          :active-tab="activeTab"
-          :is-researcher-mode="isResearcherMode"
-          @update:active-tab="activeTab = $event"
-          @update:is-researcher-mode="isResearcherMode = $event"
-        />
-      </main>
-    </div>
-
-    <!-- Floating Mobile Bottom Navigation (< 1024px) -->
-    <AppBottomNav />
+      <!-- RIGHT PANEL: ACTIONABLE TRIAGE & RESULT STUDIO -->
+      <AppTriageResults
+        :current-diagnosis="currentDiagnosis"
+        :active-tab="activeTab"
+        :is-researcher-mode="isResearcherMode"
+        @update:active-tab="activeTab = $event"
+        @update:is-researcher-mode="isResearcherMode = $event"
+      />
+    </main>
   </div>
 </template>

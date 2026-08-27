@@ -13,14 +13,17 @@
     "@nuxt/fonts": "0.14.0",
     "@nuxt/image": "2.1.0",
     "@nuxt/ui": "^4.10.0",
+    "better-auth": "^1.7.2",
     "motion-v": "^2.4.0",
     "nuxt": "^4.5.2",
     "tailwindcss": "^4.3.3",
     "vue": "^3.5.41",
-    "vue-router": "^5.2.0"
+    "vue-router": "^5.2.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@iconify-json/ph": "^1.2.2",
-    "@nuxtjs/i18n": "^10.6.0"
+    "@nuxtjs/i18n": "^10.6.0",
+    "@types/node": "^26.4.0"
   }
 }

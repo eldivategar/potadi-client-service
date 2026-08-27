@@ -5,16 +5,16 @@
 <template>
   <div class="absolute inset-0 pointer-events-none z-0 overflow-hidden select-none">
     <!-- Ambient Radial Field Glows along the full scroll height -->
-    <div class="absolute top-[2%] left-[5%] w-[500px] sm:w-[700px] h-[500px] sm:h-[700px] bg-emerald-500/15 dark:bg-emerald-500/20 rounded-full blur-[140px]" />
-    <div class="absolute top-[16%] right-[5%] w-[500px] sm:w-[650px] h-[500px] sm:h-[650px] bg-teal-500/15 dark:bg-teal-500/20 rounded-full blur-[140px]" />
-    <div class="absolute top-[32%] left-[8%] w-[500px] sm:w-[700px] h-[500px] sm:h-[700px] bg-emerald-600/12 dark:bg-emerald-600/18 rounded-full blur-[150px]" />
-    <div class="absolute top-[48%] right-[8%] w-[500px] sm:w-[700px] h-[500px] sm:h-[700px] bg-cyan-500/12 dark:bg-cyan-500/18 rounded-full blur-[150px]" />
-    <div class="absolute top-[64%] left-[6%] w-[500px] sm:w-[700px] h-[500px] sm:h-[700px] bg-emerald-500/15 dark:bg-emerald-500/20 rounded-full blur-[140px]" />
-    <div class="absolute top-[82%] right-[6%] w-[500px] sm:w-[750px] h-[500px] sm:h-[750px] bg-teal-600/15 dark:bg-teal-600/22 rounded-full blur-[160px]" />
+    <div class="absolute top-[2%] left-[5%] w-[500px] sm:w-[700px] h-[500px] sm:h-[700px] bg-emerald-500/10 dark:bg-emerald-500/15 rounded-full blur-[140px]" />
+    <div class="absolute top-[16%] right-[5%] w-[500px] sm:w-[650px] h-[500px] sm:h-[650px] bg-teal-500/10 dark:bg-teal-500/15 rounded-full blur-[140px]" />
+    <div class="absolute top-[32%] left-[8%] w-[500px] sm:w-[700px] h-[500px] sm:h-[700px] bg-emerald-600/8 dark:bg-emerald-600/12 rounded-full blur-[150px]" />
+    <div class="absolute top-[48%] right-[8%] w-[500px] sm:w-[700px] h-[500px] sm:h-[700px] bg-cyan-500/8 dark:bg-cyan-500/12 rounded-full blur-[150px]" />
+    <div class="absolute top-[64%] left-[6%] w-[500px] sm:w-[700px] h-[500px] sm:h-[700px] bg-emerald-500/10 dark:bg-emerald-500/15 rounded-full blur-[140px]" />
+    <div class="absolute top-[82%] right-[6%] w-[500px] sm:w-[750px] h-[500px] sm:h-[750px] bg-teal-600/10 dark:bg-teal-600/15 rounded-full blur-[160px]" />
 
-    <!-- Static Symmetrical Harmonic SVG Waves (No Infinite Loop) -->
+    <!-- Static Symmetrical Harmonic SVG Waves -->
     <svg
-      class="w-full h-full transition-opacity duration-500"
+      class="w-full h-full transition-opacity duration-350 ease-out opacity-60 dark:opacity-40"
       viewBox="0 0 1440 4800"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

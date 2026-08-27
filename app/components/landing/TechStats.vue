@@ -34,7 +34,7 @@ const techSpecs = computed(() => [
 <template>
   <section
     id="tech"
-    class="py-20 md:py-28 relative z-10 border-t border-b border-black/8 dark:border-white/10 bg-slate-100/30 dark:bg-neutral-950/40 backdrop-blur-[2px] transition-colors duration-300"
+    class="py-20 md:py-28 relative z-10 border-t border-b border-black/5 dark:border-white/5 transition-colors duration-350"
   >
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div
@@ -42,21 +42,15 @@ const techSpecs = computed(() => [
       >
         <div>
           <span
-            class="text-xs font-mono text-emerald-700 dark:text-emerald-400 tracking-wider uppercase"
+            class="text-xs text-emerald-800 dark:text-emerald-300 bg-emerald-500/10 dark:bg-emerald-500/20 border border-emerald-500/20 tracking-wider uppercase font-semibold px-3 py-1 rounded-full inline-block"
           >
-            {{ $t("tech.eyebrow") }}
+            Spesifikasi Vision AI
           </span>
           <h2
-            class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white tracking-tight mt-1"
+            class="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white tracking-tight mt-2"
           >
             {{ $t("tech.title") }}
           </h2>
-        </div>
-        <div class="text-xs font-mono text-slate-500 dark:text-slate-400">
-          {{ $t("tech.engineLabel") }}
-          <span class="text-slate-900 dark:text-slate-200 font-semibold"
-            >Potadi AgriVision Engine v1.0.4</span
-          >
         </div>
       </div>
 
@@ -73,31 +67,29 @@ const techSpecs = computed(() => [
             delay: index * 0.06,
             ease: [0.16, 1, 0.3, 1],
           }"
-          class="p-5 rounded-2xl bg-white dark:bg-neutral-900/80 border border-black/8 dark:border-white/10 hover:border-emerald-500/40 shadow-sm dark:shadow-none transition-colors duration-200 flex flex-col justify-between space-y-4 transform-gpu"
+          class="p-6 rounded-3xl bg-white/95 dark:bg-neutral-900/95 border border-slate-200/80 dark:border-white/10 shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between space-y-4 group"
         >
           <div class="flex items-center justify-between">
             <span
-              class="text-[11px] font-mono text-slate-500 dark:text-slate-400"
+              class="text-xs font-semibold text-slate-600 dark:text-slate-400"
               >{{ spec.label }}</span
             >
-            <UIcon
-              :name="spec.icon"
-              class="size-4 text-emerald-600 dark:text-emerald-400"
-            />
+            <div class="size-8 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center group-hover:scale-105 transition-transform">
+              <UIcon
+                :name="spec.icon"
+                class="size-4.5 text-emerald-600 dark:text-emerald-400"
+              />
+            </div>
           </div>
 
-          <div class="space-y-1 relative">
-            <!-- Subtle Metric Glow -->
+          <div class="space-y-1">
             <div
-              class="absolute -top-3 -left-3 w-16 h-16 bg-emerald-500/10 rounded-full blur-xl pointer-events-none"
-            />
-            <div
-              class="text-3xl font-mono font-bold text-slate-900 dark:text-white tracking-tight relative z-10"
+              class="text-3xl font-mono font-bold text-slate-900 dark:text-white tracking-tight"
             >
               {{ spec.value }}
             </div>
             <p
-              class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed relative z-10"
+              class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-mono"
             >
               {{ spec.subtext }}
             </p>

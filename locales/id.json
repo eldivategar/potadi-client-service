@@ -7,6 +7,7 @@
     "benefits": "Ergonomi Lapangan",
     "ctaButton": "Mulai Diagnosa",
     "ctaButtonStudio": "Mulai Diagnosa di Studio",
+    "login": "Masuk Akun",
     "themeToggleLight": "Beralih ke Light Mode",
     "themeToggleDark": "Beralih ke Dark Mode",
     "langToggle": "Pilih Bahasa",
@@ -374,12 +375,22 @@
     "upload": {
       "dropTitle": "Tarik & lepas foto daun di sini",
       "dropSub": "atau gunakan opsi cepat di bawah ini",
-      "openCamera": "Buka Kamera HP",
+      "openCamera": "Buka Kamera (Live)",
       "chooseFile": "Pilih Berkas Citra",
       "changeImage": "Ganti Foto",
+      "retakeCamera": "Ambil Ulang dari Kamera",
+      "switchToFile": "Ganti dengan Berkas",
+      "switchToCamera": "Buka Kamera",
       "removeImage": "Hapus Foto",
       "supportedFormats": "Mendukung JPG, PNG, WEBP (Maks 10MB)",
       "customLeafLabel": "Foto Daun Kustom"
+    },
+    "camera": {
+      "liveBadge": "KAMERA LANGSUNG",
+      "capture": "Ambil Foto Daun",
+      "switch": "Putar Kamera",
+      "close": "Tutup Kamera",
+      "permissionDenied": "Izin kamera ditolak atau tidak didukung pada peramban ini."
     },
     "viewfinder": {
       "title": "VIEWFINDER DAUN",
@@ -397,6 +408,15 @@
       "badgeLabel": "HASIL INFERENSI DIAGNOSTIK",
       "confidenceLabel": "Keyakinan Model",
       "statusLabel": "Tingkat Keparahan",
+      "readyToAnalyze": {
+        "badge": "STUDIO DIAGNOSA",
+        "title": "Siap Dianalisis",
+        "desc": "Gambar daun telah siap di viewfinder. Tekan tombol \"Analisis Daun Sekarang\" di samping untuk menjalankan model inferensi AI dan melihat rekomendasi tindakan agronomi presisi.",
+        "actionHint": "Klik tombol hijau di bawah jendela bidik untuk memulai diagnosa AI.",
+        "feature1": "Identifikasi penyakit bercak & hawar daun kentang secara instan",
+        "feature2": "Evaluasi tingkat keparahan infeksi dan skor akurasi model AI",
+        "feature3": "Panduan resep tindakan agronomi 24 jam & takaran tangki semprot"
+      },
       "tabs": {
         "symptoms": "Gejala Lapangan",
         "protocol": "Tindakan 24 Jam",
@@ -440,6 +460,81 @@
         "severity": "Status: Bebas Patogen (Aman)",
         "solution": "Kondisi klorofil dan jaringan daun optimal. Pertahankan nutrisi kalium seimbang dan pantau berkala tiap 3 hari."
       }
+    }
+  },
+  "auth": {
+    "common": {
+      "backToHome": "Kembali ke Beranda",
+      "orWithEmail": "atau masuk dengan email",
+      "orRegisterWithEmail": "atau daftar dengan email",
+      "googleContinue": "Lanjutkan dengan Google",
+      "googleSignUp": "Daftar dengan Google",
+      "emailLabel": "Alamat Email",
+      "emailPlaceholder": "nama{'@'}petani.id",
+      "passwordLabel": "Kata Sandi",
+      "passwordPlaceholder": "Minimal 8 karakter",
+      "confirmPasswordLabel": "Konfirmasi Kata Sandi",
+      "confirmPasswordPlaceholder": "Ulangi kata sandi Anda",
+      "nameLabel": "Nama Lengkap",
+      "namePlaceholder": "Contoh: Budi Santoso",
+      "showPassword": "Tampilkan sandi",
+      "hidePassword": "Sembunyikan sandi",
+      "termsNotice": "Dengan mendaftar, Anda menyetujui Ketentuan Layanan & Kebijakan Privasi Potadi.",
+      "rememberMe": "Ingat saya di perangkat ini",
+      "forgotPasswordLink": "Lupa kata sandi?",
+      "telemetryBadge": "ON-DEVICE VISION ENGINE",
+      "showcaseHeadline": "Diagnostik Cerdas Tanpa Kendala Sinyal di Lahan",
+      "showcaseSubtext": "Akses analisis daun kentang berbasis edge vision AI secara instan dan 100% offline langsung dari perkebunan Anda.",
+      "statAccuracy": "Akurasi Riset",
+      "statLatency": "Latensi On-Device",
+      "statOffline": "Akses Mandiri",
+      "statOfflineValue": "100% Offline"
+    },
+    "login": {
+      "title": "Masuk ke Potadi Studio",
+      "subtitle": "Pantau kesehatan lahan dan mulai diagnosa baru",
+      "submitBtn": "Masuk ke Studio",
+      "loadingBtn": "Memverifikasi Kredensial...",
+      "noAccount": "Belum memiliki akun?",
+      "registerLink": "Daftar Akun Baru",
+      "demoHint": "Mode Demo / Offline: Anda dapat masuk langsung menggunakan akun demo jika server belum aktif."
+    },
+    "register": {
+      "title": "Daftar Akun Potadi",
+      "subtitle": "Bergabunglah untuk menyimpan resep dan arsip patologi lahan",
+      "submitBtn": "Buat Akun Sekarang",
+      "loadingBtn": "Mendaftarkan Akun...",
+      "hasAccount": "Sudah memiliki akun?",
+      "loginLink": "Masuk di sini",
+      "strengthWeak": "Lemah",
+      "strengthMedium": "Sedang",
+      "strengthStrong": "Kuat & Aman"
+    },
+    "forgotPassword": {
+      "title": "Lupa Kata Sandi?",
+      "subtitle": "Masukkan email yang terdaftar untuk menerima tautan pemulihan kata sandi",
+      "submitBtn": "Kirim Tautan Pemulihan",
+      "loadingBtn": "Mengirim Tautan...",
+      "successTitle": "Tautan Pemulihan Terkirim!",
+      "successDesc": "Periksa kotak masuk email Anda ({email}) untuk instruksi pengaturan ulang kata sandi.",
+      "resendBtn": "Kirim Ulang Email",
+      "backToLogin": "Kembali ke Halaman Masuk"
+    },
+    "resetPassword": {
+      "title": "Atur Kata Sandi Baru",
+      "subtitle": "Buat kata sandi baru yang kuat untuk mengamankan akun Anda",
+      "newPasswordLabel": "Kata Sandi Baru",
+      "submitBtn": "Simpan Kata Sandi Baru",
+      "loadingBtn": "Menyimpan Sandi...",
+      "successTitle": "Kata Sandi Berhasil Diperbarui!",
+      "successDesc": "Anda akan dialihkan ke halaman masuk dalam beberapa detik..."
+    },
+    "errors": {
+      "invalidEmail": "Format email tidak valid",
+      "passwordLength": "Kata sandi minimal 8 karakter",
+      "passwordMismatch": "Konfirmasi kata sandi tidak cocok",
+      "nameRequired": "Nama lengkap wajib diisi",
+      "generalError": "Terjadi kendala saat memproses permintaan. Silakan coba lagi."
     }
   }
 }

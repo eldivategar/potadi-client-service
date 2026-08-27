@@ -7,6 +7,7 @@
     "benefits": "Field Ergonomics",
     "ctaButton": "Start Diagnosis",
     "ctaButtonStudio": "Start Diagnosis in Studio",
+    "login": "Sign In",
     "themeToggleLight": "Switch to Light Mode",
     "themeToggleDark": "Switch to Dark Mode",
     "langToggle": "Select Language",
@@ -374,12 +375,22 @@
     "upload": {
       "dropTitle": "Drag & drop leaf photo here",
       "dropSub": "or choose a quick option below",
-      "openCamera": "Open Phone Camera",
+      "openCamera": "Open Live Camera",
       "chooseFile": "Choose Image File",
       "changeImage": "Change Photo",
+      "retakeCamera": "Retake with Camera",
+      "switchToFile": "Choose from Files",
+      "switchToCamera": "Open Camera",
       "removeImage": "Remove Photo",
       "supportedFormats": "Supports JPG, PNG, WEBP (Max 10MB)",
       "customLeafLabel": "Custom Leaf Photo"
+    },
+    "camera": {
+      "liveBadge": "LIVE CAMERA",
+      "capture": "Capture Leaf Photo",
+      "switch": "Switch Camera",
+      "close": "Close Camera",
+      "permissionDenied": "Camera permission was denied or is not supported in this browser."
     },
     "viewfinder": {
       "title": "LEAF VIEWFINDER",
@@ -397,6 +408,15 @@
       "badgeLabel": "DIAGNOSTIC INFERENCE RESULTS",
       "confidenceLabel": "Confidence Score",
       "statusLabel": "Severity Level",
+      "readyToAnalyze": {
+        "badge": "DIAGNOSIS STUDIO",
+        "title": "Ready to Analyze",
+        "desc": "Leaf image is loaded in the viewfinder. Click \"Analyze Leaf Now\" on the left panel to run the AI inference model and receive precision agronomic recommendations.",
+        "actionHint": "Click the emerald action button below the viewfinder to initiate AI diagnosis.",
+        "feature1": "Instant potato leaf pathogen & disease identification",
+        "feature2": "Infection severity assessment and neural model confidence score",
+        "feature3": "24-hour emergency mitigation protocol & knapsack spray guidelines"
+      },
       "tabs": {
         "symptoms": "Field Symptoms",
         "protocol": "24h Mitigation",
@@ -440,6 +460,81 @@
         "severity": "Status: Pathogen-Free (Safe)",
         "solution": "Chlorophyll density and cellular structure optimal. Maintain balanced Potassium (K) nutrition and inspect every 3 days."
       }
+    }
+  },
+  "auth": {
+    "common": {
+      "backToHome": "Back to Home",
+      "orWithEmail": "or continue with email",
+      "orRegisterWithEmail": "or sign up with email",
+      "googleContinue": "Continue with Google",
+      "googleSignUp": "Sign up with Google",
+      "emailLabel": "Email Address",
+      "emailPlaceholder": "name{'@'}farmer.com",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Minimum 8 characters",
+      "confirmPasswordLabel": "Confirm Password",
+      "confirmPasswordPlaceholder": "Repeat your password",
+      "nameLabel": "Full Name",
+      "namePlaceholder": "e.g. John Doe",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "termsNotice": "By registering, you agree to Potadi's Terms of Service & Privacy Policy.",
+      "rememberMe": "Remember me on this device",
+      "forgotPasswordLink": "Forgot password?",
+      "telemetryBadge": "ON-DEVICE VISION ENGINE",
+      "showcaseHeadline": "Intelligent Diagnostics Without Signal Barriers",
+      "showcaseSubtext": "Instant edge vision AI potato leaf analysis running 100% offline directly in your farm plots.",
+      "statAccuracy": "Research Accuracy",
+      "statLatency": "On-Device Latency",
+      "statOffline": "Offline Access",
+      "statOfflineValue": "100% Offline"
+    },
+    "login": {
+      "title": "Sign in to Potadi Studio",
+      "subtitle": "Monitor crop health and start new diagnostic scans",
+      "submitBtn": "Sign In to Studio",
+      "loadingBtn": "Verifying Credentials...",
+      "noAccount": "Don't have an account yet?",
+      "registerLink": "Create New Account",
+      "demoHint": "Demo / Offline Mode: You can sign in directly using a demo account if server is disconnected."
+    },
+    "register": {
+      "title": "Create Potadi Account",
+      "subtitle": "Join to save field treatment recipes and pathology archives",
+      "submitBtn": "Create Account Now",
+      "loadingBtn": "Creating Account...",
+      "hasAccount": "Already have an account?",
+      "loginLink": "Sign in here",
+      "strengthWeak": "Weak",
+      "strengthMedium": "Medium",
+      "strengthStrong": "Strong & Secure"
+    },
+    "forgotPassword": {
+      "title": "Forgot Password?",
+      "subtitle": "Enter your registered email to receive a password recovery link",
+      "submitBtn": "Send Recovery Link",
+      "loadingBtn": "Sending Link...",
+      "successTitle": "Recovery Link Sent!",
+      "successDesc": "Check your email inbox at {email} for password reset instructions.",
+      "resendBtn": "Resend Email",
+      "backToLogin": "Back to Sign In"
+    },
+    "resetPassword": {
+      "title": "Set New Password",
+      "subtitle": "Create a new strong password to secure your account",
+      "newPasswordLabel": "New Password",
+      "submitBtn": "Save New Password",
+      "loadingBtn": "Saving Password...",
+      "successTitle": "Password Successfully Updated!",
+      "successDesc": "You will be redirected to the sign in page in a few moments..."
+    },
+    "errors": {
+      "invalidEmail": "Invalid email format",
+      "passwordLength": "Password must be at least 8 characters",
+      "passwordMismatch": "Passwords do not match",
+      "nameRequired": "Full name is required",
+      "generalError": "An error occurred while processing your request. Please try again."
     }
   }
 }

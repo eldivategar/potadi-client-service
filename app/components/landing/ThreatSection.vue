@@ -9,8 +9,9 @@ const threatStats = computed(() => [
     value: t("threat.stat1.value"),
     metric: t("threat.stat1.metric"),
     description: t("threat.stat1.description"),
-    icon: "i-ph-warning-octagon-duotone",
-    color: "text-rose-400",
+    icon: "i-ph-warning-octagon-fill",
+    color: "text-rose-600 dark:text-rose-400",
+    bg: "bg-rose-500/10 dark:bg-rose-500/20",
     border: "border-rose-500/20",
   },
   {
@@ -18,8 +19,9 @@ const threatStats = computed(() => [
     unit: t("threat.stat2.unit"),
     metric: t("threat.stat2.metric"),
     description: t("threat.stat2.description"),
-    icon: "i-ph-clock-countdown-duotone",
-    color: "text-amber-400",
+    icon: "i-ph-clock-countdown-fill",
+    color: "text-amber-600 dark:text-amber-400",
+    bg: "bg-amber-500/10 dark:bg-amber-500/20",
     border: "border-amber-500/20",
   },
   {
@@ -27,29 +29,30 @@ const threatStats = computed(() => [
     unit: t("threat.stat3.unit"),
     metric: t("threat.stat3.metric"),
     description: t("threat.stat3.description"),
-    icon: "i-ph-lightning-duotone",
-    color: "text-emerald-400",
+    icon: "i-ph-lightning-fill",
+    color: "text-emerald-600 dark:text-emerald-400",
+    bg: "bg-emerald-500/10 dark:bg-emerald-500/20",
     border: "border-emerald-500/20",
   },
 ]);
 
-// High-Contrast 3D Staggered Parallax Transforms
+// 3D Staggered Parallax Transforms
 const { scrollYProgress } = useScroll();
-const col1Y = useTransform(scrollYProgress, [0.08, 0.35], ["40px", "-50px"]);
-const col3Y = useTransform(scrollYProgress, [0.08, 0.35], ["-40px", "50px"]);
+const col1Y = useTransform(scrollYProgress, [0.08, 0.4], ["30px", "-40px"]);
+const col3Y = useTransform(scrollYProgress, [0.08, 0.4], ["-30px", "40px"]);
 </script>
 
 <template>
   <section
     id="threat"
-    class="py-24 md:py-32 relative z-10 border-t border-black/5 dark:border-white/5 bg-slate-100/30 dark:bg-neutral-950/40 backdrop-blur-[2px] transition-colors duration-300 overflow-hidden"
+    class="py-24 md:py-32 relative z-10 border-t border-black/5 dark:border-white/5 transition-colors duration-350 overflow-hidden"
   >
     <!-- Ambient Threat Urgency Glow -->
     <div
-      class="absolute -top-10 left-1/4 w-[500px] h-[400px] bg-rose-500/8 dark:bg-rose-500/12 blur-[140px] rounded-full pointer-events-none -z-10"
+      class="absolute -top-10 left-1/4 w-[500px] h-[400px] bg-rose-500/5 dark:bg-rose-500/10 blur-[140px] rounded-full pointer-events-none -z-10"
     />
     <div
-      class="absolute bottom-0 right-1/4 w-[450px] h-[350px] bg-amber-500/8 dark:bg-amber-500/10 blur-[130px] rounded-full pointer-events-none -z-10"
+      class="absolute bottom-0 right-1/4 w-[450px] h-[350px] bg-amber-500/5 dark:bg-amber-500/10 blur-[130px] rounded-full pointer-events-none -z-10"
     />
 
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
@@ -100,13 +103,13 @@ const col3Y = useTransform(scrollYProgress, [0.08, 0.35], ["-40px", "50px"]);
         </Motion>
       </div>
 
-      <!-- 3 Doppelrand Threat Metric Cards with Separated 3D Parallax Wrappers -->
+      <!-- 3 Clean Threat Metric Cards with Staggered Parallax -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 items-stretch">
         <Motion
           v-for="(stat, index) in threatStats"
           :key="stat.metric"
-          :initial="{ opacity: 0 }"
-          :while-in-view="{ opacity: 1 }"
+          :initial="{ opacity: 0, y: 20 }"
+          :while-in-view="{ opacity: 1, y: 0 }"
           :viewport="{ once: true, margin: '-40px' }"
           :transition="{
             duration: 0.5,
@@ -120,47 +123,43 @@ const col3Y = useTransform(scrollYProgress, [0.08, 0.35], ["-40px", "50px"]);
             :style="{
               y: index === 0 ? col1Y : index === 2 ? col3Y : undefined,
             }"
-            class="h-full p-2 rounded-3xl bezel-outer hover:border-black/20 dark:hover:border-white/20 hover:shadow-xl transition-all duration-300 shadow-sm dark:shadow-none transform-gpu"
+            class="h-full p-6 sm:p-8 rounded-3xl bg-white/95 dark:bg-neutral-900/95 border border-slate-200/80 dark:border-white/10 shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col justify-between space-y-6"
           >
-            <div
-              class="h-full p-6 rounded-2xl bezel-inner flex flex-col justify-between space-y-6"
-            >
-              <div class="flex items-center justify-between">
-                <div
-                  class="p-2.5 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10"
-                  :class="stat.color"
-                >
-                  <UIcon :name="stat.icon" class="size-6" />
-                </div>
-                <span
-                  class="text-[11px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold"
-                  >{{ $t("threat.tagRisk") }}</span
-                >
+            <div class="flex items-center justify-between">
+              <div
+                class="size-12 rounded-2xl flex items-center justify-center p-2.5"
+                :class="[stat.bg, stat.color]"
+              >
+                <UIcon :name="stat.icon" class="size-6" />
               </div>
+              <span
+                class="text-xs font-semibold px-3 py-1 rounded-full bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-white/5"
+                >{{ $t("threat.tagRisk") }}</span
+              >
+            </div>
 
-              <div class="space-y-2">
-                <div class="flex items-baseline gap-2 font-mono">
-                  <span
-                    class="text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 dark:text-white"
-                    >{{ stat.value }}</span
-                  >
-                  <span
-                    v-if="stat.unit"
-                    class="text-xl font-bold text-slate-500 dark:text-slate-400"
-                    >{{ stat.unit }}</span
-                  >
-                </div>
-                <h3
-                  class="text-base font-semibold text-slate-900 dark:text-slate-200"
+            <div class="space-y-2">
+              <div class="flex items-baseline gap-1.5 font-mono">
+                <span
+                  class="text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 dark:text-white"
+                  >{{ stat.value }}</span
                 >
-                  {{ stat.metric }}
-                </h3>
-                <p
-                  class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed"
+                <span
+                  v-if="stat.unit"
+                  class="text-xl font-bold text-slate-500 dark:text-slate-400"
+                  >{{ stat.unit }}</span
                 >
-                  {{ stat.description }}
-                </p>
               </div>
+              <h3
+                class="text-base font-bold text-slate-900 dark:text-slate-100"
+              >
+                {{ stat.metric }}
+              </h3>
+              <p
+                class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed"
+              >
+                {{ stat.description }}
+              </p>
             </div>
           </Motion>
         </Motion>

@@ -53,9 +53,11 @@ useHead({
   <UApp>
     <NuxtRouteAnnouncer />
     <div
-      class="min-h-screen bg-[#F8FAF9] dark:bg-[#09090B] text-slate-900 dark:text-slate-100 antialiased selection:bg-emerald-500/30 selection:text-emerald-800 dark:selection:text-emerald-200 font-sans transition-colors duration-300"
+      class="min-h-screen bg-[#F8FAF9] dark:bg-[#09090B] text-slate-900 dark:text-slate-100 antialiased selection:bg-emerald-500/30 selection:text-emerald-800 dark:selection:text-emerald-200 font-sans transition-colors duration-750 ease-[cubic-bezier(0.25,1,0.5,1)]"
     >
-      <NuxtPage />
+      <NuxtLayout>
+        <NuxtPage />
+      </NuxtLayout>
     </div>
   </UApp>
 </template>

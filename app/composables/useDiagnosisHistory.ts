@@ -1,4 +1,9 @@
 import { ref, computed } from "vue";
+import {
+  useDiagnose,
+  normalizeDiagnosisLabel,
+  type BackendDiagnosisData,
+} from "./useDiagnose";
 
 export interface ScanRecord {
   id: string;
@@ -20,119 +25,13 @@ export interface ScanRecord {
 
 const STORAGE_KEY = "potadi_scan_history_v1";
 
-const defaultSeedRecords: ScanRecord[] = [
-  {
-    id: "seed-1",
-    timestamp: new Date(Date.now() - 1000 * 60 * 45).toISOString(), // 45 mins ago
-    catalogKey: "earlyBlight",
-    label: "Hawar Dini (Early Blight)",
-    scientificName: "Alternaria solani",
-    severityType: "moderate",
-    severityLabel: "Tingkat Serangan: Sedang",
-    confidence: "98.4%",
-    confidenceNum: 98.4,
-    latency: "24 ms",
-    image: "/images/sample-leafs/early-blight.jpg",
-    symptoms: [
-      "Bercak cokelat tua atau kehitaman dengan pola cincin melingkar konsentris (seperti target papan panah).",
-      "Area daun di sekitar bercak menguning (klorosis) akibat racun yang diproduksi jamur.",
-      "Gejala bermula dari daun tua di bagian bawah kanopi tanaman lalu merambat ke atas.",
-    ],
-    treatments: [
-      {
-        title: "Pemangkasan Selektif",
-        detail: "Pangkas daun tua yang terinfeksi dan buang jauh dari area bedengan untuk menghentikan spora.",
-      },
-      {
-        title: "Manajemen Kelembapan",
-        detail: "Hindari penyiraman model sprinkler pada sore hari untuk menjaga daun tetap kering di malam hari.",
-      },
-    ],
-    chemicalSolution: "Fungisida Protektif: Mankozeb 80% WP (2-3 g/L) atau Klorotalonil 75% WP.",
-    organicSolution: "Ekstrak bio-pestisida daun mimba (neem) atau formulasi Trichoderma harzianum.",
-  },
-  {
-    id: "seed-2",
-    timestamp: new Date(Date.now() - 1000 * 60 * 180).toISOString(), // 3 hours ago
-    catalogKey: "healthy",
-    label: "Daun Sehat (Healthy Foliage)",
-    scientificName: "Solanum tuberosum L.",
-    severityType: "safe",
-    severityLabel: "Status: Bebas Patogen (Aman)",
-    confidence: "99.7%",
-    confidenceNum: 99.7,
-    latency: "19 ms",
-    image: "/images/sample-leafs/healthy-leaf.jpg",
-    symptoms: [
-      "Permukaan helai daun berwarna hijau segar merata tanpa bercak lesi, nekrosis, atau klorosis.",
-      "Tulang daun tampak kokoh, tekstur elastis, dan pembungaan berkembang sempurna.",
-      "Fotosintesis optimal untuk pembentukan bobot umbi kentang grade A.",
-    ],
-    treatments: [
-      {
-        title: "Pemupukan Berimbang",
-        detail: "Jaga rasio Kalium (K) dan Fosfor (P) untuk memperkuat dinding sel daun dari penetrasi jamur.",
-      },
-      {
-        title: "Inspeksi Rutin",
-        detail: "Lakukan pemindaian visual Potadi 3 hari sekali selama musim penghujan di area dataran tinggi.",
-      },
-    ],
-    chemicalSolution: "Tidak memerlukan fungisida kuratif. Aplikasikan fungisida kontak preventif jika musim hujan tiba.",
-    organicSolution: "Aplikasi pupuk organik cair (POC) hayati dan mikoriza untuk kekebalan alami perakaran.",
-  },
-  {
-    id: "seed-3",
-    timestamp: new Date(Date.now() - 1000 * 60 * 60 * 26).toISOString(), // 26 hours ago
-    catalogKey: "lateBlight",
-    label: "Hawar Daun (Late Blight)",
-    scientificName: "Phytophthora infestans",
-    severityType: "emergency",
-    severityLabel: "Tingkat Serangan: Bahaya Tinggi (Darurat)",
-    confidence: "99.1%",
-    confidenceNum: 99.1,
-    latency: "22 ms",
-    image: "/images/sample-leafs/late-blight.jpg",
-    symptoms: [
-      "Bercak basah berwarna hijau keabu-abuan yang dengan cepat berubah menjadi cokelat kehitaman.",
-      "Lapisan jamur halus berwarna putih keabuan pada sisi bawah daun saat kondisi berkabut atau lembap.",
-      "Lesi menyebar dengan sangat cepat ke tangkai daun, batang, dan membusukkan umbi di dalam tanah.",
-    ],
-    treatments: [
-      {
-        title: "Isolasi & Sanitasi Total",
-        detail: "Cabut dan musnahkan tanaman yang terinfeksi parah. Jangan jadikan kompos!",
-      },
-      {
-        title: "Perlindungan Bedengan",
-        detail: "Tinggikan guludan tanah di sekitar pangkal batang untuk mencegah spora terbawa air hujan ke umbi.",
-      },
-    ],
-    chemicalSolution: "Fungisida Sistemik: Metalaksil-M + Mankozeb, Dimetomorf, atau Simoksanil.",
-    organicSolution: "Semprotan larutan tembaga hidroksida (Bordeaux mixture) konsentrasi terukur.",
-  },
-];
-
 // Shared singleton state
 const historyRecords = ref<ScanRecord[]>([]);
 const isLoaded = ref(false);
+const isSyncing = ref(false);
 
 export function useDiagnosisHistory() {
-  const initHistory = () => {
-    if (!import.meta.client || isLoaded.value) return;
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        historyRecords.value = JSON.parse(stored);
-      } else {
-        historyRecords.value = [...defaultSeedRecords];
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(historyRecords.value));
-      }
-    } catch {
-      historyRecords.value = [...defaultSeedRecords];
-    }
-    isLoaded.value = true;
-  };
+  const { fetchUserDiagnoses, deleteDiagnosisApi } = useDiagnose();
 
   const saveToStorage = () => {
     if (!import.meta.client) return;
@@ -144,23 +43,45 @@ export function useDiagnosisHistory() {
   };
 
   const addRecord = (
-    newRecord: Omit<ScanRecord, "id" | "timestamp"> & { timestamp?: string }
+    newRecord: Omit<ScanRecord, "id" | "timestamp"> & {
+      id?: string;
+      timestamp?: string;
+    },
   ) => {
-    initHistory();
     const record: ScanRecord = {
       ...newRecord,
-      id: "scan-" + Date.now() + "-" + Math.random().toString(36).substring(2, 7),
+      id:
+        newRecord.id ||
+        "scan-" + Date.now() + "-" + Math.random().toString(36).substring(2, 7),
       timestamp: newRecord.timestamp || new Date().toISOString(),
     };
-    historyRecords.value.unshift(record);
+
+    // Avoid duplicate IDs if syncing
+    const existingIdx = historyRecords.value.findIndex(
+      (r) => r.id === record.id,
+    );
+    if (existingIdx >= 0) {
+      historyRecords.value[existingIdx] = record;
+    } else {
+      historyRecords.value.unshift(record);
+    }
+
     saveToStorage();
     return record;
   };
 
-  const deleteRecord = (id: string) => {
-    initHistory();
+  const deleteRecord = async (id: string) => {
     historyRecords.value = historyRecords.value.filter((r) => r.id !== id);
     saveToStorage();
+
+    // If ID looks like a UUID from backend, attempt backend deletion
+    const isUuid =
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+        id,
+      );
+    if (isUuid) {
+      await deleteDiagnosisApi(id);
+    }
   };
 
   const clearAllHistory = () => {
@@ -170,13 +91,93 @@ export function useDiagnosisHistory() {
     }
   };
 
+  /**
+   * Sync records from backend API
+   */
+  const syncWithBackend = async (t: (key: string) => string) => {
+    if (isSyncing.value || !import.meta.client) return;
+    isSyncing.value = true;
+    try {
+      const data = await fetchUserDiagnoses(1, 50);
+      if (data && Array.isArray(data.results) && data.results.length > 0) {
+        const backendRecords: ScanRecord[] = data.results.map((raw) => {
+          const norm = normalizeDiagnosisLabel(raw.label);
+          const confNum = Number(raw.confidence) || 0;
+          const confValue = confNum > 1 ? confNum : confNum * 100;
+
+          return {
+            id: raw.id,
+            timestamp: raw.createdAt || new Date().toISOString(),
+            catalogKey: norm.catalogKey,
+            label: t(`catalog.diseases.${norm.catalogKey}.tabName`),
+            scientificName: norm.scientificName,
+            severityType: norm.severityType,
+            severityLabel: t(`catalog.diseases.${norm.catalogKey}.statusBadge`),
+            confidence: `${confValue.toFixed(1)}%`,
+            confidenceNum: Number(confValue.toFixed(1)),
+            latency: "Cloud AI",
+            image: raw.imageUrl,
+            symptoms: [
+              t(`catalog.diseases.${norm.catalogKey}.symptoms.0`),
+              t(`catalog.diseases.${norm.catalogKey}.symptoms.1`),
+              t(`catalog.diseases.${norm.catalogKey}.symptoms.2`),
+            ],
+            treatments: [
+              {
+                title: t(
+                  `catalog.diseases.${norm.catalogKey}.treatments.0.title`,
+                ),
+                detail: t(
+                  `catalog.diseases.${norm.catalogKey}.treatments.0.detail`,
+                ),
+              },
+              {
+                title: t(
+                  `catalog.diseases.${norm.catalogKey}.treatments.1.title`,
+                ),
+                detail: t(
+                  `catalog.diseases.${norm.catalogKey}.treatments.1.detail`,
+                ),
+              },
+            ],
+            chemicalSolution: t(
+              `catalog.diseases.${norm.catalogKey}.chemicalSolution`,
+            ),
+            organicSolution: t(
+              `catalog.diseases.${norm.catalogKey}.organicSolution`,
+            ),
+          };
+        });
+
+        // Merge: keep non-duplicate local records or replace with backend records
+        const backendIds = new Set(backendRecords.map((r) => r.id));
+        const nonBackendLocal = historyRecords.value.filter(
+          (r) => !backendIds.has(r.id),
+        );
+        historyRecords.value = [...backendRecords, ...nonBackendLocal];
+        saveToStorage();
+      }
+    } catch (e) {
+      console.warn("Could not sync diagnoses with backend:", e);
+    } finally {
+      isSyncing.value = false;
+    }
+  };
+
   const metrics = computed(() => {
     const total = historyRecords.value.length;
-    const early = historyRecords.value.filter((r) => r.catalogKey === "earlyBlight").length;
-    const late = historyRecords.value.filter((r) => r.catalogKey === "lateBlight").length;
-    const healthy = historyRecords.value.filter((r) => r.catalogKey === "healthy").length;
+    const early = historyRecords.value.filter(
+      (r) => r.catalogKey === "earlyBlight",
+    ).length;
+    const late = historyRecords.value.filter(
+      (r) => r.catalogKey === "lateBlight",
+    ).length;
+    const healthy = historyRecords.value.filter(
+      (r) => r.catalogKey === "healthy",
+    ).length;
 
-    const healthyRatio = total > 0 ? ((healthy / total) * 100).toFixed(1) : "0.0";
+    const healthyRatio =
+      total > 0 ? ((healthy / total) * 100).toFixed(1) : "0.0";
 
     return {
       totalScanned: total,
@@ -191,7 +192,8 @@ export function useDiagnosisHistory() {
   return {
     historyRecords,
     isLoaded,
-    initHistory,
+    isSyncing,
+    syncWithBackend,
     addRecord,
     deleteRecord,
     clearAllHistory,

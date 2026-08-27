@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from "vue";
-import AppSidebar from "~/components/app/Sidebar.vue";
-import AppMobileHeader from "~/components/app/MobileHeader.vue";
-import AppBottomNav from "~/components/app/BottomNav.vue";
 import RecipeModal from "~/components/app/RecipeModal.vue";
 import { useDiagnosisHistory, type ScanRecord } from "~/composables/useDiagnosisHistory";
-import { useSidebar } from "~/composables/useSidebar";
+
+definePageMeta({
+  layout: "app",
+});
 
 const { t } = useI18n();
-const { historyRecords, initHistory, deleteRecord, clearAllHistory } = useDiagnosisHistory();
-const { isCollapsed } = useSidebar();
+const { historyRecords, isSyncing, syncWithBackend, deleteRecord, clearAllHistory } = useDiagnosisHistory();
 
 useHead({
   title: "Riwayat Diagnosa - Potadi Botanical Vision AI",
@@ -21,8 +20,8 @@ useHead({
   ],
 });
 
-onMounted(() => {
-  initHistory();
+onMounted(async () => {
+  await syncWithBackend(t);
 });
 
 const activeFilter = ref<"all" | "earlyBlight" | "lateBlight" | "healthy">("all");
@@ -34,6 +33,13 @@ const filteredRecords = computed(() => {
   if (activeFilter.value === "all") return historyRecords.value;
   return historyRecords.value.filter((r) => r.catalogKey === activeFilter.value);
 });
+
+const filterCounts = computed(() => ({
+  all: historyRecords.value.length,
+  earlyBlight: historyRecords.value.filter((r) => r.catalogKey === "earlyBlight").length,
+  lateBlight: historyRecords.value.filter((r) => r.catalogKey === "lateBlight").length,
+  healthy: historyRecords.value.filter((r) => r.catalogKey === "healthy").length,
+}));
 
 const openRecipe = (record: ScanRecord) => {
   selectedRecordForRecipe.value = record;
@@ -68,34 +74,21 @@ const formatDate = (isoString: string) => {
 </script>
 
 <template>
-  <div
-    class="min-h-screen bg-[#F8FAF9] dark:bg-[#09090B] text-slate-900 dark:text-slate-100 flex flex-col transition-colors duration-300 antialiased selection:bg-emerald-500/30 selection:text-emerald-800 dark:selection:text-emerald-200"
-  >
-    <!-- Desktop Left Fixed Sidebar (>= 1024px) -->
-    <AppSidebar />
-
-    <!-- Mobile Top Header (< 1024px) -->
-    <AppMobileHeader />
-
-    <!-- Main Content Area: Offset by lg:pl-72 / lg:pl-22 -->
-    <div
-      class="flex-1 flex flex-col transition-[padding] duration-300 ease-in-out"
-      :class="isCollapsed ? 'lg:pl-22' : 'lg:pl-72'"
-    >
-      <main class="flex-1 max-w-6xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-6 pb-28 lg:pb-12">
+  <div>
+    <main class="flex-1 max-w-6xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-6 pb-28 lg:pb-12">
         <!-- Header Bar: Title, Description & Clear All Action -->
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-black/8 dark:border-white/10 pb-5">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-black/5 dark:border-white/5 pb-5">
           <div class="space-y-1">
-            <div class="flex items-center gap-2">
-              <span class="size-2 rounded-full bg-emerald-500" />
-              <span class="text-xs font-mono font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider">
-                FIELD LOG ARCHIVE
+            <!-- <div class="flex items-center gap-2">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full neu-inset-sm text-emerald-700 dark:text-emerald-400 text-xs font-mono font-bold">
+                <span class="size-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.9)]" />
+                <span>FIELD LOG ARCHIVE</span>
               </span>
-            </div>
-            <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
+            </div> -->
+            <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white mt-1">
               {{ $t("appStudio.history.title") }}
             </h1>
-            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl">
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl">
               {{ $t("appStudio.history.subtitle") }}
             </p>
           </div>
@@ -104,7 +97,7 @@ const formatDate = (isoString: string) => {
           <div v-if="historyRecords.length > 0" class="flex items-center gap-2">
             <button
               type="button"
-              class="h-10 px-4 rounded-xl text-xs font-mono font-medium text-rose-600 dark:text-rose-400 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/20 transition-all flex items-center gap-1.5 cursor-pointer"
+              class="h-11 px-4 rounded-2xl text-xs font-mono font-bold text-rose-600 dark:text-rose-400 neu-btn transition-all flex items-center gap-2 cursor-pointer active:scale-95"
               @click="showConfirmClearModal = true"
             >
               <UIcon name="i-ph-trash-duotone" class="size-4" />
@@ -113,59 +106,80 @@ const formatDate = (isoString: string) => {
           </div>
         </div>
 
-        <!-- Filter Tabs Switcher -->
-        <div class="flex items-center gap-2 overflow-x-auto pb-1">
-          <button
-            type="button"
-            class="px-4 py-2 rounded-xl text-xs font-mono font-bold border transition-all shrink-0 cursor-pointer"
-            :class="
-              activeFilter === 'all'
-                ? 'bg-emerald-500/15 border-emerald-500 text-emerald-800 dark:text-emerald-300 shadow-sm'
-                : 'bg-black/5 dark:bg-white/5 border-black/5 dark:border-white/10 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-            "
-            @click="activeFilter = 'all'"
-          >
-            {{ $t("appStudio.history.filters.all") }} ({{ historyRecords.length }})
-          </button>
+        <!-- Filter Tabs Switcher with Smooth Sliding Indicator -->
+        <div class="overflow-x-auto pb-1 max-w-full">
+          <div class="relative grid grid-cols-4 p-1 rounded-2xl neu-inset min-w-[540px] sm:min-w-[580px] w-fit">
+            <!-- Sliding Active Background Pill Indicator -->
+            <div
+              class="absolute top-1 bottom-1 left-1 w-[calc((100%-8px)/4)] rounded-xl neu-convex shadow-sm transition-transform duration-350 ease-[cubic-bezier(0.25,1,0.5,1)] pointer-events-none transform-gpu"
+              :style="{
+                transform:
+                  activeFilter === 'all'
+                    ? 'translateX(0%)'
+                    : activeFilter === 'earlyBlight'
+                      ? 'translateX(100%)'
+                      : activeFilter === 'lateBlight'
+                        ? 'translateX(200%)'
+                        : 'translateX(300%)',
+              }"
+            />
 
-          <button
-            type="button"
-            class="px-4 py-2 rounded-xl text-xs font-mono font-bold border transition-all shrink-0 cursor-pointer"
-            :class="
-              activeFilter === 'earlyBlight'
-                ? 'bg-amber-500/15 border-amber-500 text-amber-800 dark:text-amber-300 shadow-sm'
-                : 'bg-black/5 dark:bg-white/5 border-black/5 dark:border-white/10 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-            "
-            @click="activeFilter = 'earlyBlight'"
-          >
-            {{ $t("appStudio.history.filters.earlyBlight") }}
-          </button>
+            <button
+              type="button"
+              class="relative z-10 py-2.5 px-3 text-center rounded-xl text-xs font-mono font-bold transition-colors duration-250 cursor-pointer flex items-center justify-center gap-1.5"
+              :class="
+                activeFilter === 'all'
+                  ? 'text-emerald-800 dark:text-emerald-300'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              "
+              @click="activeFilter = 'all'"
+            >
+              <span>{{ $t("appStudio.history.filters.all") }}</span>
+              <span class="opacity-80">({{ filterCounts.all }})</span>
+            </button>
 
-          <button
-            type="button"
-            class="px-4 py-2 rounded-xl text-xs font-mono font-bold border transition-all shrink-0 cursor-pointer"
-            :class="
-              activeFilter === 'lateBlight'
-                ? 'bg-rose-500/15 border-rose-500 text-rose-800 dark:text-rose-300 shadow-sm'
-                : 'bg-black/5 dark:bg-white/5 border-black/5 dark:border-white/10 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-            "
-            @click="activeFilter = 'lateBlight'"
-          >
-            {{ $t("appStudio.history.filters.lateBlight") }}
-          </button>
+            <button
+              type="button"
+              class="relative z-10 py-2.5 px-3 text-center rounded-xl text-xs font-mono font-bold transition-colors duration-250 cursor-pointer flex items-center justify-center gap-1.5"
+              :class="
+                activeFilter === 'earlyBlight'
+                  ? 'text-amber-800 dark:text-amber-300'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              "
+              @click="activeFilter = 'earlyBlight'"
+            >
+              <span>{{ $t("appStudio.history.filters.earlyBlight") }}</span>
+              <span class="opacity-80">({{ filterCounts.earlyBlight }})</span>
+            </button>
 
-          <button
-            type="button"
-            class="px-4 py-2 rounded-xl text-xs font-mono font-bold border transition-all shrink-0 cursor-pointer"
-            :class="
-              activeFilter === 'healthy'
-                ? 'bg-emerald-500/15 border-emerald-500 text-emerald-800 dark:text-emerald-300 shadow-sm'
-                : 'bg-black/5 dark:bg-white/5 border-black/5 dark:border-white/10 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-            "
-            @click="activeFilter = 'healthy'"
-          >
-            {{ $t("appStudio.history.filters.healthy") }}
-          </button>
+            <button
+              type="button"
+              class="relative z-10 py-2.5 px-3 text-center rounded-xl text-xs font-mono font-bold transition-colors duration-250 cursor-pointer flex items-center justify-center gap-1.5"
+              :class="
+                activeFilter === 'lateBlight'
+                  ? 'text-rose-800 dark:text-rose-300'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              "
+              @click="activeFilter = 'lateBlight'"
+            >
+              <span>{{ $t("appStudio.history.filters.lateBlight") }}</span>
+              <span class="opacity-80">({{ filterCounts.lateBlight }})</span>
+            </button>
+
+            <button
+              type="button"
+              class="relative z-10 py-2.5 px-3 text-center rounded-xl text-xs font-mono font-bold transition-colors duration-250 cursor-pointer flex items-center justify-center gap-1.5"
+              :class="
+                activeFilter === 'healthy'
+                  ? 'text-emerald-800 dark:text-emerald-300'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              "
+              @click="activeFilter = 'healthy'"
+            >
+              <span>{{ $t("appStudio.history.filters.healthy") }}</span>
+              <span class="opacity-80">({{ filterCounts.healthy }})</span>
+            </button>
+          </div>
         </div>
 
         <!-- History Records Grid -->
@@ -173,12 +187,12 @@ const formatDate = (isoString: string) => {
           <div
             v-for="record in filteredRecords"
             :key="record.id"
-            class="rounded-2xl bg-white dark:bg-[#121216] border border-black/8 dark:border-white/10 p-4 sm:p-5 space-y-4 shadow-sm group hover:border-emerald-500/30 transition-all"
+            class="rounded-3xl neu-flat p-4 sm:p-5 space-y-4 hover:scale-[1.02] transition-all cursor-default"
           >
             <!-- Top: Image & Disease Meta -->
             <div class="flex items-start gap-3.5">
-              <div class="size-16 rounded-xl overflow-hidden shrink-0 border border-black/10 dark:border-white/10 bg-black shadow-inner">
-                <img :src="record.image" :alt="record.label" class="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+              <div class="size-16 rounded-2xl overflow-hidden shrink-0 neu-inset p-1 bg-black">
+                <img :src="record.image" :alt="record.label" class="w-full h-full object-cover rounded-xl" />
               </div>
 
               <div class="min-w-0 flex-1 space-y-1">
@@ -203,13 +217,13 @@ const formatDate = (isoString: string) => {
             <!-- Severity Badge Tag -->
             <div>
               <span
-                class="px-2.5 py-1 rounded-lg text-[11px] font-bold border inline-block"
+                class="px-3 py-1 rounded-xl text-[11px] font-bold inline-block"
                 :class="
                   record.severityType === 'emergency'
-                    ? 'text-rose-800 dark:text-rose-300 bg-rose-50 dark:bg-rose-500/10 border-rose-300 dark:border-rose-500/30'
+                    ? 'neu-rose-inset text-rose-800 dark:text-rose-300'
                     : record.severityType === 'moderate'
-                      ? 'text-amber-800 dark:text-amber-300 bg-amber-50 dark:bg-amber-500/10 border-amber-300 dark:border-amber-500/30'
-                      : 'text-emerald-800 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-500/10 border-emerald-300 dark:border-emerald-500/30'
+                      ? 'neu-amber-inset text-amber-800 dark:text-amber-300'
+                      : 'neu-emerald-inset text-emerald-800 dark:text-emerald-300'
                 "
               >
                 {{ record.severityLabel }}
@@ -217,19 +231,19 @@ const formatDate = (isoString: string) => {
             </div>
 
             <!-- Bottom Actions: View Recipe & Delete Item -->
-            <div class="pt-3 border-t border-black/5 dark:border-white/5 flex items-center justify-between gap-2">
+            <div class="pt-3 border-t border-black/5 dark:border-white/5 flex items-center justify-between gap-2.5">
               <button
                 type="button"
-                class="flex-1 h-9 px-3 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 text-xs font-mono font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                class="flex-1 h-10 px-3 rounded-xl neu-btn-primary text-xs font-mono font-bold flex items-center justify-center gap-1.5 active:scale-95 transition-all cursor-pointer"
                 @click="openRecipe(record)"
               >
-                <UIcon name="i-ph-file-text-duotone" class="size-3.5" />
+                <UIcon name="i-ph-file-text-duotone" class="size-4" />
                 <span>{{ $t("appStudio.history.viewRecipe") }}</span>
               </button>
 
               <button
                 type="button"
-                class="size-9 rounded-lg bg-black/5 dark:bg-white/5 hover:bg-rose-500/10 hover:text-rose-600 text-slate-500 flex items-center justify-center transition-colors cursor-pointer"
+                class="size-10 rounded-xl neu-btn text-slate-500 hover:text-rose-600 flex items-center justify-center transition-all active:scale-95 cursor-pointer"
                 :title="$t('appStudio.history.deleteItem')"
                 @click="handleDelete(record.id)"
               >
@@ -242,80 +256,76 @@ const formatDate = (isoString: string) => {
         <!-- Empty State -->
         <div
           v-else
-          class="rounded-3xl bg-white dark:bg-[#121216] border border-black/8 dark:border-white/10 p-8 sm:p-12 text-center max-w-md mx-auto space-y-4 shadow-sm"
+          class="rounded-3xl neu-flat p-8 sm:p-12 text-center max-w-md mx-auto space-y-4 shadow-sm"
         >
-          <div class="size-14 rounded-2xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 flex items-center justify-center mx-auto text-slate-500">
+          <div class="size-16 rounded-2xl neu-inset flex items-center justify-center mx-auto text-slate-500">
             <UIcon name="i-ph-clock-countdown-duotone" class="size-7" />
           </div>
           <div class="space-y-1">
             <h3 class="text-base font-bold text-slate-900 dark:text-white">
               {{ $t("appStudio.history.emptyTitle") }}
             </h3>
-            <p class="text-xs text-slate-500 leading-relaxed">
+            <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
               {{ $t("appStudio.history.emptyDesc") }}
             </p>
           </div>
           <NuxtLink
             to="/app/diagnosis"
-            class="h-11 px-5 rounded-xl text-xs font-mono font-bold text-slate-950 bg-emerald-400 hover:bg-emerald-300 active:scale-95 transition-all inline-flex items-center gap-2 shadow-[0_0_20px_rgba(16,185,129,0.3)]"
+            class="h-12 px-6 rounded-2xl text-xs sm:text-sm font-mono font-bold neu-btn-primary active:scale-95 transition-all inline-flex items-center gap-2 cursor-pointer"
           >
             <UIcon name="i-ph-scan-bold" class="size-4" />
             <span>{{ $t("appStudio.dashboard.hero.startDiagnosis") }}</span>
           </NuxtLink>
         </div>
       </main>
-    </div>
 
-    <!-- Recipe Modal Window -->
-    <RecipeModal
-      :record="selectedRecordForRecipe"
-      :is-open="isRecipeModalOpen"
-      @close="closeRecipe"
-    />
+      <!-- Recipe Modal Window -->
+      <RecipeModal
+        :record="selectedRecordForRecipe"
+        :is-open="isRecipeModalOpen"
+        @close="closeRecipe"
+      />
 
-    <!-- Clear All Confirmation Modal -->
-    <div
-      v-if="showConfirmClearModal"
-      class="fixed inset-0 z-50 flex items-center justify-center p-4"
-      role="dialog"
-      aria-modal="true"
-    >
-      <div class="fixed inset-0 bg-black/60 backdrop-blur-sm" @click="showConfirmClearModal = false" />
-      <div class="relative w-full max-w-md rounded-2xl bg-[#F8FAF9] dark:bg-[#121216] border border-black/10 dark:border-white/15 p-5 space-y-4 z-10 text-slate-900 dark:text-slate-100">
-        <div class="flex items-center gap-3">
-          <div class="size-10 rounded-xl bg-rose-500/10 text-rose-600 flex items-center justify-center shrink-0">
-            <UIcon name="i-ph-warning-bold" class="size-5" />
+      <!-- Clear All Confirmation Modal -->
+      <div
+        v-if="showConfirmClearModal"
+        class="fixed inset-0 z-50 flex items-center justify-center p-4"
+        role="dialog"
+        aria-modal="true"
+      >
+        <div class="fixed inset-0 bg-black/60 backdrop-blur-sm" @click="showConfirmClearModal = false" />
+        <div class="relative w-full max-w-md rounded-3xl neu-flat p-6 space-y-5 z-10 text-slate-900 dark:text-slate-100 border border-black/5 dark:border-white/10 shadow-2xl">
+          <div class="flex items-center gap-3.5">
+            <div class="size-11 rounded-2xl neu-rose-inset text-rose-600 flex items-center justify-center shrink-0">
+              <UIcon name="i-ph-warning-bold" class="size-5" />
+            </div>
+            <div>
+              <h4 class="text-sm font-bold text-slate-900 dark:text-white">
+                {{ $t("appStudio.history.confirmClearTitle") }}
+              </h4>
+              <p class="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
+                {{ $t("appStudio.history.confirmClearDesc") }}
+              </p>
+            </div>
           </div>
-          <div>
-            <h4 class="text-sm font-bold text-slate-900 dark:text-white">
-              {{ $t("appStudio.history.confirmClearTitle") }}
-            </h4>
-            <p class="text-xs text-slate-500 mt-0.5">
-              {{ $t("appStudio.history.confirmClearDesc") }}
-            </p>
-          </div>
-        </div>
 
-        <div class="flex items-center justify-end gap-2 pt-2 border-t border-black/5 dark:border-white/5">
-          <button
-            type="button"
-            class="px-4 py-2 rounded-xl text-xs font-mono font-medium text-slate-700 dark:text-slate-300 hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer"
-            @click="showConfirmClearModal = false"
-          >
-            {{ $t("appStudio.history.btnCancel") }}
-          </button>
-          <button
-            type="button"
-            class="px-4 py-2 rounded-xl text-xs font-mono font-bold bg-rose-600 hover:bg-rose-500 text-white cursor-pointer"
-            @click="handleConfirmClear"
-          >
-            {{ $t("appStudio.history.btnConfirmDelete") }}
-          </button>
+          <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-black/5 dark:border-white/5">
+            <button
+              type="button"
+              class="px-4 py-2 rounded-xl text-xs font-mono font-medium neu-btn text-slate-700 dark:text-slate-300 cursor-pointer active:scale-95"
+              @click="showConfirmClearModal = false"
+            >
+              {{ $t("appStudio.history.btnCancel") }}
+            </button>
+            <button
+              type="button"
+              class="px-4 py-2 rounded-xl text-xs font-mono font-bold bg-rose-600 hover:bg-rose-500 text-white cursor-pointer active:scale-95 shadow-md"
+              @click="handleConfirmClear"
+            >
+              {{ $t("appStudio.history.btnConfirmDelete") }}
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-
-    <!-- Floating Mobile Bottom Navigation (< 1024px) -->
-    <AppBottomNav />
   </div>
 </template>

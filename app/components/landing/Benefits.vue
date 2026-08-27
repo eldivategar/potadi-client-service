@@ -8,28 +8,28 @@ const benefits = computed(() => [
     title: t("benefits.items.item1.title"),
     description: t("benefits.items.item1.description"),
     icon: "i-ph-sun-duotone",
-    tag: t("benefits.items.item1.tag"),
+    tag: "Kontras Lahan",
     highlight: t("benefits.items.item1.highlight"),
   },
   {
     title: t("benefits.items.item2.title"),
     description: t("benefits.items.item2.description"),
     icon: "i-ph-hand-pointing-duotone",
-    tag: t("benefits.items.item2.tag"),
+    tag: "Tombol Ramah Jari",
     highlight: t("benefits.items.item2.highlight"),
   },
   {
     title: t("benefits.items.item3.title"),
     description: t("benefits.items.item3.description"),
     icon: "i-ph-wifi-slash-duotone",
-    tag: t("benefits.items.item3.tag"),
+    tag: "100% Offline",
     highlight: t("benefits.items.item3.highlight"),
   },
   {
     title: t("benefits.items.item4.title"),
     description: t("benefits.items.item4.description"),
     icon: "i-ph-list-checks-duotone",
-    tag: t("benefits.items.item4.tag"),
+    tag: "Instruksi Jelas",
     highlight: t("benefits.items.item4.highlight"),
   },
 ]);
@@ -56,7 +56,7 @@ const benefits = computed(() => [
         </p>
       </div>
 
-      <!-- 2-Column Asymmetric Cards (Doppelrand) -->
+      <!-- 2-Column Clean Modern Cards -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
         <Motion
           v-for="(item, index) in benefits"
@@ -72,45 +72,41 @@ const benefits = computed(() => [
           class="h-full transform-gpu"
         >
           <div
-            class="h-full p-2 sm:p-3 rounded-3xl bezel-outer hover:border-black/20 dark:hover:border-white/20 hover:shadow-xl transition-all duration-300 shadow-sm dark:shadow-none"
+            class="h-full p-6 sm:p-8 rounded-3xl bg-white/95 dark:bg-neutral-900/95 border border-slate-200/80 dark:border-white/10 shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col justify-between space-y-6"
           >
-            <div
-              class="h-full p-6 sm:p-8 rounded-2xl bezel-inner flex flex-col justify-between space-y-6"
-            >
-              <div class="flex items-center justify-between">
-                <div
-                  class="size-12 rounded-2xl bg-linear-to-br from-emerald-500/20 via-teal-500/10 to-emerald-600/20 border border-emerald-500/30 flex items-center justify-center text-emerald-700 dark:text-emerald-300 shadow-inner"
-                >
-                  <UIcon :name="item.icon" class="size-6" />
-                </div>
-                <span
-                  class="text-[10px] font-mono text-emerald-800 dark:text-emerald-400 px-2.5 py-1 rounded-md bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-500/20 font-semibold"
-                >
-                  {{ item.tag }}
-                </span>
-              </div>
-
-              <div class="space-y-3">
-                <h3
-                  class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight"
-                >
-                  {{ item.title }}
-                </h3>
-                <p
-                  class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed"
-                >
-                  {{ item.description }}
-                </p>
-              </div>
-
+            <div class="flex items-center justify-between">
               <div
-                class="pt-4 border-t border-black/10 dark:border-white/10 flex items-center justify-between text-xs font-mono text-slate-500 dark:text-slate-400"
+                class="size-12 rounded-2xl bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 border border-emerald-500/20"
               >
-                <span>{{ $t("benefits.standardLabel") }}</span>
-                <span class="text-slate-900 dark:text-white font-bold">{{
-                  item.highlight
-                }}</span>
+                <UIcon :name="item.icon" class="size-6" />
               </div>
+              <span
+                class="text-xs font-semibold text-emerald-800 dark:text-emerald-300 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1.5 rounded-full"
+              >
+                {{ item.tag }}
+              </span>
+            </div>
+
+            <div class="space-y-3">
+              <h3
+                class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white tracking-tight"
+              >
+                {{ item.title }}
+              </h3>
+              <p
+                class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed"
+              >
+                {{ item.description }}
+              </p>
+            </div>
+
+            <div
+              class="p-3.5 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-200/80 dark:border-white/5 flex items-center justify-between text-xs text-slate-600 dark:text-slate-400"
+            >
+              <span class="font-medium">{{ $t("benefits.standardLabel") }}</span>
+              <span class="text-emerald-700 dark:text-emerald-400 font-bold font-mono">{{
+                item.highlight
+              }}</span>
             </div>
           </div>
         </Motion>

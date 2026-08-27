@@ -11,7 +11,8 @@ interface LeafSample {
   scientificName: string;
   image: string;
   status: string;
-  statusColor: string;
+  statusBadgeBg: string;
+  statusBadgeText: string;
   confidence: string;
   latency: string;
   summary: string;
@@ -24,8 +25,9 @@ const samples = computed<LeafSample[]>(() => [
     label: t("hero.samples.earlyBlight.label"),
     scientificName: "Alternaria solani",
     image: "/images/sample-leafs/early-blight.jpg",
-    status: t("hero.samples.earlyBlight.status"),
-    statusColor: "text-amber-400 bg-amber-400/10 border-amber-400/30",
+    status: "Hawar Dini Terdeteksi",
+    statusBadgeBg: "bg-amber-500",
+    statusBadgeText: "text-amber-300",
     confidence: "98.4%",
     latency: "24ms",
     summary: t("hero.samples.earlyBlight.summary"),
@@ -36,8 +38,9 @@ const samples = computed<LeafSample[]>(() => [
     label: t("hero.samples.lateBlight.label"),
     scientificName: "Phytophthora infestans",
     image: "/images/sample-leafs/late-blight.jpg",
-    status: t("hero.samples.lateBlight.status"),
-    statusColor: "text-rose-400 bg-rose-400/10 border-rose-400/30",
+    status: "Hawar Daun (Bahaya)",
+    statusBadgeBg: "bg-rose-500",
+    statusBadgeText: "text-rose-300",
     confidence: "99.1%",
     latency: "22ms",
     summary: t("hero.samples.lateBlight.summary"),
@@ -48,8 +51,9 @@ const samples = computed<LeafSample[]>(() => [
     label: t("hero.samples.healthy.label"),
     scientificName: "Solanum tuberosum L.",
     image: "/images/sample-leafs/healthy-leaf.jpg",
-    status: t("hero.samples.healthy.status"),
-    statusColor: "text-emerald-400 bg-emerald-400/10 border-emerald-400/30",
+    status: "Daun Sehat Prima",
+    statusBadgeBg: "bg-emerald-500",
+    statusBadgeText: "text-emerald-300",
     confidence: "99.7%",
     latency: "19ms",
     summary: t("hero.samples.healthy.summary"),
@@ -63,12 +67,14 @@ const activeSample = computed(
     samples.value[0]!,
 );
 
-// High-Amplitude Element-Level Parallax Transforms
+// High-End Multi-Plane Scroll Parallax
 const { scrollYProgress } = useScroll();
-const scannerY = useTransform(scrollYProgress, [0, 0.35], ["0px", "90px"]);
-const badgeY = useTransform(scrollYProgress, [0, 0.35], ["0px", "-70px"]);
-const imgY = useTransform(scrollYProgress, [0, 0.35], ["-20px", "30px"]);
-const h1Y = useTransform(scrollYProgress, [0, 0.35], ["0px", "-35px"]);
+const glowY = useTransform(scrollYProgress, [0, 0.4], ["0px", "140px"]);
+const h1Y = useTransform(scrollYProgress, [0, 0.35], ["0px", "-40px"]);
+const scannerY = useTransform(scrollYProgress, [0, 0.45], ["0px", "80px"]);
+const imgY = useTransform(scrollYProgress, [0, 0.45], ["-25px", "35px"]);
+const badgeTopY = useTransform(scrollYProgress, [0, 0.45], ["0px", "-60px"]);
+const badgeBottomY = useTransform(scrollYProgress, [0, 0.45], ["0px", "50px"]);
 
 const scrollTo = (id: string) => {
   const el = document.getElementById(id);
@@ -80,21 +86,16 @@ const scrollTo = (id: string) => {
 
 <template>
   <section class="relative z-10 pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
-    <!-- Background Ambient Glow & Grid -->
-    <div
-      class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-emerald-500/10 blur-[140px] rounded-full pointer-events-none -z-10"
-    />
-    <div
-      class="absolute inset-0 bg-grid-tactile opacity-30 dark:opacity-20 pointer-events-none -z-10"
-    />
+    <!-- Ambient Background Radial Glow (Parallax Floating Drift) -->
+    <Motion :style="{ y: glowY }" class="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[450px] bg-emerald-500/10 dark:bg-emerald-500/15 blur-[140px] rounded-full pointer-events-none -z-10" />
 
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div
-        class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center"
+        class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center"
       >
-        <!-- Left Column: Copy & Value Proposition -->
+        <!-- Left Column: Value Proposition & CTAs -->
         <div class="lg:col-span-6 space-y-8 text-left">
-          <!-- Stagger 1: Eyebrow -->
+          <!-- Eyebrow Badge -->
           <Motion
             :initial="{ opacity: 0, y: 16 }"
             :animate="{ opacity: 1, y: 0 }"
@@ -103,19 +104,19 @@ const scrollTo = (id: string) => {
               delay: 0.05,
               ease: [0.16, 1, 0.3, 1],
             }"
-            class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-500/30 text-emerald-800 dark:text-emerald-300 text-xs font-mono tracking-wide"
+            class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 dark:bg-emerald-500/20 border border-emerald-500/20 text-emerald-800 dark:text-emerald-300 text-xs font-semibold"
           >
             <UIcon
-              name="i-ph-shield-check-duotone"
-              class="size-4 text-emerald-600 dark:text-emerald-400"
+              name="i-ph-leaf-fill"
+              class="size-3.5 text-emerald-600 dark:text-emerald-400"
             />
-            <span>{{ $t("hero.eyebrow") }}</span>
+            <span>Deteksi Daun Kentang Berbasis AI</span>
           </Motion>
 
-          <!-- Stagger 2: Sharp 2-line Headline (Outer: Entrance, Inner: Parallax) -->
+          <!-- Headline with Smooth Parallax Lift -->
           <Motion
-            :initial="{ opacity: 0 }"
-            :animate="{ opacity: 1 }"
+            :initial="{ opacity: 0, y: 20 }"
+            :animate="{ opacity: 1, y: 0 }"
             :transition="{
               duration: 0.6,
               delay: 0.12,
@@ -124,18 +125,18 @@ const scrollTo = (id: string) => {
           >
             <Motion :style="{ y: h1Y }">
               <h1
-                class="text-4xl sm:text-5xl lg:text-[3.4rem] font-bold tracking-tight text-slate-900 dark:text-white leading-[1.1]"
+                class="text-4xl sm:text-5xl lg:text-[3.25rem] font-bold tracking-tight text-slate-900 dark:text-white leading-[1.12]"
               >
                 {{ $t("hero.headlinePart1") }}
                 <span
-                  class="bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-500 dark:from-emerald-400 dark:via-teal-300 dark:to-emerald-200 bg-clip-text text-transparent"
+                  class="bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-500 dark:from-emerald-400 dark:via-teal-300 dark:to-emerald-200 bg-clip-text text-transparent block mt-1"
                   >{{ $t("hero.headlinePart2") }}</span
                 >
               </h1>
             </Motion>
           </Motion>
 
-          <!-- Stagger 3: Agronomic Subtext (18 words) -->
+          <!-- Subtext -->
           <Motion
             :initial="{ opacity: 0, y: 20 }"
             :animate="{ opacity: 1, y: 0 }"
@@ -152,7 +153,7 @@ const scrollTo = (id: string) => {
             </p>
           </Motion>
 
-          <!-- Stagger 4: Action CTAs -->
+          <!-- Action CTAs -->
           <Motion
             :initial="{ opacity: 0, y: 20 }"
             :animate="{ opacity: 1, y: 0 }"
@@ -161,273 +162,152 @@ const scrollTo = (id: string) => {
               delay: 0.24,
               ease: [0.16, 1, 0.3, 1],
             }"
-            class="flex flex-wrap items-center gap-4 pt-2"
+            class="flex flex-wrap items-center gap-4 pt-1"
           >
             <NuxtLink
               to="/app"
-              class="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 text-sm font-semibold text-slate-950 bg-emerald-400 hover:bg-emerald-300 rounded-xl shadow-[0_0_30px_rgba(16,185,129,0.3)] hover:shadow-[0_0_40px_rgba(16,185,129,0.5)] active:scale-[0.98] transition-all duration-150"
+              class="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 text-sm font-semibold bg-emerald-600 hover:bg-emerald-700 text-white dark:bg-emerald-500 dark:hover:bg-emerald-400 dark:text-slate-950 rounded-full shadow-lg shadow-emerald-600/20 active:scale-95 transition-all group"
             >
               <UIcon name="i-ph-camera-duotone" class="size-5" />
               <span>{{ $t("hero.ctaPrimary") }}</span>
-              <UIcon name="i-ph-arrow-up-right-bold" class="size-4" />
+              <UIcon name="i-ph-arrow-up-right-bold" class="size-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </NuxtLink>
 
             <button
               type="button"
-              class="inline-flex items-center justify-center gap-2 px-5 py-3.5 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white bg-black/5 dark:bg-white/5 hover:bg-black/10 dark:hover:bg-white/10 border border-black/10 dark:border-white/10 rounded-xl active:scale-[0.98] transition-all duration-150 cursor-pointer"
+              class="inline-flex items-center justify-center gap-2 px-6 py-3.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:text-slate-950 dark:hover:text-white bg-white/80 dark:bg-neutral-800/80 border border-slate-200 dark:border-white/10 hover:border-slate-300 rounded-full active:scale-95 transition-all cursor-pointer shadow-sm"
               @click="scrollTo('catalog')"
             >
               <span>{{ $t("hero.ctaSecondary") }}</span>
-              <UIcon name="i-ph-caret-down-bold" class="size-4" />
+              <UIcon name="i-ph-caret-down-bold" class="size-4 text-slate-500" />
             </button>
           </Motion>
 
-          <!-- Stagger 5: Hardware & Agritech Trust Matrix (Encapsulated) -->
+          <!-- Clean Metrics Row (High Contrast) -->
           <Motion
             :initial="{ opacity: 0, y: 20 }"
             :animate="{ opacity: 1, y: 0 }"
             :transition="{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }"
-            class="bg-black/[0.02] dark:bg-white/[0.03] border border-black/8 dark:border-white/10 rounded-2xl p-4 grid grid-cols-3 gap-4 shadow-sm dark:shadow-none"
+            class="p-3.5 rounded-2xl bg-white/90 dark:bg-neutral-900/90 border border-slate-200/80 dark:border-white/10 shadow-sm grid grid-cols-3 gap-3"
           >
-            <div>
-              <div class="text-xs text-slate-500 dark:text-slate-400 font-mono">
-                {{ $t("hero.trustLatencyLabel") }}
+            <div class="p-3 text-center space-y-0.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-transparent">
+              <div class="text-[11px] text-slate-500 dark:text-slate-400 font-semibold uppercase">
+                Kecepatan
               </div>
-              <div
-                class="text-sm font-bold text-slate-900 dark:text-white font-mono flex items-center gap-1 mt-0.5"
-              >
-                <UIcon
-                  name="i-ph-lightning-fill"
-                  class="size-3.5 text-emerald-600 dark:text-emerald-400"
-                />
-                <span>&lt; 28 ms</span>
+              <div class="text-base sm:text-lg font-bold text-slate-900 dark:text-white font-mono">
+                &lt; 28 ms
               </div>
             </div>
-            <div>
-              <div class="text-xs text-slate-500 dark:text-slate-400 font-mono">
-                {{ $t("hero.trustAccuracyLabel") }}
+
+            <div class="p-3 text-center space-y-0.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-transparent">
+              <div class="text-[11px] text-slate-500 dark:text-slate-400 font-semibold uppercase">
+                Akurasi
               </div>
-              <div
-                class="text-sm font-bold text-emerald-600 dark:text-emerald-400 font-mono flex items-center gap-1 mt-0.5"
-              >
-                <UIcon name="i-ph-check-circle-fill" class="size-3.5" />
-                <span>98.6%</span>
+              <div class="text-base sm:text-lg font-bold text-emerald-600 dark:text-emerald-400 font-mono">
+                98.6%
               </div>
             </div>
-            <div>
-              <div class="text-xs text-slate-500 dark:text-slate-400 font-mono">
-                {{ $t("hero.trustAccessLabel") }}
+
+            <div class="p-3 text-center space-y-0.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-transparent">
+              <div class="text-[11px] text-slate-500 dark:text-slate-400 font-semibold uppercase">
+                Akses Lahan
               </div>
-              <div
-                class="text-sm font-bold text-slate-900 dark:text-white font-mono flex items-center gap-1 mt-0.5"
-              >
-                <UIcon
-                  name="i-ph-wifi-slash-bold"
-                  class="size-3.5 text-slate-500 dark:text-slate-400"
-                />
-                <span>{{ $t("hero.trustAccessValue") }}</span>
+              <div class="text-base sm:text-lg font-bold text-slate-900 dark:text-white font-mono">
+                100% Offline
               </div>
             </div>
           </Motion>
         </div>
 
-        <!-- Right Column: Interactive Leaf Scanner Demo with Separated Multi-Layer Parallax -->
+        <!-- Right Column: Interactive Leaf Specimen Showcase with Multi-Layer Parallax -->
         <div class="lg:col-span-6 relative">
-          <!-- Floating Glass Badge 1: Top-Right (Pure Parallax Shift upwards) -->
+          <!-- Floating Accent Chip Top-Right (Smooth Parallax Up) -->
           <Motion
-            :style="{ y: badgeY }"
-            class="absolute -top-5 -right-2 sm:-right-4 z-30 px-3.5 py-1.5 rounded-full bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 text-xs font-mono font-semibold shadow-xl flex items-center gap-1.5"
+            :style="{ y: badgeTopY }"
+            class="hidden sm:flex absolute -top-4 -right-3 z-30 px-3.5 py-2 rounded-full bg-white/90 dark:bg-neutral-800/90 border border-slate-200 dark:border-white/10 shadow-lg backdrop-blur-md items-center gap-2 text-xs font-semibold text-slate-800 dark:text-slate-200"
           >
             <span class="size-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span>{{ $t("hero.badgeOnDevice") }}</span>
+            <span>100% On-Device AI</span>
           </Motion>
 
-          <!-- Floating Glass Badge 2: Bottom-Left (Pure Parallax Shift upwards) -->
+          <!-- Floating Accent Chip Bottom-Left (Smooth Parallax Down) -->
           <Motion
-            :style="{ y: badgeY }"
-            class="absolute -bottom-5 -left-2 sm:-left-4 z-30 px-3.5 py-1.5 rounded-full bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md border border-emerald-500/30 text-slate-800 dark:text-slate-200 text-xs font-mono font-semibold shadow-xl flex items-center gap-1.5"
+            :style="{ y: badgeBottomY }"
+            class="hidden sm:flex absolute -bottom-4 -left-3 z-30 px-3.5 py-2 rounded-full bg-white/90 dark:bg-neutral-800/90 border border-slate-200 dark:border-white/10 shadow-lg backdrop-blur-md items-center gap-2 text-xs font-semibold text-slate-800 dark:text-slate-200"
           >
-            <UIcon
-              name="i-ph-check-circle-duotone"
-              class="size-4 text-emerald-600 dark:text-emerald-400"
-            />
-            <span>{{ $t("hero.badgeValidation") }}</span>
+            <UIcon name="i-ph-shield-check-fill" class="size-4 text-emerald-600 dark:text-emerald-400" />
+            <span>Validasi Riset 98.6%</span>
           </Motion>
 
-          <!-- Outer Motion: Entry Transition (Scale & Opacity) -->
+          <!-- Entrance & Outer Card Scroll Parallax -->
           <Motion
-            :initial="{ opacity: 0, scale: 0.95 }"
-            :animate="{ opacity: 1, scale: 1 }"
+            :initial="{ opacity: 0, y: 30 }"
+            :animate="{ opacity: 1, y: 0 }"
             :transition="{
-              type: 'spring',
-              stiffness: 100,
-              damping: 18,
+              duration: 0.7,
               delay: 0.2,
+              ease: [0.16, 1, 0.3, 1],
             }"
-            class="relative"
           >
-            <!-- Inner Motion: Dedicated Scroll Parallax -->
             <Motion :style="{ y: scannerY }">
-              <!-- Outer Double-Bezel Hardware Wrapper -->
-              <div class="p-2 sm:p-3 rounded-3xl bezel-outer shadow-2xl">
-                <div
-                  class="rounded-2xl bezel-inner p-4 sm:p-5 relative overflow-hidden"
-                >
-                  <!-- Scanner Header Telemetry -->
-                  <div
-                    class="flex items-center justify-between pb-3 mb-3 border-b border-black/10 dark:border-white/10 text-xs font-mono"
-                  >
-                    <div class="flex items-center gap-2">
-                      <span
-                        class="size-2 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-ping"
-                      />
-                      <span
-                        class="text-slate-700 dark:text-slate-300 font-bold tracking-wider"
-                        >{{ $t("hero.telemetryLive") }}</span
-                      >
-                    </div>
-                    <div class="text-slate-500 dark:text-slate-400">
-                      {{ $t("hero.telemetryInference") }}
-                      <span
-                        class="text-emerald-600 dark:text-emerald-400 font-bold"
-                        >{{ activeSample.latency }}</span
-                      >
+              <div class="p-4 sm:p-5 rounded-3xl bg-white/95 dark:bg-neutral-900/95 shadow-xl border border-slate-200/80 dark:border-white/10 space-y-4">
+                <!-- Specimen Image Container with Inner Optical Parallax -->
+                <div class="relative aspect-[4/3] rounded-2xl overflow-hidden bg-neutral-950 group shadow-inner">
+                  <Motion :style="{ y: imgY }" class="w-full h-full scale-110">
+                    <img
+                      :src="activeSample.image"
+                      :alt="activeSample.label"
+                      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </Motion>
+
+                  <!-- Top Status Badge (Clear High Contrast) -->
+                  <div class="absolute top-3 left-3 z-10">
+                    <div class="px-3 py-1.5 rounded-xl bg-black/75 text-white border border-white/20 backdrop-blur-md shadow-md flex items-center gap-2 text-xs font-semibold">
+                      <span class="size-2 rounded-full" :class="activeSample.statusBadgeBg" />
+                      <span>{{ activeSample.status }}</span>
                     </div>
                   </div>
 
-                  <!-- Leaf Viewport & Scanning Plane with Optical Lens Parallax -->
-                  <div
-                    class="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-neutral-950 border border-black/10 dark:border-white/10 group"
-                  >
-                    <!-- Leaf Sample Image with Continuous Lens Shift -->
-                    <Motion
-                      :style="{ y: imgY }"
-                      class="w-full h-full scale-110"
-                    >
-                      <img
-                        :src="activeSample.image"
-                        :alt="activeSample.label"
-                        class="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
-                      />
-                    </Motion>
+                  <!-- Bottom Right Confidence Tag -->
+                  <div class="absolute bottom-3 right-3 z-10">
+                    <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-bold bg-black/75 text-white border border-white/20 backdrop-blur-md">
+                      {{ activeSample.confidence }} Akurasi
+                    </span>
+                  </div>
+                </div>
 
-                    <!-- Dark Scrim Gradient for HUD Readability -->
-                    <div
-                      class="absolute inset-0 bg-gradient-to-t from-neutral-950/90 via-transparent to-neutral-950/40 pointer-events-none"
-                    />
-
-                    <!-- Looping Motion Laser Beam (GPU Transform Accelerated) -->
-                    <Motion
-                      :animate="{ y: ['0px', '220px', '0px'] }"
-                      :transition="{
-                        duration: 3.2,
-                        repeat: Infinity,
-                        ease: 'easeInOut',
-                      }"
-                      class="absolute top-0 left-0 right-0 h-1.5 scanner-laser z-20 pointer-events-none transform-gpu"
-                    />
-
-                    <!-- Corner Reticle HUD (Crosshair Focus) -->
-                    <div
-                      class="absolute inset-4 pointer-events-none flex flex-col justify-between z-10"
-                    >
-                      <div class="flex justify-between">
-                        <div
-                          class="size-4 border-t-2 border-l-2 border-emerald-400"
-                        />
-                        <div
-                          class="size-4 border-t-2 border-r-2 border-emerald-400"
-                        />
-                      </div>
-                      <div class="flex justify-between">
-                        <div
-                          class="size-4 border-b-2 border-l-2 border-emerald-400"
-                        />
-                        <div
-                          class="size-4 border-b-2 border-r-2 border-emerald-400"
-                        />
-                      </div>
-                    </div>
-
-                    <!-- Live HUD Detection Pill -->
-                    <div
-                      class="absolute bottom-3 left-3 right-3 z-20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 p-3 rounded-lg bg-neutral-900/90 dark:bg-neutral-900/90 backdrop-blur-md border border-white/15 shadow-lg"
-                    >
-                      <div class="space-y-0.5">
-                        <div
-                          class="text-[10px] font-mono text-slate-400 uppercase"
-                        >
-                          Pathogen:
-                          <span class="italic text-slate-200 font-serif">{{
-                            activeSample.scientificName
-                          }}</span>
-                        </div>
-                        <div class="text-xs font-bold text-white">
-                          {{ activeSample.label }}
-                        </div>
-                      </div>
-                      <div class="flex items-center gap-2">
-                        <span
-                          class="px-2 py-1 text-[11px] font-mono font-bold rounded border"
-                          :class="activeSample.statusColor"
-                        >
-                          {{ activeSample.status }}
-                        </span>
-                        <span
-                          class="px-2 py-1 text-[11px] font-mono font-bold rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30"
-                        >
-                          {{ activeSample.confidence }}
-                        </span>
-                      </div>
-                    </div>
+                <!-- 3-Sample Interactive Switcher -->
+                <div class="space-y-3 pt-1">
+                  <div class="flex items-center justify-between text-xs">
+                    <span class="text-slate-500 dark:text-slate-400 font-semibold uppercase tracking-wider">Uji Sampel Daun:</span>
+                    <span class="text-emerald-600 dark:text-emerald-400 font-medium">Klik untuk simulasi</span>
                   </div>
 
-                  <!-- Sample Switcher Controls (Interactive Demo) -->
-                  <div
-                    class="mt-4 pt-3 border-t border-black/10 dark:border-white/10"
-                  >
-                    <div
-                      class="text-[11px] font-mono text-slate-500 dark:text-slate-400 mb-2 flex items-center justify-between"
+                  <div class="grid grid-cols-3 gap-2">
+                    <button
+                      v-for="sample in samples"
+                      :key="sample.id"
+                      type="button"
+                      class="px-3 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-200 text-center cursor-pointer active:scale-95"
+                      :class="[
+                        activeSample.id === sample.id
+                          ? 'bg-emerald-600 text-white dark:bg-emerald-500 dark:text-slate-950 shadow-md font-bold'
+                          : 'bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-white/5 dark:hover:bg-white/10 dark:text-slate-300'
+                      ]"
+                      @click="activeSampleId = sample.id"
                     >
-                      <span>{{ $t("hero.sampleSwitcherTitle") }}</span>
-                      <span
-                        class="text-emerald-600 dark:text-emerald-400 font-medium"
-                        >{{ $t("hero.sampleSwitcherHint") }}</span
-                      >
-                    </div>
+                      {{ sample.id === 'early-blight' ? 'Hawar Dini' : sample.id === 'late-blight' ? 'Hawar Daun' : 'Daun Sehat' }}
+                    </button>
+                  </div>
 
-                    <div class="grid grid-cols-3 gap-2">
-                      <button
-                        v-for="sample in samples"
-                        :key="sample.id"
-                        type="button"
-                        class="px-2.5 py-2 rounded-lg text-xs font-medium border text-left transition-all duration-200 flex flex-col gap-0.5"
-                        :class="
-                          activeSample.id === sample.id
-                            ? 'bg-emerald-500/15 border-emerald-500 text-emerald-950 dark:text-white shadow-[0_0_15px_rgba(16,185,129,0.15)]'
-                            : 'bg-black/5 dark:bg-white/5 border-black/5 dark:border-white/5 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-black/10 dark:hover:bg-white/10'
-                        "
-                        @click="activeSampleId = sample.id"
-                      >
-                        <span class="truncate font-semibold"
-                          >{{ sample.label.split(" ")[0] }}
-                          {{ sample.label.split(" ")[1] }}</span
-                        >
-                        <span class="text-[10px] font-mono opacity-75"
-                          >{{ sample.confidence }} acc</span
-                        >
-                      </button>
-                    </div>
-
-                    <div
-                      class="mt-3 text-xs text-slate-600 dark:text-slate-400 bg-slate-100 dark:bg-black/40 rounded-lg p-2.5 border border-black/5 dark:border-white/5 flex items-start gap-2"
-                    >
-                      <UIcon
-                        name="i-ph-info-duotone"
-                        class="size-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5"
-                      />
-                      <span>{{ activeSample.summary }}</span>
-                    </div>
+                  <!-- Clean Summary Note -->
+                  <div class="p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200/80 dark:border-white/5 text-xs text-slate-700 dark:text-slate-300 flex items-start gap-2.5">
+                    <UIcon
+                      name="i-ph-info-fill"
+                      class="size-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5"
+                    />
+                    <span class="leading-relaxed">{{ activeSample.summary }}</span>
                   </div>
                 </div>
               </div>
