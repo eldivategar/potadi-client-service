@@ -28,22 +28,26 @@ export const useAuth = () => {
   // Better-Auth reactive session store
   const session = authClient.useSession();
 
-  // Reactive user computed directly from Better-Auth useSession()
-  const user = computed<AuthUser | null>(() => {
-    const raw = session.value?.data as any;
-    const rawUser = raw?.data?.user || raw?.user;
+  // Helper function untuk memetakan raw data user dari Better Auth
+  const mapToAuthUser = (rawUser: any): AuthUser | null => {
     if (!rawUser) return null;
-
     return {
       id: rawUser.id,
       name: rawUser.name || "Agronomis Potadi",
       email: rawUser.email,
-      role: "Agronomis • Lahan Mandiri",
+      role: rawUser.role || "Agronomis • Lahan Mandiri",
       image: rawUser.image,
       emailVerified: rawUser.emailVerified,
       createdAt: rawUser.createdAt ? String(rawUser.createdAt) : undefined,
       updatedAt: rawUser.updatedAt ? String(rawUser.updatedAt) : undefined,
     };
+  };
+
+  // Reactive user computed directly from Better-Auth useSession()
+  const user = computed<AuthUser | null>(() => {
+    const raw = session.value?.data as any;
+    const rawUser = raw?.data?.user || raw?.user;
+    return mapToAuthUser(rawUser);
   });
 
   // Token representation from Better-Auth session
@@ -91,14 +95,21 @@ export const useAuth = () => {
   };
 
   /**
-   * Fetch active session from Better-Auth
+   * Fetch active session from Better-Auth (Direct network fetch to avoid reactivity lag)
    */
   const fetchSession = async (): Promise<AuthUser | null> => {
     try {
+      const res = await authClient.getSession();
+      
+      // Update the reactive store in the background
       if (session.value?.refetch) {
-        await session.value.refetch();
+        session.value.refetch();
       }
-      return user.value;
+
+      const raw = res?.data as any;
+      const rawUser = raw?.data?.user || raw?.user;
+      
+      return mapToAuthUser(rawUser);
     } catch {
       return null;
     }
