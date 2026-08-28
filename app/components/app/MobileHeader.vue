@@ -23,13 +23,12 @@ const toggleTheme = () => {
   colorMode.preference = colorMode.value === "dark" ? "light" : "dark";
 };
 
-const handleLogout = () => {
+const handleLogout = async () => {
   isProfileOpen.value = false;
   showLogoutToast.value = true;
-  setTimeout(() => {
-    showLogoutToast.value = false;
-    signOut();
-  }, 800);
+  setTimeout(async () => {
+    await signOut();
+  }, 600);
 };
 
 const handleClickOutside = (e: MouseEvent) => {

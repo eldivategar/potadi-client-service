@@ -301,18 +301,23 @@ export const useAuth = () => {
    * Sign Out using better-auth client
    */
   const signOut = async () => {
+    isLoading.value = true;
     try {
       await authClient.signOut();
-      // Refetch session so Better Auth clears the local reactive state
       if (session.value?.refetch) {
         await session.value.refetch();
       }
-    } catch {
-      // Silently ignore sign out error
+    } catch (err) {
+      console.error("Sign out error:", err);
     } finally {
-      // Reset Nuxt global state agar middleware tidak mengira user masih login
       useState("auth_is_authenticated").value = false;
-      await router.push("/auth/login");
+      useState("auth_is_checked").value = true;
+      isLoading.value = false;
+      if (typeof window !== "undefined") {
+        window.location.href = "/auth/login";
+      } else {
+        await navigateTo("/auth/login");
+      }
     }
   };
 
