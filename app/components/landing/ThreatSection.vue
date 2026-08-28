@@ -38,25 +38,25 @@ const threatStats = computed(() => [
 
 // 3D Staggered Parallax Transforms
 const { scrollYProgress } = useScroll();
-const col1Y = useTransform(scrollYProgress, [0.08, 0.4], ["30px", "-40px"]);
-const col3Y = useTransform(scrollYProgress, [0.08, 0.4], ["-30px", "40px"]);
+const col1Y = useTransform(scrollYProgress, [0.08, 0.45], ["20px", "-25px"]);
+const col3Y = useTransform(scrollYProgress, [0.08, 0.45], ["-20px", "25px"]);
 </script>
 
 <template>
   <section
     id="threat"
-    class="py-24 md:py-32 relative z-10 border-t border-black/5 dark:border-white/5 transition-colors duration-350 overflow-hidden"
+    class="py-24 md:py-32 relative z-10 border-t border-slate-200/60 dark:border-white/5 transition-colors duration-350 overflow-hidden"
   >
-    <!-- Ambient Threat Urgency Glow -->
+    <!-- Ambient Threat Urgency Depth Glow -->
     <div
-      class="absolute -top-10 left-1/4 w-[500px] h-[400px] bg-rose-500/5 dark:bg-rose-500/10 blur-[140px] rounded-full pointer-events-none -z-10"
+      class="absolute -top-10 left-1/4 w-[450px] h-[350px] bg-rose-500/5 dark:bg-rose-500/10 blur-[140px] rounded-full pointer-events-none -z-10"
     />
     <div
-      class="absolute bottom-0 right-1/4 w-[450px] h-[350px] bg-amber-500/5 dark:bg-amber-500/10 blur-[130px] rounded-full pointer-events-none -z-10"
+      class="absolute bottom-0 right-1/4 w-[400px] h-[300px] bg-amber-500/5 dark:bg-amber-500/10 blur-[130px] rounded-full pointer-events-none -z-10"
     />
 
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="max-w-3xl space-y-6">
+      <div class="max-w-3xl space-y-5">
         <!-- Direct Editorial Headline -->
         <Motion
           :initial="{ opacity: 0, y: 20 }"
@@ -64,14 +64,21 @@ const col3Y = useTransform(scrollYProgress, [0.08, 0.4], ["-30px", "40px"]);
           :viewport="{ once: true, margin: '-40px' }"
           :transition="{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }"
         >
+          <span
+            class="text-xs font-semibold px-3 py-1 rounded-full bg-rose-500/10 dark:bg-rose-500/20 text-rose-700 dark:text-rose-300 border border-rose-500/20 uppercase tracking-wider inline-block mb-3"
+          >
+            {{ $t("threat.tagRisk") }}
+          </span>
+
           <h2
             class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight"
           >
             {{ $t("threat.headline") }}
             <span
               class="bg-gradient-to-r from-rose-600 via-amber-600 to-rose-500 dark:from-rose-400 dark:via-amber-400 dark:to-rose-300 bg-clip-text text-transparent"
-              >{{ $t("threat.headlineHighlight") }}</span
             >
+              {{ $t("threat.headlineHighlight") }}
+            </span>
             {{ $t("threat.headlineSuffix") }}
           </h2>
         </Motion>
@@ -90,21 +97,19 @@ const col3Y = useTransform(scrollYProgress, [0.08, 0.4], ["-30px", "40px"]);
             <template #p1>
               <span
                 class="text-slate-900 dark:text-slate-100 font-serif italic font-semibold"
-                >Phytophthora infestans</span
-              >
+              >Phytophthora infestans</span>
             </template>
             <template #p2>
               <span
                 class="text-slate-900 dark:text-slate-100 font-serif italic font-semibold"
-                >Alternaria solani</span
-              >
+              >Alternaria solani</span>
             </template>
           </i18n-t>
         </Motion>
       </div>
 
       <!-- 3 Clean Threat Metric Cards with Staggered Parallax -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 items-stretch">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-14 sm:mt-16 items-stretch">
         <Motion
           v-for="(stat, index) in threatStats"
           :key="stat.metric"
@@ -132,23 +137,17 @@ const col3Y = useTransform(scrollYProgress, [0.08, 0.4], ["-30px", "40px"]);
               >
                 <UIcon :name="stat.icon" class="size-6" />
               </div>
-              <span
-                class="text-xs font-semibold px-3 py-1 rounded-full bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 border border-slate-200/60 dark:border-white/5"
-                >{{ $t("threat.tagRisk") }}</span
-              >
             </div>
 
             <div class="space-y-2">
               <div class="flex items-baseline gap-1.5 font-mono">
                 <span
                   class="text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 dark:text-white"
-                  >{{ stat.value }}</span
-                >
+                >{{ stat.value }}</span>
                 <span
                   v-if="stat.unit"
                   class="text-xl font-bold text-slate-500 dark:text-slate-400"
-                  >{{ stat.unit }}</span
-                >
+                >{{ stat.unit }}</span>
               </div>
               <h3
                 class="text-base font-bold text-slate-900 dark:text-slate-100"

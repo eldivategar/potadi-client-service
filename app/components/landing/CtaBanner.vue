@@ -12,7 +12,7 @@ const perks = computed(() => [
 ]);
 
 const { scrollYProgress } = useScroll();
-const ctaGlowY = useTransform(scrollYProgress, [0.6, 1], ["-40px", "40px"]);
+const ctaGlowY = useTransform(scrollYProgress, [0.6, 1], ["-20px", "30px"]);
 </script>
 
 <template>
@@ -28,26 +28,26 @@ const ctaGlowY = useTransform(scrollYProgress, [0.6, 1], ["-40px", "40px"]);
         <!-- Ambient Glowing Aura with Parallax Shift -->
         <Motion
           :style="{ y: ctaGlowY }"
-          class="absolute -inset-2 sm:-inset-4 bg-gradient-to-r from-emerald-500/25 via-teal-500/20 to-emerald-600/25 rounded-[40px] blur-2xl -z-10 pointer-events-none"
+          class="absolute -inset-2 sm:-inset-4 bg-gradient-to-r from-emerald-500/20 via-teal-500/15 to-emerald-600/20 rounded-[36px] blur-2xl -z-10 pointer-events-none"
         />
 
         <div
-          class="relative rounded-3xl p-8 sm:p-12 lg:p-16 overflow-hidden border border-emerald-500/30 bg-gradient-to-br from-emerald-900 via-emerald-950 to-neutral-950 text-white shadow-2xl"
+          class="relative rounded-3xl p-8 sm:p-12 lg:p-16 overflow-hidden border border-emerald-500/25 bg-[#0D1411] dark:bg-[#0A100D] text-white shadow-2xl"
         >
-          <!-- Background Radial Glow Inside -->
+          <!-- Background Subtle Radial Glow -->
           <div
-            class="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-500/15 blur-[120px] rounded-full pointer-events-none"
+            class="absolute top-0 right-0 w-[450px] h-[450px] bg-emerald-500/10 blur-[100px] rounded-full pointer-events-none"
           />
           <div
-            class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-black/40 blur-[100px] rounded-full pointer-events-none"
+            class="absolute bottom-0 left-0 w-[350px] h-[350px] bg-teal-500/10 blur-[90px] rounded-full pointer-events-none"
           />
 
           <div class="relative z-10 max-w-3xl space-y-8">
             <div class="space-y-4">
               <span
-                class="px-3.5 py-1.5 text-xs font-semibold rounded-full bg-white/10 text-emerald-300 border border-white/20 inline-block"
+                class="px-3.5 py-1.5 text-xs font-semibold rounded-full bg-white/10 text-emerald-300 border border-white/20 uppercase tracking-wider inline-block"
               >
-                Mulai Diagnosa Gratis
+                {{ $t("cta.badge") }}
               </span>
               <h2
                 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight"
@@ -55,7 +55,7 @@ const ctaGlowY = useTransform(scrollYProgress, [0.6, 1], ["-40px", "40px"]);
                 {{ $t("cta.title") }}
               </h2>
               <p
-                class="text-base sm:text-lg text-emerald-100/90 leading-relaxed max-w-2xl"
+                class="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl"
               >
                 {{ $t("cta.desc") }}
               </p>
@@ -67,18 +67,21 @@ const ctaGlowY = useTransform(scrollYProgress, [0.6, 1], ["-40px", "40px"]);
                 class="inline-flex items-center justify-center gap-2.5 px-8 py-3.5 text-sm sm:text-base font-bold bg-white text-emerald-950 hover:bg-emerald-50 rounded-full shadow-lg shadow-black/25 active:scale-95 group transition-all"
               >
                 <span>{{ $t("cta.button") }}</span>
-                <UIcon name="i-ph-arrow-up-right-bold" class="size-4 text-emerald-950 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                <UIcon
+                  name="i-ph-arrow-up-right-bold"
+                  class="size-4 text-emerald-950 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+                />
               </NuxtLink>
             </div>
 
-            <!-- Feature Perks (High Contrast on Dark Banner) -->
+            <!-- Feature Perks Grid -->
             <div
-              class="pt-6 border-t border-white/15 grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs"
+              class="pt-6 border-t border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs"
             >
               <div
                 v-for="perk in perks"
                 :key="perk"
-                class="flex items-center gap-2 font-medium text-slate-100 bg-white/10 border border-white/10 p-3 rounded-xl"
+                class="flex items-center gap-2 font-medium text-slate-200 bg-white/5 border border-white/10 p-3 rounded-xl"
               >
                 <UIcon
                   name="i-ph-check-circle-fill"

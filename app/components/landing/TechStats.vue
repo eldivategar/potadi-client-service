@@ -34,20 +34,20 @@ const techSpecs = computed(() => [
 <template>
   <section
     id="tech"
-    class="py-20 md:py-28 relative z-10 border-t border-b border-black/5 dark:border-white/5 transition-colors duration-350"
+    class="py-20 md:py-28 relative z-10 border-t border-b border-slate-200/60 dark:border-white/5 transition-colors duration-350"
   >
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div
         class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4"
       >
-        <div>
+        <div class="space-y-3">
           <span
             class="text-xs text-emerald-800 dark:text-emerald-300 bg-emerald-500/10 dark:bg-emerald-500/20 border border-emerald-500/20 tracking-wider uppercase font-semibold px-3 py-1 rounded-full inline-block"
           >
-            Spesifikasi Vision AI
+            {{ $t("tech.eyebrow") }}
           </span>
           <h2
-            class="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white tracking-tight mt-2"
+            class="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white tracking-tight"
           >
             {{ $t("tech.title") }}
           </h2>
@@ -71,9 +71,10 @@ const techSpecs = computed(() => [
         >
           <div class="flex items-center justify-between">
             <span
-              class="text-xs font-semibold text-slate-600 dark:text-slate-400"
-              >{{ spec.label }}</span
+              class="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider"
             >
+              {{ spec.label }}
+            </span>
             <div class="size-8 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center group-hover:scale-105 transition-transform">
               <UIcon
                 :name="spec.icon"

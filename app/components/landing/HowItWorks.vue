@@ -1,22 +1,28 @@
 <script setup lang="ts">
 import { useScroll, useTransform } from 'motion-v'
 
-// Bento Watermark High-Amplitude Parallax Transform
+// Bento Watermark Subtle Parallax Transform
 const { scrollYProgress } = useScroll()
-const watermarkY = useTransform(scrollYProgress, [0.25, 0.65], ['-30px', '50px'])
+const watermarkY = useTransform(scrollYProgress, [0.25, 0.65], ['-15px', '25px'])
 </script>
 
 <template>
-  <section id="how-it-works" class="py-24 md:py-32 relative z-10 border-t border-black/5 dark:border-white/5 transition-colors duration-350">
+  <section id="how-it-works" class="py-24 md:py-32 relative z-10 border-t border-slate-200/60 dark:border-white/5 transition-colors duration-350">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <!-- Section Header -->
-      <div class="max-w-3xl space-y-4 mb-16">
+      <div class="max-w-3xl space-y-4 mb-12 sm:mb-16">
         <Motion
           :initial="{ opacity: 0, y: 20 }"
           :while-in-view="{ opacity: 1, y: 0 }"
           :viewport="{ once: true, margin: '-40px' }"
           :transition="{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }"
         >
+          <span
+            class="text-xs font-semibold px-3 py-1 rounded-full bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 border border-emerald-500/20 uppercase tracking-wider inline-block mb-3"
+          >
+            {{ $t('howItWorks.step1.phase') }}
+          </span>
+
           <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight">
             {{ $t('howItWorks.title') }}
           </h2>
@@ -26,7 +32,7 @@ const watermarkY = useTransform(scrollYProgress, [0.25, 0.65], ['-30px', '50px']
         </p>
       </div>
 
-      <!-- Gapless Bento Grid (Clean Modern Cards) -->
+      <!-- Gapless Bento Grid (12 Columns: 8+4, 4+8) -->
       <div class="grid grid-cols-1 md:grid-cols-12 gap-6 grid-flow-dense">
         <!-- Step 1 (col-span-8) -->
         <Motion
@@ -37,10 +43,10 @@ const watermarkY = useTransform(scrollYProgress, [0.25, 0.65], ['-30px', '50px']
           class="md:col-span-8 h-full transform-gpu"
         >
           <div class="h-full p-6 sm:p-8 rounded-3xl bg-white/95 dark:bg-neutral-900/95 border border-slate-200/80 dark:border-white/10 shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col justify-between space-y-6 relative overflow-hidden">
-            <!-- Large Step Watermark with Scroll Parallax -->
+            <!-- Step Watermark with Scroll Parallax -->
             <Motion
               :style="{ y: watermarkY }"
-              class="font-mono text-6xl sm:text-8xl font-bold text-slate-200/60 dark:text-white/5 absolute top-2 right-4 sm:right-6 pointer-events-none select-none tracking-tighter transform-gpu"
+              class="font-mono text-6xl sm:text-8xl font-bold text-slate-200/50 dark:text-white/5 absolute top-2 right-4 sm:right-6 pointer-events-none select-none tracking-tighter transform-gpu"
             >
               01
             </Motion>
@@ -50,22 +56,24 @@ const watermarkY = useTransform(scrollYProgress, [0.25, 0.65], ['-30px', '50px']
                 <span class="size-8 rounded-xl bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 font-mono font-bold text-xs flex items-center justify-center border border-emerald-500/20">
                   01
                 </span>
-                <span class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Langkah 01</span>
+                <span class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                  {{ $t('howItWorks.step1.phase') }}
+                </span>
               </div>
               <span class="px-3 py-1 text-xs font-semibold rounded-full bg-slate-100 dark:bg-white/5 text-slate-800 dark:text-slate-200 border border-slate-200/60 dark:border-white/5">
-                Kamera Ponsel
+                {{ $t('howItWorks.step1.badge') }}
               </span>
             </div>
 
-            <!-- Visual preview strip -->
+            <!-- Viewfinder Preview Strip -->
             <div class="p-4 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-200/80 dark:border-white/5 flex items-center justify-between gap-4 z-10">
               <div class="flex items-center gap-3.5">
-                <div class="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+                <div class="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 shrink-0">
                   <UIcon name="i-ph-camera-duotone" class="size-6" />
                 </div>
                 <div class="text-xs space-y-0.5">
-                  <div class="font-bold text-slate-900 dark:text-white">Arahkan Kamera ke Daun</div>
-                  <div class="text-slate-600 dark:text-slate-400">Cukup posisikan daun di tengah frame dengan pencahayaan alami</div>
+                  <div class="font-bold text-slate-900 dark:text-white">{{ $t('howItWorks.step1.viewfinderTitle') }}</div>
+                  <div class="text-slate-600 dark:text-slate-400">{{ $t('howItWorks.step1.viewfinderDesc') }}</div>
                 </div>
               </div>
             </div>
@@ -90,10 +98,10 @@ const watermarkY = useTransform(scrollYProgress, [0.25, 0.65], ['-30px', '50px']
           class="md:col-span-4 h-full transform-gpu"
         >
           <div class="h-full p-6 sm:p-8 rounded-3xl bg-white/95 dark:bg-neutral-900/95 border border-slate-200/80 dark:border-white/10 shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col justify-between space-y-6 relative overflow-hidden">
-            <!-- Large Step Watermark with Scroll Parallax -->
+            <!-- Step Watermark with Scroll Parallax -->
             <Motion
               :style="{ y: watermarkY }"
-              class="font-mono text-6xl sm:text-8xl font-bold text-slate-200/60 dark:text-white/5 absolute top-2 right-4 sm:right-6 pointer-events-none select-none tracking-tighter transform-gpu"
+              class="font-mono text-6xl sm:text-8xl font-bold text-slate-200/50 dark:text-white/5 absolute top-2 right-4 sm:right-6 pointer-events-none select-none tracking-tighter transform-gpu"
             >
               02
             </Motion>
@@ -103,7 +111,7 @@ const watermarkY = useTransform(scrollYProgress, [0.25, 0.65], ['-30px', '50px']
                 02
               </span>
               <span class="px-3 py-1 text-xs font-semibold text-emerald-800 dark:text-emerald-300 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
-                On-Device AI
+                {{ $t('howItWorks.step2.badge') }}
               </span>
             </div>
 
@@ -112,7 +120,7 @@ const watermarkY = useTransform(scrollYProgress, [0.25, 0.65], ['-30px', '50px']
                 <span>&lt; 28</span>
                 <span class="text-base text-emerald-600 dark:text-emerald-400 font-mono font-normal">ms</span>
               </div>
-              <div class="text-xs text-slate-500 dark:text-slate-400 font-semibold">Kecepatan Komputasi Lokal</div>
+              <div class="text-xs text-slate-500 dark:text-slate-400 font-semibold">{{ $t('howItWorks.step2.metricLabel') }}</div>
             </div>
 
             <div class="z-10">
@@ -135,10 +143,10 @@ const watermarkY = useTransform(scrollYProgress, [0.25, 0.65], ['-30px', '50px']
           class="md:col-span-4 h-full transform-gpu"
         >
           <div class="h-full p-6 sm:p-8 rounded-3xl bg-white/95 dark:bg-neutral-900/95 border border-slate-200/80 dark:border-white/10 shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col justify-between space-y-6 relative overflow-hidden">
-            <!-- Large Step Watermark with Scroll Parallax -->
+            <!-- Step Watermark with Scroll Parallax -->
             <Motion
               :style="{ y: watermarkY }"
-              class="font-mono text-6xl sm:text-8xl font-bold text-slate-200/60 dark:text-white/5 absolute top-2 right-4 sm:right-6 pointer-events-none select-none tracking-tighter transform-gpu"
+              class="font-mono text-6xl sm:text-8xl font-bold text-slate-200/50 dark:text-white/5 absolute top-2 right-4 sm:right-6 pointer-events-none select-none tracking-tighter transform-gpu"
             >
               03
             </Motion>
@@ -148,7 +156,7 @@ const watermarkY = useTransform(scrollYProgress, [0.25, 0.65], ['-30px', '50px']
                 03
               </span>
               <span class="px-3 py-1 text-xs font-semibold text-amber-800 dark:text-amber-300 bg-amber-500/10 border border-amber-500/20 rounded-full">
-                Hasil Akurat
+                {{ $t('howItWorks.step3.badge') }}
               </span>
             </div>
 
@@ -187,10 +195,10 @@ const watermarkY = useTransform(scrollYProgress, [0.25, 0.65], ['-30px', '50px']
           class="md:col-span-8 h-full transform-gpu"
         >
           <div class="h-full p-6 sm:p-8 rounded-3xl bg-white/95 dark:bg-neutral-900/95 border border-slate-200/80 dark:border-white/10 shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col justify-between space-y-6 relative overflow-hidden">
-            <!-- Large Step Watermark with Scroll Parallax -->
+            <!-- Step Watermark with Scroll Parallax -->
             <Motion
               :style="{ y: watermarkY }"
-              class="font-mono text-6xl sm:text-8xl font-bold text-slate-200/60 dark:text-white/5 absolute top-2 right-4 sm:right-6 pointer-events-none select-none tracking-tighter transform-gpu"
+              class="font-mono text-6xl sm:text-8xl font-bold text-slate-200/50 dark:text-white/5 absolute top-2 right-4 sm:right-6 pointer-events-none select-none tracking-tighter transform-gpu"
             >
               04
             </Motion>
@@ -200,10 +208,12 @@ const watermarkY = useTransform(scrollYProgress, [0.25, 0.65], ['-30px', '50px']
                 <span class="size-8 rounded-xl bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 font-mono font-bold text-xs flex items-center justify-center border border-emerald-500/20">
                   04
                 </span>
-                <span class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Langkah 04</span>
+                <span class="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                  {{ $t('howItWorks.step4.phase') }}
+                </span>
               </div>
               <span class="px-3 py-1 text-xs font-semibold rounded-full bg-emerald-500/10 text-emerald-800 dark:text-emerald-300 border border-emerald-500/20">
-                Solusi Praktis
+                {{ $t('howItWorks.step4.badge') }}
               </span>
             </div>
 

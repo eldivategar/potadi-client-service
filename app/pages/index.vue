@@ -32,36 +32,40 @@ useHead({
 </script>
 
 <template>
-  <main class="overflow-x-hidden w-full max-w-full min-h-screen bg-[#EEF3F0] dark:bg-[#111413] text-slate-900 dark:text-slate-100 relative selection:bg-emerald-500/30 selection:text-emerald-800 dark:selection:text-emerald-200 transition-colors duration-350 ease-out">
-    <!-- Full-Page Symmetrical Background Harmonic Waves & Neumorphic Ambience -->
+  <main class="overflow-x-hidden w-full max-w-full min-h-screen bg-[#FBFDFB] dark:bg-[#0B0E0D] text-slate-900 dark:text-slate-100 relative selection:bg-emerald-500/30 selection:text-emerald-800 dark:selection:text-emerald-200 transition-colors duration-350 ease-out">
+    <!-- Refined Micro-Grid & Subtle Multi-Plane Parallax Depth Canvas -->
     <LandingBackgroundWaves />
 
-    <!-- Floating Island Navbar -->
+    <!-- Scroll-Elevated Floating Island Navbar -->
     <LandingNavbar />
 
-    <!-- Attention: Asymmetric Split Hero & Leaf Scanner Demo -->
+    <!-- Attention: Cinematic Editorial Center Hero & Precision Botanical Telemetry HUD -->
     <LandingHeroSection />
 
-    <!-- Interest: Problem & 70% Harvest Threat Narrative -->
+    <!-- Interest: Problem & 70% Harvest Threat Narrative with Staggered Parallax -->
     <LandingThreatSection />
 
-    <!-- Interest: Interactive Pathology & Disease Catalog -->
+    <!-- Interest: Interactive Pathology & Disease Catalog with Split Dosage Strips -->
     <LandingDiseaseCatalog />
 
     <!-- Desire: Gapless Bento Grid 4-Step Field Workflow -->
     <LandingHowItWorks />
 
-    <!-- Desire: Precision Monospace AI Telemetry & Specs -->
+    <!-- Desire: Precision Monospace AI Telemetry & Specs Grid -->
     <LandingTechStats />
 
     <!-- Desire: Field Ergonomics & Farmer Benefits -->
     <LandingBenefits />
 
-    <!-- Action: High-Contrast Botanical Emerald CTA Banner -->
+    <!-- Action: High-Contrast Dark Botanical Emerald CTA Banner -->
     <LandingCtaBanner />
 
-    <!-- Minimalist Split System Footer -->
+    <!-- Clean Architecture System Footer -->
     <LandingFooter />
   </main>
 </template>
+
+<style>
+@import "~/assets/css/landing.css";
+</style>
 

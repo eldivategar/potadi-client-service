@@ -8,28 +8,28 @@ const benefits = computed(() => [
     title: t("benefits.items.item1.title"),
     description: t("benefits.items.item1.description"),
     icon: "i-ph-sun-duotone",
-    tag: "Kontras Lahan",
+    tag: t("benefits.items.item1.tag"),
     highlight: t("benefits.items.item1.highlight"),
   },
   {
     title: t("benefits.items.item2.title"),
     description: t("benefits.items.item2.description"),
     icon: "i-ph-hand-pointing-duotone",
-    tag: "Tombol Ramah Jari",
+    tag: t("benefits.items.item2.tag"),
     highlight: t("benefits.items.item2.highlight"),
   },
   {
     title: t("benefits.items.item3.title"),
     description: t("benefits.items.item3.description"),
     icon: "i-ph-wifi-slash-duotone",
-    tag: "100% Offline",
+    tag: t("benefits.items.item3.tag"),
     highlight: t("benefits.items.item3.highlight"),
   },
   {
     title: t("benefits.items.item4.title"),
     description: t("benefits.items.item4.description"),
     icon: "i-ph-list-checks-duotone",
-    tag: "Instruksi Jelas",
+    tag: t("benefits.items.item4.tag"),
     highlight: t("benefits.items.item4.highlight"),
   },
 ]);
@@ -38,13 +38,19 @@ const benefits = computed(() => [
 <template>
   <section id="benefits" class="py-24 md:py-32 relative z-10">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="max-w-3xl space-y-4 mb-16">
+      <div class="max-w-3xl space-y-4 mb-12 sm:mb-16">
         <Motion
           :initial="{ opacity: 0, y: 20 }"
           :while-in-view="{ opacity: 1, y: 0 }"
           :viewport="{ once: true, margin: '-40px' }"
           :transition="{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }"
         >
+          <span
+            class="text-xs font-semibold px-3 py-1 rounded-full bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 border border-emerald-500/20 uppercase tracking-wider inline-block mb-3"
+          >
+            {{ $t("benefits.standardLabel") }}
+          </span>
+
           <h2
             class="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight"
           >
@@ -81,7 +87,7 @@ const benefits = computed(() => [
                 <UIcon :name="item.icon" class="size-6" />
               </div>
               <span
-                class="text-xs font-semibold text-emerald-800 dark:text-emerald-300 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1.5 rounded-full"
+                class="text-xs font-semibold text-emerald-800 dark:text-emerald-300 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1.5 rounded-full uppercase tracking-wider"
               >
                 {{ item.tag }}
               </span>
