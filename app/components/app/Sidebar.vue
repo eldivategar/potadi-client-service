@@ -97,12 +97,13 @@ const openSettings = () => {
   showSettingsModal.value = true;
 };
 
-const handleLogout = async () => {
+const handleLogout = () => {
   isProfileMenuOpen.value = false;
   showLogoutToast.value = true;
-  setTimeout(async () => {
-    await signOut();
-  }, 600);
+  setTimeout(() => {
+    showLogoutToast.value = false;
+    signOut();
+  }, 1000);
 };
 
 const handleClickOutside = (event: MouseEvent) => {

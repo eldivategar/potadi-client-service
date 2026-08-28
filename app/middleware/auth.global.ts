@@ -19,17 +19,17 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     }
   } else {
     const nuxtApp = useNuxtApp();
-
-    if (nuxtApp.isHydrating && isAuthChecked.value) {
-      // Do nothing, trust server hydration state
+    
+    if (nuxtApp.isHydrating && isAuthChecked.value && isAuth.value) {
+      // Do nothing, trust server
     } else {
-      const authClient = useAuthClient();
-      try {
-        const sessionRes = await authClient.getSession();
-        const raw = sessionRes?.data as any;
-        isAuth.value = !!(raw?.data?.user || raw?.user);
-      } catch {
-        isAuth.value = false;
+      const { isAuthenticated, fetchSession } = useAuth();
+      
+      if (isAuthenticated.value) {
+        isAuth.value = true;
+      } else {
+        const user = await fetchSession();
+        isAuth.value = !!user;
       }
       isAuthChecked.value = true;
     }
