@@ -28,26 +28,22 @@ export const useAuth = () => {
   // Better-Auth reactive session store
   const session = authClient.useSession();
 
-  // Helper function untuk memetakan raw data user dari Better Auth
-  const mapToAuthUser = (rawUser: any): AuthUser | null => {
+  // Reactive user computed directly from Better-Auth useSession()
+  const user = computed<AuthUser | null>(() => {
+    const raw = session.value?.data as any;
+    const rawUser = raw?.data?.user || raw?.user;
     if (!rawUser) return null;
+
     return {
       id: rawUser.id,
       name: rawUser.name || "Agronomis Potadi",
       email: rawUser.email,
-      role: rawUser.role || "Agronomis • Lahan Mandiri",
+      role: "Agronomis • Lahan Mandiri",
       image: rawUser.image,
       emailVerified: rawUser.emailVerified,
       createdAt: rawUser.createdAt ? String(rawUser.createdAt) : undefined,
       updatedAt: rawUser.updatedAt ? String(rawUser.updatedAt) : undefined,
     };
-  };
-
-  // Reactive user computed directly from Better-Auth useSession()
-  const user = computed<AuthUser | null>(() => {
-    const raw = session.value?.data as any;
-    const rawUser = raw?.data?.user || raw?.user;
-    return mapToAuthUser(rawUser);
   });
 
   // Token representation from Better-Auth session
@@ -95,21 +91,14 @@ export const useAuth = () => {
   };
 
   /**
-   * Fetch active session from Better-Auth (Direct network fetch to avoid reactivity lag)
+   * Fetch active session from Better-Auth
    */
   const fetchSession = async (): Promise<AuthUser | null> => {
     try {
-      const res = await authClient.getSession();
-      
-      // Update the reactive store in the background
       if (session.value?.refetch) {
-        session.value.refetch();
+        await session.value.refetch();
       }
-
-      const raw = res?.data as any;
-      const rawUser = raw?.data?.user || raw?.user;
-      
-      return mapToAuthUser(rawUser);
+      return user.value;
     } catch {
       return null;
     }
@@ -314,17 +303,16 @@ export const useAuth = () => {
   const signOut = async () => {
     try {
       await authClient.signOut();
+      // Refetch session so Better Auth clears the local reactive state
+      if (session.value?.refetch) {
+        await session.value.refetch();
+      }
     } catch {
       // Silently ignore sign out error
     } finally {
-      // Reset Nuxt global state
+      // Reset Nuxt global state agar middleware tidak mengira user masih login
       useState("auth_is_authenticated").value = false;
-      
-      if (typeof window !== "undefined") {
-        window.location.href = "/auth/login";
-      } else {
-        await router.push("/auth/login");
-      }
+      await router.push("/auth/login");
     }
   };
 

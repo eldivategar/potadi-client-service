@@ -28,12 +28,8 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
       if (isAuthenticated.value) {
         isAuth.value = true;
       } else {
-        if (to.path.startsWith("/app")) {
-          const user = await fetchSession();
-          isAuth.value = !!user;
-        } else {
-          isAuth.value = false;
-        }
+        const user = await fetchSession();
+        isAuth.value = !!user;
       }
       isAuthChecked.value = true;
     }
