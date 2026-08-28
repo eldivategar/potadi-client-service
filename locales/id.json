@@ -285,6 +285,8 @@
       "diagnosisSub": "Analisis penyakit daun",
       "history": "Riwayat",
       "historySub": "Riwayat diagnosa",
+      "profile": "Profil & Lahan",
+      "profileSub": "Pengaturan akun & kebun",
       "backToLanding": "Ke Halaman Utama",
       "telemetryLabel": "Farm Telemetry",
       "mode": "Mode",
@@ -535,6 +537,115 @@
       "passwordMismatch": "Konfirmasi kata sandi tidak cocok",
       "nameRequired": "Nama lengkap wajib diisi",
       "generalError": "Terjadi kendala saat memproses permintaan. Silakan coba lagi."
+    }
+  },
+  "profileSettings": {
+    "breadcrumb": "Studio / Pengaturan Profil",
+    "title": "Pengaturan Akun & Lahan",
+    "subtitle": "Kelola data profil agronomis, parameter lahan perkebunan, dan preferensi telemetri Anda.",
+    "saveChanges": "Simpan Perubahan",
+    "saving": "Menyimpan...",
+    "saveSuccess": "Pengaturan profil berhasil disimpan!",
+    "tabs": {
+      "profile": "Profil & Biodata",
+      "farm": "Lahan & Komoditas",
+      "security": "Keamanan & Akun",
+      "preferences": "Preferensi & Notifikasi",
+      "danger": "Zona Bahaya"
+    },
+    "profileTab": {
+      "headerTitle": "Informasi Profil Utama",
+      "headerSubtitle": "Foto profil dan identitas resmi Anda di platform Potadi",
+      "changePhoto": "Ganti Foto",
+      "removePhoto": "Hapus Foto",
+      "verified": "Terverifikasi",
+      "personalTitle": "Data Pribadi & Kontak",
+      "firstName": "Nama Depan",
+      "lastName": "Nama Belakang",
+      "email": "Alamat Email",
+      "emailHint": "Alamat email utama yang terhubung dengan akun Anda",
+      "phone": "Nomor WhatsApp / HP",
+      "phonePlaceholder": "0812-3456-7890",
+      "phoneHint": "Untuk menerima notifikasi darurat wabah hawar daun di lahan",
+      "role": "Peran / Spesialisasi",
+      "roleOptions": {
+        "farmer": "Petani Mandiri",
+        "agronomist": "Agronomis Lapangan",
+        "researcher": "Peneliti Fitopatologi",
+        "consultant": "Konsultan Pertanian"
+      },
+      "bio": "Catatan / Bio Singkat",
+      "bioPlaceholder": "Tuliskan pengalaman bertani, varietas spesialisasi, atau deskripsi kebun..."
+    },
+    "farmTab": {
+      "title": "Parameter Lahan & Komoditas",
+      "subtitle": "Konfigurasi informasi perkebunan untuk kalibrasi akurasi model Vision AI",
+      "farmName": "Nama Kebun / Kelompok Tani",
+      "farmNamePlaceholder": "Contoh: Kebun Kentang Dieng Makmur",
+      "region": "Wilayah Dataran Tinggi",
+      "elevation": "Elevasi Lahan (mdpl)",
+      "elevationHint": "Elevasi mempengaruhi kelembapan dan spora hawar (Phytophthora)",
+      "area": "Luas Area Tanam (Hektar)",
+      "areaPlaceholder": "Contoh: 2.5",
+      "variety": "Varietas Kentang Utama",
+      "varietyHint": "Varietas memiliki tingkat ketahanan berbeda terhadap hawar",
+      "varieties": {
+        "granola": "Granola Lembang (Konsumsi segar / pasar)",
+        "atlantic": "Atlantic (Industri keripik / prosesing)",
+        "medians": "Medians (Tahan sebagian late blight)",
+        "spunta": "Spunta / Varietas Impor",
+        "other": "Varietas Lokal Lainnya"
+      },
+      "soilType": "Jenis Tanah Bedengan",
+      "soilTypes": {
+        "andosol": "Andosol Vulkanik (Subur / Gembur)",
+        "latosol": "Latosol Cokelat",
+        "regosol": "Regosol Berpasir"
+      }
+    },
+    "securityTab": {
+      "title": "Keamanan & Autentikasi",
+      "subtitle": "Kelola kredensial login dan status integrasi akun",
+      "linkedAccounts": "Akun Terhubung (SSO)",
+      "googleAccount": "Akun Google",
+      "connected": "Terhubung",
+      "notConnected": "Belum Terhubung",
+      "googleDesc": "Masuk instan dengan satu klik menggunakan OAuth Google",
+      "changePassword": "Ganti Kata Sandi",
+      "currentPassword": "Kata Sandi Saat Ini",
+      "newPassword": "Kata Sandi Baru",
+      "confirmPassword": "Konfirmasi Kata Sandi Baru",
+      "updatePasswordBtn": "Perbarui Kata Sandi",
+      "passwordSuccess": "Kata sandi berhasil diperbarui!",
+      "sessionInfo": "Sesi Login Aktif",
+      "sessionDesc": "Sesi ini diamankan menggunakan Better-Auth dengan enkripsi HTTP-Only"
+    },
+    "preferencesTab": {
+      "title": "Preferensi & Notifikasi",
+      "subtitle": "Sesuaikan tampilan studio dan frekuensi peringatan mikroiklim",
+      "interfaceLang": "Bahasa Antarmuka",
+      "themeMode": "Mode Tampilan Visual",
+      "themeLight": "Chalk Mint (Terang)",
+      "themeDark": "Obsidian Dark (Gelap)",
+      "alertsTitle": "Peringatan Dini & Notifikasi Lahan",
+      "sporeAlert": "Peringatan Dini Spora Hawar",
+      "sporeAlertDesc": "Dapatkan peringatan ketika sensor mendeteksi kelembapan >85% dan suhu dingin pemicu late blight",
+      "weatherAlert": "Peringatan Cuaca Ekstrim Dataran Tinggi",
+      "weatherAlertDesc": "Notifikasi risiko embun upas (frost) dan hujan lebat beruntun",
+      "weeklyDigest": "Laporan Rekapitulasi Diagnosa Mingguan",
+      "weeklyDigestDesc": "Ringkasan statistik rasio daun sehat dan tren perkembangan infeksi"
+    },
+    "dangerTab": {
+      "title": "Zona Bahaya & Tindakan Permanen",
+      "subtitle": "Tindakan di bawah ini bersifat permanen dan tidak dapat dibatalkan",
+      "clearCacheTitle": "Bersihkan Cache Diagnosa Lokal",
+      "clearCacheDesc": "Menghapus semua arsip citra daun yang tersimpan di IndexedDB browser perangkat ini.",
+      "clearCacheBtn": "Bersihkan Cache Offline",
+      "clearCacheSuccess": "Cache lokal berhasil dibersihkan!",
+      "deleteAccountTitle": "Hapus Akun Pengguna",
+      "deleteAccountDesc": "Menghapus akun Anda dan seluruh data riwayat secara permanen dari server Potadi.",
+      "deleteAccountBtn": "Hapus Akun Saya",
+      "deleteConfirm": "Apakah Anda yakin ingin menghapus akun? Tindakan ini tidak dapat dibatalkan."
     }
   }
 }

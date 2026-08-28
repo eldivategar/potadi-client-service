@@ -21,11 +21,11 @@ const emit = defineEmits<{
     <button
       type="button"
       :disabled="disabled"
-      class="w-full h-12 px-4 rounded-2xl neu-btn flex items-center justify-center gap-3 text-slate-800 dark:text-slate-100 font-medium text-xs sm:text-sm cursor-pointer transition-all active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed group relative overflow-hidden"
+      class="w-full h-11 sm:h-12 px-4 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.03] hover:bg-slate-50 dark:hover:bg-white/[0.07] hover:border-slate-300 dark:hover:border-white/20 flex items-center justify-center gap-3 text-slate-800 dark:text-slate-100 font-medium text-xs sm:text-sm cursor-pointer transition-all duration-200 active:scale-[0.985] shadow-xs disabled:opacity-60 disabled:cursor-not-allowed group relative overflow-hidden"
       @click="emit('google-click')"
     >
       <!-- Google Official Color SVG Icon -->
-      <svg class="size-5 shrink-0 transition-transform group-hover:scale-110 duration-200" viewBox="0 0 24 24">
+      <svg class="size-4.5 sm:size-5 shrink-0 transition-transform group-hover:scale-105 duration-200" viewBox="0 0 24 24">
         <path
           fill="#4285F4"
           d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -50,11 +50,11 @@ const emit = defineEmits<{
     </button>
 
     <!-- Divider: Or with email -->
-    <div class="relative flex items-center justify-center my-2">
+    <div class="relative flex items-center justify-center py-1">
       <div class="absolute inset-0 flex items-center">
-        <div class="w-full border-t border-black/10 dark:border-white/10" />
+        <div class="w-full border-t border-slate-200/80 dark:border-white/[0.08]" />
       </div>
-      <div class="relative px-3 bg-[#EEF3F0] dark:bg-[#111413] text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400">
+      <div class="relative px-3 bg-white dark:bg-[#111513] text-[11px] font-medium text-slate-400 dark:text-slate-500">
         {{ mode === 'register' ? $t('auth.common.orRegisterWithEmail') : $t('auth.common.orWithEmail') }}
       </div>
     </div>

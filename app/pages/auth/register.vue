@@ -96,26 +96,19 @@ const handleGoogleSignUp = async () => {
   <AuthLayout>
     <div class="space-y-6">
       <!-- Card Title & Subtitle -->
-      <div class="space-y-1.5 text-center sm:text-left">
-        <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
+      <div class="space-y-2 text-left">
+        <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
           {{ $t("auth.register.title") }}
-        </h2>
-        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-normal">
+        </h1>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-normal leading-relaxed">
           {{ $t("auth.register.subtitle") }}
         </p>
       </div>
 
-      <!-- Google Single Sign-On -->
-      <SocialLoginGoogle
-        mode="register"
-        :disabled="isLoading"
-        @google-click="handleGoogleSignUp"
-      />
-
       <!-- Error Notification Alert -->
       <div
         v-if="localError || authError"
-        class="p-3.5 rounded-2xl neu-rose-inset text-rose-800 dark:text-rose-300 text-xs font-mono flex items-start gap-2.5 animate-shake"
+        class="p-3.5 rounded-2xl bg-rose-50 dark:bg-rose-500/10 border border-rose-200 dark:border-rose-500/20 text-rose-800 dark:text-rose-300 text-xs flex items-start gap-2.5 animate-shake"
         role="alert"
       >
         <UIcon name="i-ph-warning-octagon-duotone" class="size-4.5 text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" />
@@ -126,7 +119,7 @@ const handleGoogleSignUp = async () => {
       <form class="space-y-4" @submit.prevent="handleSubmit">
         <!-- Full Name Input Field -->
         <div class="space-y-1.5">
-          <label for="register-name" class="block text-xs font-mono font-bold text-slate-700 dark:text-slate-300">
+          <label for="register-name" class="block text-xs font-semibold text-slate-700 dark:text-slate-300">
             {{ $t("auth.common.nameLabel") }}
           </label>
           <div class="relative flex items-center">
@@ -140,18 +133,18 @@ const handleGoogleSignUp = async () => {
               required
               autocomplete="name"
               :placeholder="$t('auth.common.namePlaceholder')"
-              class="w-full h-12 pl-10 pr-4 rounded-2xl neu-inset text-xs sm:text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 transition-all font-mono"
-              :class="fieldErrors.name ? 'ring-2 ring-rose-500/60' : 'focus:ring-emerald-500/50'"
+              class="w-full h-11 sm:h-12 pl-10 pr-4 rounded-2xl clean-input text-xs sm:text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none transition-all"
+              :class="fieldErrors.name ? 'ring-2 ring-rose-500/60 border-rose-500' : ''"
             />
           </div>
-          <div v-if="fieldErrors.name" class="text-[11px] font-mono text-rose-500">
+          <div v-if="fieldErrors.name" class="text-[11px] font-medium text-rose-500">
             {{ fieldErrors.name }}
           </div>
         </div>
 
         <!-- Email Input Field -->
         <div class="space-y-1.5">
-          <label for="register-email" class="block text-xs font-mono font-bold text-slate-700 dark:text-slate-300">
+          <label for="register-email" class="block text-xs font-semibold text-slate-700 dark:text-slate-300">
             {{ $t("auth.common.emailLabel") }}
           </label>
           <div class="relative flex items-center">
@@ -165,18 +158,18 @@ const handleGoogleSignUp = async () => {
               required
               autocomplete="email"
               :placeholder="$t('auth.common.emailPlaceholder')"
-              class="w-full h-12 pl-10 pr-4 rounded-2xl neu-inset text-xs sm:text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 transition-all font-mono"
-              :class="fieldErrors.email ? 'ring-2 ring-rose-500/60' : 'focus:ring-emerald-500/50'"
+              class="w-full h-11 sm:h-12 pl-10 pr-4 rounded-2xl clean-input text-xs sm:text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none transition-all"
+              :class="fieldErrors.email ? 'ring-2 ring-rose-500/60 border-rose-500' : ''"
             />
           </div>
-          <div v-if="fieldErrors.email" class="text-[11px] font-mono text-rose-500">
+          <div v-if="fieldErrors.email" class="text-[11px] font-medium text-rose-500">
             {{ fieldErrors.email }}
           </div>
         </div>
 
         <!-- Password Input Field & Strength Indicator -->
         <div class="space-y-1.5">
-          <label for="register-password" class="block text-xs font-mono font-bold text-slate-700 dark:text-slate-300">
+          <label for="register-password" class="block text-xs font-semibold text-slate-700 dark:text-slate-300">
             {{ $t("auth.common.passwordLabel") }}
           </label>
           <div class="relative flex items-center">
@@ -190,12 +183,12 @@ const handleGoogleSignUp = async () => {
               required
               autocomplete="new-password"
               :placeholder="$t('auth.common.passwordPlaceholder')"
-              class="w-full h-12 pl-10 pr-11 rounded-2xl neu-inset text-xs sm:text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 transition-all font-mono"
-              :class="fieldErrors.password ? 'ring-2 ring-rose-500/60' : 'focus:ring-emerald-500/50'"
+              class="w-full h-11 sm:h-12 pl-10 pr-11 rounded-2xl clean-input text-xs sm:text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none transition-all"
+              :class="fieldErrors.password ? 'ring-2 ring-rose-500/60 border-rose-500' : ''"
             />
             <button
               type="button"
-              class="absolute right-3 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 cursor-pointer p-1"
+              class="absolute right-3 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 cursor-pointer p-1 transition-colors"
               :title="showPassword ? $t('auth.common.hidePassword') : $t('auth.common.showPassword')"
               @click="showPassword = !showPassword"
             >
@@ -207,7 +200,7 @@ const handleGoogleSignUp = async () => {
           </div>
 
           <!-- Field error for password -->
-          <div v-if="fieldErrors.password" class="text-[11px] font-mono text-rose-500">
+          <div v-if="fieldErrors.password" class="text-[11px] font-medium text-rose-500">
             {{ fieldErrors.password }}
           </div>
 
@@ -216,15 +209,15 @@ const handleGoogleSignUp = async () => {
             <div class="grid grid-cols-3 gap-1.5 h-1.5 rounded-full overflow-hidden">
               <div
                 class="h-full rounded-full transition-all duration-300"
-                :class="passwordStrength.score >= 1 ? passwordStrength.color : 'bg-black/10 dark:bg-white/10'"
+                :class="passwordStrength.score >= 1 ? passwordStrength.color : 'bg-slate-200 dark:bg-white/10'"
               />
               <div
                 class="h-full rounded-full transition-all duration-300"
-                :class="passwordStrength.score >= 2 ? passwordStrength.color : 'bg-black/10 dark:bg-white/10'"
+                :class="passwordStrength.score >= 2 ? passwordStrength.color : 'bg-slate-200 dark:bg-white/10'"
               />
               <div
                 class="h-full rounded-full transition-all duration-300"
-                :class="passwordStrength.score >= 3 ? passwordStrength.color : 'bg-black/10 dark:bg-white/10'"
+                :class="passwordStrength.score >= 3 ? passwordStrength.color : 'bg-slate-200 dark:bg-white/10'"
               />
             </div>
             <div class="flex items-center justify-between text-[10px] font-mono">
@@ -236,7 +229,7 @@ const handleGoogleSignUp = async () => {
 
         <!-- Confirm Password Input Field -->
         <div class="space-y-1.5">
-          <label for="register-confirm-password" class="block text-xs font-mono font-bold text-slate-700 dark:text-slate-300">
+          <label for="register-confirm-password" class="block text-xs font-semibold text-slate-700 dark:text-slate-300">
             {{ $t("auth.common.confirmPasswordLabel") }}
           </label>
           <div class="relative flex items-center">
@@ -250,12 +243,12 @@ const handleGoogleSignUp = async () => {
               required
               autocomplete="new-password"
               :placeholder="$t('auth.common.confirmPasswordPlaceholder')"
-              class="w-full h-12 pl-10 pr-11 rounded-2xl neu-inset text-xs sm:text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 transition-all font-mono"
-              :class="fieldErrors.confirmPassword || (form.confirmPassword && !isPasswordMatching) ? 'ring-2 ring-rose-500/60' : 'focus:ring-emerald-500/50'"
+              class="w-full h-11 sm:h-12 pl-10 pr-11 rounded-2xl clean-input text-xs sm:text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none transition-all"
+              :class="fieldErrors.confirmPassword || (form.confirmPassword && !isPasswordMatching) ? 'ring-2 ring-rose-500/60 border-rose-500' : ''"
             />
             <button
               type="button"
-              class="absolute right-3 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 cursor-pointer p-1"
+              class="absolute right-3 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 cursor-pointer p-1 transition-colors"
               :title="showConfirmPassword ? $t('auth.common.hidePassword') : $t('auth.common.showPassword')"
               @click="showConfirmPassword = !showConfirmPassword"
             >
@@ -265,13 +258,13 @@ const handleGoogleSignUp = async () => {
               />
             </button>
           </div>
-          <div v-if="fieldErrors.confirmPassword" class="text-[11px] font-mono text-rose-500">
+          <div v-if="fieldErrors.confirmPassword" class="text-[11px] font-medium text-rose-500">
             {{ fieldErrors.confirmPassword }}
           </div>
         </div>
 
         <!-- Terms Notice -->
-        <div class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed font-mono">
+        <div class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
           {{ $t("auth.common.termsNotice") }}
         </div>
 
@@ -280,7 +273,7 @@ const handleGoogleSignUp = async () => {
           <button
             type="submit"
             :disabled="isLoading"
-            class="w-full h-12 rounded-2xl neu-btn-primary flex items-center justify-center gap-2 text-xs sm:text-sm font-bold cursor-pointer transition-all active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
+            class="w-full h-11 sm:h-12 rounded-2xl btn-solid-dark flex items-center justify-center gap-2 text-xs sm:text-sm font-semibold cursor-pointer transition-all active:scale-[0.985] disabled:opacity-60 disabled:cursor-not-allowed"
           >
             <UIcon
               v-if="isLoading"
@@ -297,13 +290,20 @@ const handleGoogleSignUp = async () => {
         </div>
       </form>
 
+      <!-- Google Single Sign-On -->
+      <SocialLoginGoogle
+        mode="register"
+        :disabled="isLoading"
+        @google-click="handleGoogleSignUp"
+      />
+
       <!-- Bottom Switch to Login -->
-      <div class="pt-4 border-t border-black/5 dark:border-white/5 text-center text-xs text-slate-600 dark:text-slate-400">
+      <div class="pt-2 text-center text-xs text-slate-500 dark:text-slate-400">
         <span>{{ $t("auth.register.hasAccount") }}</span>
         {{ " " }}
         <NuxtLink
           to="/auth/login"
-          class="font-bold text-emerald-600 dark:text-emerald-400 hover:underline cursor-pointer"
+          class="font-semibold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 hover:underline cursor-pointer transition-colors"
         >
           {{ $t("auth.register.loginLink") }}
         </NuxtLink>

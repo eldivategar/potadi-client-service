@@ -168,6 +168,15 @@ onUnmounted(() => {
             </div>
 
             <NuxtLink
+              to="/app/profile"
+              class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-mono text-slate-700 dark:text-slate-300 hover:neu-inset-sm transition-all"
+              @click="isProfileOpen = false"
+            >
+              <UIcon name="i-ph-user-gear-duotone" class="size-4 text-emerald-500" />
+              <span>{{ $t("appStudio.nav.profile") }}</span>
+            </NuxtLink>
+
+            <NuxtLink
               to="/"
               class="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-mono text-slate-700 dark:text-slate-300 hover:neu-inset-sm transition-all"
               @click="isProfileOpen = false"

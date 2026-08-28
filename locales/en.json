@@ -285,6 +285,8 @@
       "diagnosisSub": "Leaf disease analysis",
       "history": "History",
       "historySub": "Diagnostic history",
+      "profile": "Profile & Farm",
+      "profileSub": "Account & farm settings",
       "backToLanding": "Back to Landing Page",
       "telemetryLabel": "Farm Telemetry",
       "mode": "Theme",
@@ -535,6 +537,115 @@
       "passwordMismatch": "Passwords do not match",
       "nameRequired": "Full name is required",
       "generalError": "An error occurred while processing your request. Please try again."
+    }
+  },
+  "profileSettings": {
+    "breadcrumb": "Studio / Profile Settings",
+    "title": "Account & Farm Settings",
+    "subtitle": "Manage your agronomist profile, farmland parameters, and telemetry preferences.",
+    "saveChanges": "Save Changes",
+    "saving": "Saving...",
+    "saveSuccess": "Profile settings saved successfully!",
+    "tabs": {
+      "profile": "Profile & Bio",
+      "farm": "Farm & Crops",
+      "security": "Security & Account",
+      "preferences": "Preferences & Alerts",
+      "danger": "Danger Zone"
+    },
+    "profileTab": {
+      "headerTitle": "Primary Profile Information",
+      "headerSubtitle": "Your profile photo and official identity on the Potadi platform",
+      "changePhoto": "Change Photo",
+      "removePhoto": "Remove Photo",
+      "verified": "Verified",
+      "personalTitle": "Personal Details & Contact",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email Address",
+      "emailHint": "Primary email address associated with your account",
+      "phone": "WhatsApp / Phone Number",
+      "phonePlaceholder": "+62 812-3456-7890",
+      "phoneHint": "To receive urgent field late blight outbreak alerts",
+      "role": "Role / Specialization",
+      "roleOptions": {
+        "farmer": "Independent Farmer",
+        "agronomist": "Field Agronomist",
+        "researcher": "Phytopathology Researcher",
+        "consultant": "Agricultural Consultant"
+      },
+      "bio": "Short Bio / Notes",
+      "bioPlaceholder": "Describe your farming experience, specialized potato varieties, or farm details..."
+    },
+    "farmTab": {
+      "title": "Farmland & Crop Parameters",
+      "subtitle": "Configure farm information for Vision AI model calibration and accuracy",
+      "farmName": "Farm / Farmer Group Name",
+      "farmNamePlaceholder": "e.g., Dieng Highland Potato Estate",
+      "region": "Highland Region",
+      "elevation": "Farm Elevation (masl)",
+      "elevationHint": "Elevation impacts relative humidity and late blight spore reproduction",
+      "area": "Cultivated Area (Hectares)",
+      "areaPlaceholder": "e.g., 2.5",
+      "variety": "Primary Potato Variety",
+      "varietyHint": "Varieties have differing resistance levels to foliar blight",
+      "varieties": {
+        "granola": "Granola Lembang (Fresh consumption / market)",
+        "atlantic": "Atlantic (Processing / chip manufacturing)",
+        "medians": "Medians (Partially resistant to late blight)",
+        "spunta": "Spunta / Imported Varieties",
+        "other": "Other Local Varieties"
+      },
+      "soilType": "Bed Soil Type",
+      "soilTypes": {
+        "andosol": "Volcanic Andosol (Rich / Friable)",
+        "latosol": "Brown Latosol",
+        "regosol": "Sandy Regosol"
+      }
+    },
+    "securityTab": {
+      "title": "Security & Authentication",
+      "subtitle": "Manage sign-in credentials and connected services",
+      "linkedAccounts": "Linked Accounts (SSO)",
+      "googleAccount": "Google Account",
+      "connected": "Connected",
+      "notConnected": "Not Connected",
+      "googleDesc": "Instant one-click sign in with Google OAuth",
+      "changePassword": "Change Password",
+      "currentPassword": "Current Password",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm New Password",
+      "updatePasswordBtn": "Update Password",
+      "passwordSuccess": "Password updated successfully!",
+      "sessionInfo": "Active Session",
+      "sessionDesc": "Secured with Better-Auth using HTTP-Only encryption"
+    },
+    "preferencesTab": {
+      "title": "Preferences & Notifications",
+      "subtitle": "Customize studio visual appearance and microclimate alert frequency",
+      "interfaceLang": "Interface Language",
+      "themeMode": "Visual Theme Mode",
+      "themeLight": "Chalk Mint (Light)",
+      "themeDark": "Obsidian Dark (Dark)",
+      "alertsTitle": "Early Warnings & Farm Alerts",
+      "sporeAlert": "Late Blight Spore Early Warning",
+      "sporeAlertDesc": "Receive warnings when humidity exceeds 85% with cold temperatures",
+      "weatherAlert": "Highland Extreme Weather Alert",
+      "weatherAlertDesc": "Frost (embun upas) risk and heavy rainfall notifications",
+      "weeklyDigest": "Weekly Diagnostic Telemetry Digest",
+      "weeklyDigestDesc": "Summary statistics of healthy leaf ratio and infection trends"
+    },
+    "dangerTab": {
+      "title": "Danger Zone & Permanent Actions",
+      "subtitle": "Actions below are permanent and cannot be undone",
+      "clearCacheTitle": "Clear Local Diagnostic Cache",
+      "clearCacheDesc": "Deletes all leaf images cached in IndexedDB on this device.",
+      "clearCacheBtn": "Clear Offline Cache",
+      "clearCacheSuccess": "Local cache cleared successfully!",
+      "deleteAccountTitle": "Delete User Account",
+      "deleteAccountDesc": "Permanently deletes your user account and all diagnostic history from Potadi servers.",
+      "deleteAccountBtn": "Delete My Account",
+      "deleteConfirm": "Are you sure you want to delete your account? This action cannot be undone."
     }
   }
 }

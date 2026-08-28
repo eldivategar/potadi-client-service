@@ -74,12 +74,12 @@ const handleSubmit = async () => {
     <div class="space-y-6">
       <!-- Success State -->
       <div v-if="isSuccess" class="space-y-6 text-center py-4">
-        <div class="size-16 rounded-3xl neu-convex text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto shadow-lg">
+        <div class="size-16 rounded-3xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto shadow-sm">
           <UIcon name="i-ph-check-circle-fill" class="size-8 text-emerald-500 animate-pulse" />
         </div>
 
         <div class="space-y-2">
-          <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
+          <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
             {{ $t("auth.resetPassword.successTitle") }}
           </h2>
           <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-normal">
@@ -90,7 +90,7 @@ const handleSubmit = async () => {
         <div class="pt-2">
           <NuxtLink
             to="/auth/login"
-            class="inline-flex items-center justify-center w-full h-12 rounded-2xl neu-btn-primary text-xs font-bold font-mono cursor-pointer"
+            class="inline-flex items-center justify-center w-full h-11 sm:h-12 rounded-2xl btn-solid-dark text-xs sm:text-sm font-semibold cursor-pointer"
           >
             Menuju Halaman Masuk &rarr;
           </NuxtLink>
@@ -100,11 +100,11 @@ const handleSubmit = async () => {
       <!-- Form State -->
       <div v-else class="space-y-6">
         <!-- Title & Subtitle -->
-        <div class="space-y-1.5 text-center sm:text-left">
-          <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <div class="space-y-2 text-left">
+          <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
             {{ $t("auth.resetPassword.title") }}
-          </h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-normal">
+          </h1>
+          <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-normal leading-relaxed">
             {{ $t("auth.resetPassword.subtitle") }}
           </p>
         </div>
@@ -112,7 +112,7 @@ const handleSubmit = async () => {
         <!-- Error Notification Alert -->
         <div
           v-if="localError || authError"
-          class="p-3.5 rounded-2xl neu-rose-inset text-rose-800 dark:text-rose-300 text-xs font-mono flex items-start gap-2.5 animate-shake"
+          class="p-3.5 rounded-2xl bg-rose-50 dark:bg-rose-500/10 border border-rose-200 dark:border-rose-500/20 text-rose-800 dark:text-rose-300 text-xs flex items-start gap-2.5 animate-shake"
           role="alert"
         >
           <UIcon name="i-ph-warning-octagon-duotone" class="size-4.5 text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" />
@@ -123,7 +123,7 @@ const handleSubmit = async () => {
         <form class="space-y-4" @submit.prevent="handleSubmit">
           <!-- New Password Input Field -->
           <div class="space-y-1.5">
-            <label for="reset-new-password" class="block text-xs font-mono font-bold text-slate-700 dark:text-slate-300">
+            <label for="reset-new-password" class="block text-xs font-semibold text-slate-700 dark:text-slate-300">
               {{ $t("auth.resetPassword.newPasswordLabel") }}
             </label>
             <div class="relative flex items-center">
@@ -137,12 +137,12 @@ const handleSubmit = async () => {
                 required
                 autocomplete="new-password"
                 :placeholder="$t('auth.common.passwordPlaceholder')"
-                class="w-full h-12 pl-10 pr-11 rounded-2xl neu-inset text-xs sm:text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 transition-all font-mono"
-                :class="fieldErrors.newPassword ? 'ring-2 ring-rose-500/60' : 'focus:ring-emerald-500/50'"
+                class="w-full h-11 sm:h-12 pl-10 pr-11 rounded-2xl clean-input text-xs sm:text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none transition-all"
+                :class="fieldErrors.newPassword ? 'ring-2 ring-rose-500/60 border-rose-500' : ''"
               />
               <button
                 type="button"
-                class="absolute right-3 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 cursor-pointer p-1"
+                class="absolute right-3 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 cursor-pointer p-1 transition-colors"
                 :title="showPassword ? $t('auth.common.hidePassword') : $t('auth.common.showPassword')"
                 @click="showPassword = !showPassword"
               >
@@ -152,14 +152,14 @@ const handleSubmit = async () => {
                 />
               </button>
             </div>
-            <div v-if="fieldErrors.newPassword" class="text-[11px] font-mono text-rose-500">
+            <div v-if="fieldErrors.newPassword" class="text-[11px] font-medium text-rose-500">
               {{ fieldErrors.newPassword }}
             </div>
           </div>
 
           <!-- Confirm New Password Input Field -->
           <div class="space-y-1.5">
-            <label for="reset-confirm-password" class="block text-xs font-mono font-bold text-slate-700 dark:text-slate-300">
+            <label for="reset-confirm-password" class="block text-xs font-semibold text-slate-700 dark:text-slate-300">
               {{ $t("auth.common.confirmPasswordLabel") }}
             </label>
             <div class="relative flex items-center">
@@ -173,12 +173,12 @@ const handleSubmit = async () => {
                 required
                 autocomplete="new-password"
                 :placeholder="$t('auth.common.confirmPasswordPlaceholder')"
-                class="w-full h-12 pl-10 pr-11 rounded-2xl neu-inset text-xs sm:text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 transition-all font-mono"
-                :class="fieldErrors.confirmPassword ? 'ring-2 ring-rose-500/60' : 'focus:ring-emerald-500/50'"
+                class="w-full h-11 sm:h-12 pl-10 pr-11 rounded-2xl clean-input text-xs sm:text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none transition-all"
+                :class="fieldErrors.confirmPassword ? 'ring-2 ring-rose-500/60 border-rose-500' : ''"
               />
               <button
                 type="button"
-                class="absolute right-3 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 cursor-pointer p-1"
+                class="absolute right-3 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 cursor-pointer p-1 transition-colors"
                 :title="showConfirmPassword ? $t('auth.common.hidePassword') : $t('auth.common.showPassword')"
                 @click="showConfirmPassword = !showConfirmPassword"
               >
@@ -188,7 +188,7 @@ const handleSubmit = async () => {
                 />
               </button>
             </div>
-            <div v-if="fieldErrors.confirmPassword" class="text-[11px] font-mono text-rose-500">
+            <div v-if="fieldErrors.confirmPassword" class="text-[11px] font-medium text-rose-500">
               {{ fieldErrors.confirmPassword }}
             </div>
           </div>
@@ -198,7 +198,7 @@ const handleSubmit = async () => {
             <button
               type="submit"
               :disabled="isLoading"
-              class="w-full h-12 rounded-2xl neu-btn-primary flex items-center justify-center gap-2 text-xs sm:text-sm font-bold cursor-pointer transition-all active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
+              class="w-full h-11 sm:h-12 rounded-2xl btn-solid-dark flex items-center justify-center gap-2 text-xs sm:text-sm font-semibold cursor-pointer transition-all active:scale-[0.985] disabled:opacity-60 disabled:cursor-not-allowed"
             >
               <UIcon
                 v-if="isLoading"
@@ -216,10 +216,10 @@ const handleSubmit = async () => {
         </form>
 
         <!-- Back to Login Link -->
-        <div class="pt-4 border-t border-black/5 dark:border-white/5 text-center">
+        <div class="pt-2 text-center">
           <NuxtLink
             to="/auth/login"
-            class="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 hover:underline cursor-pointer"
+            class="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 hover:underline cursor-pointer transition-colors"
           >
             <UIcon name="i-ph-arrow-left-bold" class="size-3.5" />
             <span>{{ $t("auth.forgotPassword.backToLogin") }}</span>

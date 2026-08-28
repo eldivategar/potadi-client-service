@@ -236,16 +236,6 @@ onUnmounted(() => {
           </div>
 
           <!-- Right Chevron -->
-          <UIcon
-            name="i-ph-caret-right-bold"
-            class="relative z-10 shrink-0 transition-all duration-750 ease-[cubic-bezier(0.25,1,0.5,1)]"
-            :class="[
-              isCollapsed ? 'opacity-0 w-0 h-0 scale-0' : 'opacity-100 w-3.5 h-3.5 scale-100',
-              isActive(item)
-                ? 'text-emerald-600 dark:text-emerald-400 translate-x-[2px]'
-                : 'text-slate-400 dark:text-slate-600 group-hover:text-slate-700 dark:group-hover:text-slate-300 group-hover:translate-x-[2px]'
-            ]"
-          />
         </NuxtLink>
       </nav>
     </div>
@@ -520,14 +510,14 @@ onUnmounted(() => {
               </div>
             </div>
 
-            <button
-              type="button"
+            <NuxtLink
+              to="/app/profile"
               class="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-mono text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:neu-inset-sm transition-all cursor-pointer text-left"
-              @click="openSettings"
+              @click="isProfileMenuOpen = false"
             >
               <UIcon name="i-ph-gear-six-duotone" class="size-4 text-slate-500" />
               <span>{{ $t("appStudio.userProfile.settings") }}</span>
-            </button>
+            </NuxtLink>
 
             <NuxtLink
               to="/"

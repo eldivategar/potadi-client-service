@@ -52,12 +52,12 @@ const handleResend = async () => {
     <div class="space-y-6">
       <!-- State 1: Success Message -->
       <div v-if="isSubmitted" class="space-y-6 text-center py-2">
-        <div class="size-16 rounded-3xl neu-convex text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto shadow-lg">
+        <div class="size-16 rounded-3xl bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto shadow-sm">
           <UIcon name="i-ph-paper-plane-tilt-fill" class="size-8 text-emerald-500 animate-bounce" />
         </div>
 
         <div class="space-y-2">
-          <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
+          <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
             {{ $t("auth.forgotPassword.successTitle") }}
           </h2>
           <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed max-w-sm mx-auto">
@@ -65,7 +65,7 @@ const handleResend = async () => {
           </p>
         </div>
 
-        <div class="p-4 rounded-2xl neu-inset text-xs font-mono text-slate-600 dark:text-slate-400 space-y-1 text-left">
+        <div class="p-4 rounded-2xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200/80 dark:border-white/[0.08] text-xs text-slate-600 dark:text-slate-400 space-y-1 text-left">
           <div class="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
             <UIcon name="i-ph-info-duotone" class="size-4 text-emerald-500" />
             <span>Petunjuk Pemulihan:</span>
@@ -76,7 +76,7 @@ const handleResend = async () => {
         <div class="space-y-3 pt-2">
           <button
             type="button"
-            class="w-full h-12 rounded-2xl neu-btn text-xs font-bold text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer transition-all active:scale-[0.98]"
+            class="w-full h-11 sm:h-12 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.03] hover:bg-slate-50 dark:hover:bg-white/[0.07] text-xs font-semibold text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 cursor-pointer transition-all active:scale-[0.985]"
             @click="handleResend"
           >
             {{ $t("auth.forgotPassword.resendBtn") }}
@@ -84,7 +84,7 @@ const handleResend = async () => {
 
           <NuxtLink
             to="/auth/login"
-            class="block w-full text-center text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 hover:underline cursor-pointer"
+            class="block w-full text-center text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 hover:underline cursor-pointer transition-colors"
           >
             {{ $t("auth.forgotPassword.backToLogin") }}
           </NuxtLink>
@@ -94,11 +94,11 @@ const handleResend = async () => {
       <!-- State 2: Request Form -->
       <div v-else class="space-y-6">
         <!-- Title & Subtitle -->
-        <div class="space-y-1.5 text-center sm:text-left">
-          <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <div class="space-y-2 text-left">
+          <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
             {{ $t("auth.forgotPassword.title") }}
-          </h2>
-          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-normal">
+          </h1>
+          <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-normal leading-relaxed">
             {{ $t("auth.forgotPassword.subtitle") }}
           </p>
         </div>
@@ -106,7 +106,7 @@ const handleResend = async () => {
         <!-- Error Notification Alert -->
         <div
           v-if="localError || authError"
-          class="p-3.5 rounded-2xl neu-rose-inset text-rose-800 dark:text-rose-300 text-xs font-mono flex items-start gap-2.5 animate-shake"
+          class="p-3.5 rounded-2xl bg-rose-50 dark:bg-rose-500/10 border border-rose-200 dark:border-rose-500/20 text-rose-800 dark:text-rose-300 text-xs flex items-start gap-2.5 animate-shake"
           role="alert"
         >
           <UIcon name="i-ph-warning-octagon-duotone" class="size-4.5 text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" />
@@ -116,7 +116,7 @@ const handleResend = async () => {
         <!-- Form -->
         <form class="space-y-4" @submit.prevent="handleSubmit">
           <div class="space-y-1.5">
-            <label for="forgot-email" class="block text-xs font-mono font-bold text-slate-700 dark:text-slate-300">
+            <label for="forgot-email" class="block text-xs font-semibold text-slate-700 dark:text-slate-300">
               {{ $t("auth.common.emailLabel") }}
             </label>
             <div class="relative flex items-center">
@@ -130,11 +130,11 @@ const handleResend = async () => {
                 required
                 autocomplete="email"
                 :placeholder="$t('auth.common.emailPlaceholder')"
-                class="w-full h-12 pl-10 pr-4 rounded-2xl neu-inset text-xs sm:text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 transition-all font-mono"
-                :class="emailError ? 'ring-2 ring-rose-500/60' : 'focus:ring-emerald-500/50'"
+                class="w-full h-11 sm:h-12 pl-10 pr-4 rounded-2xl clean-input text-xs sm:text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none transition-all"
+                :class="emailError ? 'ring-2 ring-rose-500/60 border-rose-500' : ''"
               />
             </div>
-            <div v-if="emailError" class="text-[11px] font-mono text-rose-500">
+            <div v-if="emailError" class="text-[11px] font-medium text-rose-500">
               {{ emailError }}
             </div>
           </div>
@@ -144,7 +144,7 @@ const handleResend = async () => {
             <button
               type="submit"
               :disabled="isLoading"
-              class="w-full h-12 rounded-2xl neu-btn-primary flex items-center justify-center gap-2 text-xs sm:text-sm font-bold cursor-pointer transition-all active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
+              class="w-full h-11 sm:h-12 rounded-2xl btn-solid-dark flex items-center justify-center gap-2 text-xs sm:text-sm font-semibold cursor-pointer transition-all active:scale-[0.985] disabled:opacity-60 disabled:cursor-not-allowed"
             >
               <UIcon
                 v-if="isLoading"
@@ -162,10 +162,10 @@ const handleResend = async () => {
         </form>
 
         <!-- Back to Login Link -->
-        <div class="pt-4 border-t border-black/5 dark:border-white/5 text-center">
+        <div class="pt-2 text-center">
           <NuxtLink
             to="/auth/login"
-            class="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 hover:underline cursor-pointer"
+            class="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 hover:underline cursor-pointer transition-colors"
           >
             <UIcon name="i-ph-arrow-left-bold" class="size-3.5" />
             <span>{{ $t("auth.forgotPassword.backToLogin") }}</span>
