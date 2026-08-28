@@ -1,30 +1,43 @@
 import { getAuthClient } from "../utils/auth-client";
+import { useAuth } from "../composables/useAuth";
 
 export default defineNuxtRouteMiddleware(async (to, from) => {
-  const authClient = getAuthClient();
+  const isAuth = useState<boolean>("auth_is_authenticated", () => false);
+  const isAuthChecked = useState<boolean>("auth_is_checked", () => false);
 
-  // Validate authentication using Better-Auth getSession()
-  let isAuthenticated = false;
-  try {
-    const sessionRes = await authClient.getSession({
-      fetchOptions: {
-        headers: import.meta.server
-          ? (useRequestHeaders(["cookie"]) as Record<string, string>)
-          : undefined,
-      },
-    });
-
-    const raw = sessionRes?.data as any;
-    const sessionUser = raw?.data?.user || raw?.user;
-
-    isAuthenticated = !!sessionUser;
-  } catch {
-    isAuthenticated = false;
+  if (import.meta.server) {
+    const authClient = getAuthClient();
+    try {
+      const headers = useRequestHeaders(["cookie", "user-agent", "x-forwarded-for"]) as Record<string, string>;
+      const sessionRes = await authClient.getSession({
+        fetchOptions: { headers },
+      });
+      
+      const raw = sessionRes?.data as any;
+      isAuth.value = !!(raw?.data?.user || raw?.user);
+      isAuthChecked.value = true;
+    } catch (e) {
+      return;
+    }
+  } else {
+    const nuxtApp = useNuxtApp();
+    
+    if (nuxtApp.isHydrating && isAuthChecked.value) {
+    } else {
+      const { isAuthenticated, fetchSession } = useAuth();
+      
+      if (isAuthenticated.value) {
+        isAuth.value = true;
+      } else {
+        const user = await fetchSession();
+        isAuth.value = !!user;
+      }
+    }
   }
 
-  // 1. Route Interceptor: Protect /app and its subroutes
+  // Protected route /app
   if (to.path.startsWith("/app")) {
-    if (!isAuthenticated) {
+    if (!isAuth.value) {
       return navigateTo({
         path: "/auth/login",
         query: {
@@ -34,14 +47,14 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     }
   }
 
-  // 2. Prevent already logged-in users from visiting login/register pages
+  // Redirect logged in user from auth pages
   const isAuthPage =
     to.path === "/auth/login" ||
     to.path === "/auth/register" ||
     to.path === "/login" ||
     to.path === "/register";
 
-  if (isAuthPage && isAuthenticated) {
+  if (isAuthPage && isAuth.value) {
     const redirectQuery = (to.query.redirect as string) || "/app";
     return navigateTo(redirectQuery);
   }

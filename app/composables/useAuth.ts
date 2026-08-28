@@ -232,7 +232,7 @@ export const useAuth = () => {
           ? `${window.location.origin}/auth/reset-password`
           : "/auth/reset-password";
 
-      const { error: authErr } = await authClient.forgetPassword({
+      const { error: authErr } = await authClient.requestPasswordReset({
         email,
         redirectTo,
       });
@@ -303,9 +303,15 @@ export const useAuth = () => {
   const signOut = async () => {
     try {
       await authClient.signOut();
+      // Refetch session so Better Auth clears the local reactive state
+      if (session.value?.refetch) {
+        await session.value.refetch();
+      }
     } catch {
       // Silently ignore sign out error
     } finally {
+      // Reset Nuxt global state agar middleware tidak mengira user masih login
+      useState("auth_is_authenticated").value = false;
       await router.push("/auth/login");
     }
   };

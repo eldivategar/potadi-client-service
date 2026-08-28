@@ -166,7 +166,7 @@ const toggleTheme = () => {
 
       <!-- Bottom Disclaimer -->
       <div class="w-full max-w-md mx-auto pt-6 pb-2 text-center text-[11px] text-slate-500 dark:text-slate-400 font-mono shrink-0">
-        Potadi Botanical AI &copy; 2026. {{ $t("footer.rightsReserved") }}
+        Potadi &copy; 2026. {{ $t("footer.rightsReserved") }}
       </div>
     </main>
   </div>
