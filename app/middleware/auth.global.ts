@@ -1,4 +1,4 @@
-import { getAuthClient } from "../utils/auth-client";
+import { useAuthClient } from "../utils/auth-client";
 import { useAuth } from "../composables/useAuth";
 
 export default defineNuxtRouteMiddleware(async (to, from) => {
@@ -6,23 +6,22 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   const isAuthChecked = useState<boolean>("auth_is_checked", () => false);
 
   if (import.meta.server) {
-    const authClient = getAuthClient();
+    const authClient = useAuthClient();
     try {
-      const headers = useRequestHeaders(["cookie", "user-agent", "x-forwarded-for"]) as Record<string, string>;
-      const sessionRes = await authClient.getSession({
-        fetchOptions: { headers },
-      });
+      const sessionRes = await authClient.getSession();
       
       const raw = sessionRes?.data as any;
       isAuth.value = !!(raw?.data?.user || raw?.user);
       isAuthChecked.value = true;
     } catch (e) {
-      return;
+      isAuth.value = false;
+      isAuthChecked.value = true;
     }
   } else {
     const nuxtApp = useNuxtApp();
     
-    if (nuxtApp.isHydrating && isAuthChecked.value) {
+    if (nuxtApp.isHydrating && isAuthChecked.value && isAuth.value) {
+      // Do nothing, trust server
     } else {
       const { isAuthenticated, fetchSession } = useAuth();
       
@@ -32,6 +31,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
         const user = await fetchSession();
         isAuth.value = !!user;
       }
+      isAuthChecked.value = true;
     }
   }
 

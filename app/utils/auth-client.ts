@@ -1,25 +1,38 @@
 import { createAuthClient } from "better-auth/vue";
 
-let _authClient: ReturnType<typeof createAuthClient> | null = null;
+// Singleton on the client-side only
+let _clientAuthClient: ReturnType<typeof createAuthClient> | null = null;
 
 /**
- * Factory to lazily initialize better-auth client within Nuxt runtime lifecycle
+ * Composable to initialize better-auth client within Nuxt runtime lifecycle.
+ * Returns a singleton on the client, and a request-scoped client on the server.
  */
-export const getAuthClient = () => {
-  if (_authClient) {
-    return _authClient;
-  }
-
+export const useAuthClient = () => {
   const config = useRuntimeConfig();
   const apiBase = ((config.public?.apiBaseUrl as string) || "").replace(/\/+$/, "");
   const baseURL = apiBase ? `${apiBase}/api/v1/auth` : "/api/v1/auth";
 
-  _authClient = createAuthClient({
+  // Client-side: use singleton so Nanostore reactive state is shared
+  if (import.meta.client) {
+    if (!_clientAuthClient) {
+      _clientAuthClient = createAuthClient({
+        baseURL,
+        fetchOptions: {
+          credentials: "include",
+        },
+      });
+    }
+    return _clientAuthClient;
+  }
+
+  // Server-side (SSR): request-scoped, pass all headers for CSRF & secure cookies
+  const headers = useRequestHeaders();
+
+  return createAuthClient({
     baseURL,
     fetchOptions: {
+      headers: headers as Record<string, string>,
       credentials: "include",
     },
   });
-
-  return _authClient;
 };

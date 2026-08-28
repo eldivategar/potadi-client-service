@@ -111,7 +111,6 @@ const toggleTheme = () => {
                 <span class="text-xl sm:text-2xl font-extrabold tracking-tight text-slate-900 dark:text-white uppercase font-sans">
                   POTADI
                 </span>
-                <span class="size-1.5 rounded-full bg-emerald-500" />
               </div>
             </NuxtLink>
 
@@ -128,13 +127,13 @@ const toggleTheme = () => {
           </div>
 
           <!-- Left Panel Subtle Footer (Mobile / Helper info) -->
-          <div class="mt-8 pt-6 border-t border-slate-100 dark:border-white/[0.06] flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-500">
+          <!-- <div class="mt-8 pt-6 border-t border-slate-100 dark:border-white/[0.06] flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-500">
             <span>v1.0.4 • Edge Neural Engine</span>
             <span class="inline-flex items-center gap-1.5 text-emerald-600 dark:text-emerald-400 font-medium">
               <span class="size-1.5 rounded-full bg-emerald-500" />
               <span>100% On-Device</span>
             </span>
-          </div>
+          </div> -->
         </section>
 
         <!-- =========================================================================
@@ -160,7 +159,7 @@ const toggleTheme = () => {
           </div>
 
           <!-- Top Section: Status pill & quick counter -->
-          <div class="relative z-10 flex items-center justify-between">
+          <!-- <div class="relative z-10 flex items-center justify-between">
             <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/80 dark:bg-white/[0.06] backdrop-blur-md border border-white/80 dark:border-white/10 text-xs font-semibold text-emerald-800 dark:text-emerald-300 shadow-sm">
               <span class="size-2 rounded-full bg-emerald-500 animate-pulse" />
               <span>Live Farm Telemetry</span>
@@ -169,7 +168,7 @@ const toggleTheme = () => {
             <div class="text-xs font-mono text-slate-500 dark:text-slate-400">
               Dieng • Bromo • Pangalengan
             </div>
-          </div>
+          </div> -->
 
           <!-- Middle Section: Staggered Dynamic Floating Status Cards (Inspired by Reference Design) -->
           <div class="relative z-10 my-auto py-6 space-y-3.5 max-w-lg mx-auto w-full">

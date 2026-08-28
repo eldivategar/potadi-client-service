@@ -1,5 +1,5 @@
 import { ref, computed } from "vue";
-import { getAuthClient } from "../utils/auth-client";
+import { useAuthClient } from "../utils/auth-client";
 
 export interface AuthUser {
   id: string;
@@ -21,7 +21,7 @@ export interface ApiResponse<T = any> {
 export const useAuth = () => {
   const router = useRouter();
   const config = useRuntimeConfig();
-  const authClient = getAuthClient();
+  const authClient = useAuthClient();
 
   const apiBase = ((config.public?.apiBaseUrl as string) || "").replace(/\/+$/, "");
 
