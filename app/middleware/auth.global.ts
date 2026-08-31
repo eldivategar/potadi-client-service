@@ -1,37 +1,33 @@
 import { useAuthClient } from "../utils/auth-client";
-import { useAuth } from "../composables/useAuth";
 
 export default defineNuxtRouteMiddleware(async (to, from) => {
   const isAuth = useState<boolean>("auth_is_authenticated", () => false);
   const isAuthChecked = useState<boolean>("auth_is_checked", () => false);
 
-  if (import.meta.server) {
-    const authClient = useAuthClient();
+  const authClient = useAuthClient();
+
+  const checkAuth = async () => {
     try {
       const sessionRes = await authClient.getSession();
-      
       const raw = sessionRes?.data as any;
       isAuth.value = !!(raw?.data?.user || raw?.user);
-      isAuthChecked.value = true;
     } catch (e) {
       isAuth.value = false;
+    } finally {
       isAuthChecked.value = true;
     }
+  };
+
+  if (import.meta.server) {
+    await checkAuth();
   } else {
     const nuxtApp = useNuxtApp();
     
-    if (nuxtApp.isHydrating && isAuthChecked.value) {
-    } else if (!isAuth.value) {
-      // Only re-check session when not already authenticated
-      const { isAuthenticated, fetchSession } = useAuth();
-      
-      if (isAuthenticated.value) {
-        isAuth.value = true;
-      } else {
-        const user = await fetchSession();
-        isAuth.value = !!user;
-      }
-      isAuthChecked.value = true;
+    // Always double check on client if navigating to protected route and not auth
+    if (to.path.startsWith("/app") && !isAuth.value) {
+      await checkAuth();
+    } else if (!nuxtApp.isHydrating && !isAuthChecked.value) {
+      await checkAuth();
     }
   }
 
