@@ -26,7 +26,7 @@ export const useAuthClient = () => {
   }
 
   // Server-side (SSR): request-scoped, pass all headers for CSRF & secure cookies
-  const headers = useRequestHeaders();
+  const headers = useRequestHeaders(['cookie', 'user-agent', 'x-forwarded-for', 'referer']);
 
   return createAuthClient({
     baseURL,
