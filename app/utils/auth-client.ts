@@ -9,7 +9,14 @@ let _clientAuthClient: ReturnType<typeof createAuthClient> | null = null;
  */
 export const useAuthClient = () => {
   const config = useRuntimeConfig();
-  const apiBase = ((config.public?.apiBaseUrl as string) || "").replace(/\/+$/, "");
+  let apiBase = ((config.public?.apiBaseUrl as string) || "").replace(/\/+$/, "");
+  
+  if (import.meta.server && !apiBase) {
+    // Node.js fetch requires absolute URLs. If no apiBase is set, use the current request origin.
+    const reqUrl = useRequestURL();
+    apiBase = reqUrl.origin;
+  }
+
   const baseURL = apiBase ? `${apiBase}/api/v1/auth` : "/api/v1/auth";
 
   // Client-side: use singleton so Nanostore reactive state is shared
