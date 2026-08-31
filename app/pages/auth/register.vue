@@ -81,7 +81,7 @@ const handleSubmit = async () => {
   const result = await signUpWithEmail(validation.data.name, validation.data.email, validation.data.password);
   if (result.success) {
     const target = (route.query.redirect as string) || "/app";
-    router.push(target);
+    window.location.href = target;
   } else {
     localError.value = result.message || t("auth.errors.generalError");
   }
