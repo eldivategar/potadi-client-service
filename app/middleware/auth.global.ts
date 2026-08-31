@@ -21,7 +21,8 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     const nuxtApp = useNuxtApp();
     
     if (nuxtApp.isHydrating && isAuthChecked.value) {
-    } else {
+    } else if (!isAuth.value) {
+      // Only re-check session when not already authenticated
       const { isAuthenticated, fetchSession } = useAuth();
       
       if (isAuthenticated.value) {

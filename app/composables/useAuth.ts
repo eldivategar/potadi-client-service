@@ -131,6 +131,9 @@ export const useAuth = () => {
         await session.value.refetch();
       }
 
+      // Sync Nuxt useState so middleware sees auth immediately (avoids reactive cache race)
+      useState("auth_is_authenticated").value = true;
+
       isLoading.value = false;
       return { success: true };
     } catch (err: any) {
