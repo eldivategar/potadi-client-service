@@ -310,8 +310,9 @@ export const useAuth = () => {
     } catch {
       // Silently ignore sign out error
     } finally {
-      // Reset Nuxt global state agar middleware tidak mengira user masih login
+      // Reset Nuxt global state
       useState("auth_is_authenticated").value = false;
+      useState("auth_is_checked").value = true;
       await router.push("/auth/login");
     }
   };
