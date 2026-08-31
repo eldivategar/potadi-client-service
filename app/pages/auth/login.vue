@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive } from "vue";
+import { ref, reactive, watchEffect } from "vue";
 import AuthLayout from "~/components/auth/AuthLayout.vue";
 import SocialLoginGoogle from "~/components/auth/SocialLoginGoogle.vue";
 import { useAuth } from "~/composables/useAuth";
@@ -8,7 +8,14 @@ import { loginSchema } from "~/utils/auth-schemas";
 const route = useRoute();
 const router = useRouter();
 const { t } = useI18n();
-const { signInWithEmail, signInWithGoogle, isLoading, error: authError } = useAuth();
+const { signInWithEmail, signInWithGoogle, isLoading, error: authError, isAuthenticated } = useAuth();
+
+watchEffect(() => {
+  if (isAuthenticated.value) {
+    const target = (route.query.redirect as string) || "/app";
+    router.push(target);
+  }
+});
 
 useHead({
   title: "Masuk ke Potadi Studio - Diagnosa Daun Kentang",

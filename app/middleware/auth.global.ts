@@ -23,8 +23,14 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   } else {
     const nuxtApp = useNuxtApp();
     
-    // Always double check on client if navigating to protected route and not auth
-    if (to.path.startsWith("/app") && !isAuth.value) {
+    const isAuthRoute = 
+      to.path === "/auth/login" ||
+      to.path === "/auth/register" ||
+      to.path === "/login" ||
+      to.path === "/register";
+
+    // Always double check on client if navigating to protected route OR auth route and not auth
+    if ((to.path.startsWith("/app") || isAuthRoute) && !isAuth.value) {
       await checkAuth();
     } else if (!nuxtApp.isHydrating && !isAuthChecked.value) {
       await checkAuth();
