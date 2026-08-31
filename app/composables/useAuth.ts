@@ -303,17 +303,11 @@ export const useAuth = () => {
   const signOut = async () => {
     try {
       await authClient.signOut();
-      // Refetch session so Better Auth clears the local reactive state
-      if (session.value?.refetch) {
-        await session.value.refetch();
-      }
     } catch {
       // Silently ignore sign out error
     } finally {
-      // Reset Nuxt global state
-      useState("auth_is_authenticated").value = false;
-      useState("auth_is_checked").value = true;
-      await router.push("/auth/login");
+      // hard redirect bypasses client-side middleware + stale session cache entirely
+      window.location.href = "/auth/login";
     }
   };
 

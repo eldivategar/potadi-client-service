@@ -21,9 +21,6 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     const nuxtApp = useNuxtApp();
     
     if (nuxtApp.isHydrating && isAuthChecked.value) {
-      // SSR state carried over, trust it
-    } else if (isAuthChecked.value && !isAuth.value) {
-      // signOut() already cleared auth state, don't re-check stale session cache
     } else {
       const { isAuthenticated, fetchSession } = useAuth();
       
