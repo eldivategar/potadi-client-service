@@ -121,8 +121,14 @@ export const useDiagnose = () => {
     const startTime = performance.now();
 
     try {
+      // Compress image client-side before network transmission to minimize payload and transfer latency
+      const compressedImage = await compressImageFile(file, {
+        maxDimension: 1024,
+        quality: 0.82,
+      });
+
       const formData = new FormData();
-      formData.append("image", file, file.name || "leaf-scan.jpg");
+      formData.append("image", compressedImage, compressedImage.name || "leaf-scan.jpg");
 
       const endpoint = apiBase ? `${apiBase}/api/v1/diagnose` : "/api/v1/diagnose";
 

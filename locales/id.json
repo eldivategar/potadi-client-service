@@ -384,7 +384,9 @@
       "switchToFile": "Ganti dengan Berkas",
       "switchToCamera": "Buka Kamera",
       "removeImage": "Hapus Foto",
-      "supportedFormats": "Mendukung JPG, PNG, WEBP (Maks 10MB)",
+      "supportedFormats": "Mendukung JPG, PNG, WEBP (Maks 5MB)",
+      "maxSizeExceeded": "Ukuran gambar terlalu besar. Maksimum 5MB.",
+      "invalidFormat": "Format berkas tidak valid. Harap pilih berkas gambar (JPG, PNG, WEBP).",
       "customLeafLabel": "Foto Daun Kustom"
     },
     "camera": {

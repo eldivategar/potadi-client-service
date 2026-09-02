@@ -384,7 +384,9 @@
       "switchToFile": "Choose from Files",
       "switchToCamera": "Open Camera",
       "removeImage": "Remove Photo",
-      "supportedFormats": "Supports JPG, PNG, WEBP (Max 10MB)",
+      "supportedFormats": "Supports JPG, PNG, WEBP (Max 5MB)",
+      "maxSizeExceeded": "Image file size is too large. Maximum size is 5MB.",
+      "invalidFormat": "Invalid file format. Please select an image file (JPG, PNG, WEBP).",
       "customLeafLabel": "Custom Leaf Photo"
     },
     "camera": {

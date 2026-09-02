@@ -310,13 +310,13 @@ const setInputMode = (mode: "preset" | "real") => {
 // Select/upload file: shows preview, resets previous result, no auto-scan!
 const processFile = (file: File) => {
   if (!file.type.startsWith("image/")) {
-    localErrorMessage.value = "Format berkas tidak valid. Harap pilih berkas gambar (JPG, PNG, WEBP).";
+    localErrorMessage.value = t("appStudio.upload.invalidFormat") || "Format berkas tidak valid. Harap pilih berkas gambar (JPG, PNG, WEBP).";
     return;
   }
 
-  // Max 15MB size check
-  if (file.size > 15 * 1024 * 1024) {
-    localErrorMessage.value = "Ukuran gambar terlalu besar. Maksimum 15MB.";
+  // Max 5MB size limit validation
+  if (file.size > 5 * 1024 * 1024) {
+    localErrorMessage.value = t("appStudio.upload.maxSizeExceeded") || "Ukuran gambar terlalu besar. Maksimum 5MB.";
     return;
   }
 

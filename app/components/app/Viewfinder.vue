@@ -135,7 +135,7 @@ const capturePhoto = () => {
       }
     },
     "image/jpeg",
-    0.95
+    0.85
   );
 };
 
