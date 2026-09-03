@@ -70,7 +70,13 @@ export default defineNuxtConfig({
         'ph:spinner-gap-bold',
         'ph:info-duotone',
         'ph:briefcase-duotone',
-        'ph:pencil-simple-line-duotone'
+        'ph:pencil-simple-line-duotone',
+        'ph:map-pin-duotone',
+        'ph:arrows-clockwise-bold',
+        'ph:drop-duotone',
+        'ph:thermometer-simple-duotone',
+        'ph:cloud-rain-duotone',
+        'ph:navigation-arrow-fill'
       ]
     }
   },

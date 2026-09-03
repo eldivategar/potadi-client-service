@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from "vue";
 import RecipeModal from "~/components/app/RecipeModal.vue";
-import { useDiagnosisHistory, type ScanRecord } from "~/composables/useDiagnosisHistory";
+import { type ScanRecord } from "~/composables/useDiagnosisHistory";
 
 definePageMeta({
   layout: "app",

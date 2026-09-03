@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { ref, computed, watch } from "vue";
-import { useAuth } from "~/composables/useAuth";
-import { useDiagnosisHistory } from "~/composables/useDiagnosisHistory";
 
 definePageMeta({
   layout: "app",

@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from "vue";
-import { useSidebar } from "~/composables/useSidebar";
-import { useAuth } from "~/composables/useAuth";
 
 const route = useRoute();
 const router = useRouter();

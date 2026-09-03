@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
-import { useDiagnosisHistory } from "~/composables/useDiagnosisHistory";
+import { onMounted, computed } from "vue";
+import WeatherRiskWidget from "~/components/app/WeatherRiskWidget.vue";
 
 definePageMeta({
   layout: "app",
@@ -8,6 +8,11 @@ definePageMeta({
 
 const { t } = useI18n();
 const { metrics, syncWithBackend } = useDiagnosisHistory();
+const { currentWeather } = useWeather();
+
+const realtimeHumidity = computed(() => {
+  return currentWeather.value ? Math.round(currentWeather.value.humidity) : 88;
+});
 
 useHead({
   title: "Dashboard - Potadi Farm Vision AI",
@@ -316,108 +321,8 @@ const formatDate = (isoString: string) => {
           </div>
         </section>
 
-        <!-- 3. HIGHLAND MICROCLIMATE & SPORE RISK WIDGET -->
-        <section
-          class="rounded-3xl neu-flat p-5 sm:p-6 space-y-5"
-          aria-label="Indeks Risiko Mikroiklim"
-        >
-          <div
-            class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-black/5 dark:border-white/5 pb-4"
-          >
-            <div class="flex items-center gap-3">
-              <div
-                class="size-9 rounded-2xl neu-convex flex items-center justify-center text-amber-600 dark:text-amber-400 shrink-0"
-              >
-                <UIcon name="i-ph-cloud-fog-duotone" class="size-5" />
-              </div>
-              <div>
-                <h3
-                  class="text-xs font-mono font-bold uppercase tracking-wider text-slate-900 dark:text-white"
-                >
-                  {{ $t("appStudio.dashboard.weather.title") }}
-                </h3>
-                <p
-                  class="text-[10px] font-mono text-slate-600 dark:text-slate-400"
-                >
-                  {{ $t("appStudio.dashboard.weather.location") }}
-                </p>
-              </div>
-            </div>
-
-            <!-- Risk Warning Badge -->
-            <div
-              class="flex items-center gap-1.5 px-3.5 py-1 rounded-full neu-amber-inset text-amber-800 dark:text-amber-300 text-xs font-mono font-bold w-fit"
-            >
-              <UIcon name="i-ph-warning-bold" class="size-3.5 text-amber-500" />
-              <span>{{ $t("appStudio.dashboard.weather.riskLevel") }}</span>
-            </div>
-          </div>
-
-          <!-- Telemetry Sensor Grid (Sunken Wells with Neumorphic Numbers) -->
-          <div class="grid grid-cols-3 gap-3 text-center">
-            <div
-              class="p-4 rounded-2xl neu-inset space-y-1"
-            >
-              <div
-                class="text-[10px] font-mono text-slate-600 dark:text-slate-400 font-bold uppercase"
-              >
-                {{ $t("appStudio.dashboard.weather.humidity") }}
-              </div>
-              <div
-                class="text-xl sm:text-2xl font-bold font-mono text-amber-600 dark:text-amber-400"
-              >
-                88%
-              </div>
-              <div class="text-[10px] text-slate-500 dark:text-slate-400 font-medium">Lembap Tinggi</div>
-            </div>
-            <div
-              class="p-4 rounded-2xl neu-inset space-y-1"
-            >
-              <div
-                class="text-[10px] font-mono text-slate-600 dark:text-slate-400 font-bold uppercase"
-              >
-                {{ $t("appStudio.dashboard.weather.temperature") }}
-              </div>
-              <div
-                class="text-xl sm:text-2xl font-bold font-mono text-slate-900 dark:text-white"
-              >
-                16.4°C
-              </div>
-              <div class="text-[10px] text-slate-500 dark:text-slate-400 font-medium">Dataran Sejuk</div>
-            </div>
-            <div
-              class="p-4 rounded-2xl neu-inset space-y-1"
-            >
-              <div
-                class="text-[10px] font-mono text-slate-600 dark:text-slate-400 font-bold uppercase"
-              >
-                {{ $t("appStudio.dashboard.weather.rainProb") }}
-              </div>
-              <div
-                class="text-xl sm:text-2xl font-bold font-mono text-emerald-600 dark:text-emerald-400"
-              >
-                75%
-              </div>
-              <div class="text-[10px] text-slate-500 dark:text-slate-400 font-medium">Potensi Kabut</div>
-            </div>
-          </div>
-
-          <!-- Agronomic Spore Alert -->
-          <div
-            class="p-4 rounded-2xl neu-amber-inset space-y-1.5 text-xs text-amber-900 dark:text-amber-200"
-          >
-            <div class="font-bold flex items-center gap-2">
-              <UIcon
-                name="i-ph-shield-warning-duotone"
-                class="size-4 shrink-0 text-amber-600 dark:text-amber-400"
-              />
-              <span>{{ $t("appStudio.dashboard.weather.riskDesc") }}</span>
-            </div>
-            <p class="text-slate-700 dark:text-slate-300 pl-6 leading-relaxed">
-              {{ $t("appStudio.dashboard.weather.mitigationAction") }}
-            </p>
-          </div>
-        </section>
+        <!-- 3. REAL-TIME HIGHLAND MICROCLIMATE & DUAL DISEASE RISK ENGINE (OPEN-METEO + BIGDATACLOUD) -->
+        <WeatherRiskWidget />
 
         <!-- 4. TODAY'S AGRONOMIC RECOMMENDATION CARD -->
         <section
@@ -439,7 +344,7 @@ const formatDate = (isoString: string) => {
               <p
                 class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed max-w-2xl"
               >
-                {{ $t("appStudio.dashboard.recommendation.tip") }}
+                {{ $t("appStudio.dashboard.recommendation.tip", { humidity: realtimeHumidity }) }}
               </p>
             </div>
           </div>
@@ -521,7 +426,7 @@ const formatDate = (isoString: string) => {
                   to="/app/history"
                   class="neu-btn px-3 py-1 rounded-lg text-[11px] text-emerald-700 dark:text-emerald-400 font-bold hover:underline"
                 >
-                  Buka Resep &rarr;
+                  {{ $t('appStudio.dashboard.openRecipe') }} &rarr;
                 </NuxtLink>
               </div>
             </div>

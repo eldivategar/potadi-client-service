@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import AuthLayout from "~/components/auth/AuthLayout.vue";
-import { useAuth } from "~/composables/useAuth";
 import { forgotPasswordSchema } from "~/utils/auth-schemas";
 
 const { t } = useI18n();

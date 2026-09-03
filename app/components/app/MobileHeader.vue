@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, watch, onMounted, onUnmounted } from "vue";
 import LanguageSwitcher from "~/components/LanguageSwitcher.vue";
-import { useAuth } from "~/composables/useAuth";
 
 const colorMode = useColorMode();
 const { t } = useI18n();

@@ -2,7 +2,6 @@
 import AppSidebar from "~/components/app/Sidebar.vue";
 import AppMobileHeader from "~/components/app/MobileHeader.vue";
 import AppBottomNav from "~/components/app/BottomNav.vue";
-import { useSidebar } from "~/composables/useSidebar";
 
 const { isCollapsed } = useSidebar();
 </script>

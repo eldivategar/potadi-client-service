@@ -2,7 +2,6 @@
 import { ref, reactive, computed, watchEffect } from "vue";
 import AuthLayout from "~/components/auth/AuthLayout.vue";
 import SocialLoginGoogle from "~/components/auth/SocialLoginGoogle.vue";
-import { useAuth } from "~/composables/useAuth";
 import { registerSchema } from "~/utils/auth-schemas";
 
 const route = useRoute();

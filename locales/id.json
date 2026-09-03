@@ -317,7 +317,7 @@
       },
       "recommendation": {
         "title": "Rekomendasi Agronomi Hari Ini",
-        "tip": "Tingkat kelembapan 88% di dataran tinggi berpotensi memicu perkecambahan spora Phytophthora. Segera periksa daun kanopi bawah dan tunda irigasi sprinkler di sore hari.",
+        "tip": "Tingkat kelembapan {humidity}% di dataran tinggi berpotensi memicu perkecambahan spora Phytophthora. Segera periksa daun kanopi bawah dan tunda irigasi sprinkler di sore hari.",
         "action": "Buka Diagnosa Lapangan"
       },
       "metrics": {
@@ -332,15 +332,70 @@
       },
       "weather": {
         "title": "INDEKS MIKROIKLIM & RISIKO SPORA",
-        "location": "Dataran Tinggi (1.800 mdpl)",
+        "location": "Dataran Tinggi",
         "humidity": "Kelembapan",
         "temperature": "Suhu Udara",
         "rainProb": "Peluang Kabut/Hujan",
+        "rainfall": "Presipitasi / Hujan",
         "riskLevel": "Waspada Risiko Tinggi",
         "riskDesc": "Kelembapan >85% memicu perkecambahan spora Phytophthora infestans dalam waktu 6–8 jam.",
-        "mitigationAction": "Langkah Mitigasi: Periksa kanopi bawah dan siapkan fungisida protektif sebelum kabut sore."
+        "mitigationAction": "Langkah Mitigasi: Periksa kanopi bawah dan siapkan fungisida protektif sebelum kabut sore.",
+        "liveBadge": "GPS LIVE",
+        "refresh": "Perbarui",
+        "refreshing": "Memuat...",
+        "elevation": "mdpl",
+        "permissionTitle": "Akses Lokasi GPS Dibutuhkan",
+        "permissionDesc": "Aktifkan izin lokasi peramban agar Potadi dapat memuat telemetri cuaca dan kalkulasi risiko penyakit secara realtime dari titik lahan Anda.",
+        "btnEnableLocation": "Izinkan Lokasi Saya",
+        "btnRetry": "Coba Lagi",
+        "unavailableTitle": "Data Cuaca Sementara Tidak Tersedia",
+        "unavailableDesc": "Layanan stasiun cuaca Open-Meteo sedang tidak dapat dijangkau. Silakan periksa koneksi internet.",
+        "overallRisk": "Status Risiko Penyakit Lahan",
+        "currentCondition": "Kondisi Saat Ini",
+        "forecast24h": "Prakiraan 24 Jam",
+        "favorableHours": "jam kondisi mendukung",
+        "lateBlightTitle": "Hawar Daun (Late Blight)",
+        "earlyBlightTitle": "Hawar Dini (Early Blight)",
+        "dominantDriver": "Pemicu Utama",
+        "scientificLimitation": "Catatan: Fitur ini merupakan estimasi risiko perkembangan patogen berbasis variabel cuaca, bukan diagnosis penyakit tanaman. Diagnosis penyakit tetap berasal dari klasifikasi AI Vision Potadi.",
+        "connecting": "Menghubungkan ke GPS dan stasiun cuaca Open-Meteo...",
+        "phytophthoraSpore": "Spora Phytophthora",
+        "alternariaConidia": "Konidia Alternaria",
+        "sync": "Sinkronisasi",
+        "recommendationHeading": "Rekomendasi Tindakan Agronomi Lapangan",
+        "humidityDescriptors": {
+          "critical": "Lembap Kritis",
+          "high": "Lembap Tinggi",
+          "optimal": "Lembap Optimal"
+        },
+        "tempDescriptors": {
+          "coolHighland": "Dataran Sejuk",
+          "mildComfort": "Sejuk Nyaman",
+          "warm": "Hangat"
+        },
+        "rainDescriptors": {
+          "activeRain": "Hujan Aktif",
+          "lightPrecip": "Presipitasi Ringan",
+          "noRain": "Tanpa Hujan"
+        },
+        "recommendations": {
+          "normal": "Kondisi lingkungan normal. Lakukan inspeksi visual berkala pada bedengan.",
+          "lateBlightVeryHigh": "Kondisi cuaca sangat mendukung perkembangan Hawar Daun (Late Blight). Periksa kanopi bawah segera, cegah genangan air, dan persiapkan aplikasi fungisida protektif/sistemik terukur.",
+          "lateBlightHigh": "Kelembapan dan suhu mendukung penyebaran spora Phytophthora. Hindari irigasi kanopi atas di sore hari dan pantau gejala bercak basah.",
+          "lateBlightModerate": "Potensi risiko sedang terpantau. Pastikan aerasi bedengan lancar dan singkirkan gulma penghambat sirkulasi udara.",
+          "earlyBlightVeryHigh": "Kondisi hangat dan lembap sangat memicu konidia Alternaria solani. Pangkas daun tua kanopi bawah dan terapkan fungisida protektif berbahan aktif mankozeb.",
+          "earlyBlightHigh": "Suhu hangat dan kelembapan tinggi mendukung pembentukan bercak cincin konsentris. Periksa daun tua bagian bawah tanaman.",
+          "earlyBlightModerate": "Waspadai fluktuasi kelembapan di bedengan yang memicu infeksi bercak kering."
+        },
+        "levels": {
+          "LOW": "Rendah / Optimal",
+          "MODERATE": "Perhatian Sedang",
+          "HIGH": "Waspada Tinggi",
+          "VERY_HIGH": "Bahaya Sangat Tinggi"
+        }
       },
       "recentDetections": "Deteksi Terakhir",
+      "openRecipe": "Buka Resep",
       "noDetections": "Belum ada riwayat pemindaian.",
       "startNewDiagnosis": "Mulai Diagnosa Baru",
       "viewAllHistory": "Lihat Semua Riwayat"

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { LeafClassData } from "~/composables/useDiagnose";
 
 const { t } = useI18n();
 

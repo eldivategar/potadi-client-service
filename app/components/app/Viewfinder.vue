@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, computed, watch, onUnmounted, nextTick } from "vue";
-import type { LeafClassData } from "~/composables/useDiagnose";
 
 const { t } = useI18n();
 

@@ -2,8 +2,7 @@
 import { ref, computed, onUnmounted } from "vue";
 import AppViewfinder from "~/components/app/Viewfinder.vue";
 import AppTriageResults from "~/components/app/TriageResults.vue";
-import { useDiagnosisHistory } from "~/composables/useDiagnosisHistory";
-import { useDiagnose, normalizeDiagnosisLabel, type LeafClassData, type BackendDiagnosisData } from "~/composables/useDiagnose";
+import { type LeafClassData, type BackendDiagnosisData } from "~/composables/useDiagnose";
 
 definePageMeta({
   layout: "app",

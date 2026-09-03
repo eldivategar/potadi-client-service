@@ -317,7 +317,7 @@
       },
       "recommendation": {
         "title": "Today's Agronomic Recommendation",
-        "tip": "Highland humidity at 88% accelerates Phytophthora spore germination. Inspect lower canopy foliage and avoid late-afternoon overhead sprinkler irrigation.",
+        "tip": "Highland humidity at {humidity}% accelerates Phytophthora spore germination. Inspect lower canopy foliage and avoid late-afternoon overhead sprinkler irrigation.",
         "action": "Open Field Diagnosis"
       },
       "metrics": {
@@ -332,15 +332,70 @@
       },
       "weather": {
         "title": "MICROCLIMATE & SPORE RISK INDEX",
-        "location": "Highland Plateau (1,800m ASL)",
+        "location": "Highland Region",
         "humidity": "Humidity",
         "temperature": "Ambient Temp",
         "rainProb": "Fog/Rain Probability",
+        "rainfall": "Precipitation / Rain",
         "riskLevel": "High Spore Risk Warning",
         "riskDesc": "Relative humidity >85% accelerates Phytophthora infestans zoospore germination within 6–8 hours.",
-        "mitigationAction": "Mitigation: Inspect lower canopy beds and apply protective contact spray prior to afternoon fog."
+        "mitigationAction": "Mitigation: Inspect lower canopy beds and apply protective contact spray prior to afternoon fog.",
+        "liveBadge": "GPS LIVE",
+        "refresh": "Refresh",
+        "refreshing": "Updating...",
+        "elevation": "m ASL",
+        "permissionTitle": "GPS Location Access Required",
+        "permissionDesc": "Enable browser location permissions so Potadi can fetch real-time weather telemetry and calculate disease risk at your exact field location.",
+        "btnEnableLocation": "Enable My Location",
+        "btnRetry": "Try Again",
+        "unavailableTitle": "Weather Data Temporarily Unavailable",
+        "unavailableDesc": "Unable to connect to Open-Meteo weather station. Please check your internet connection.",
+        "overallRisk": "Field Disease Risk Status",
+        "currentCondition": "Current Condition",
+        "forecast24h": "24-Hour Forecast",
+        "favorableHours": "favorable hours detected",
+        "lateBlightTitle": "Late Blight (Phytophthora)",
+        "earlyBlightTitle": "Early Blight (Alternaria)",
+        "dominantDriver": "Primary Driver",
+        "scientificLimitation": "Note: This model estimates pathogen risk based on environmental variables and does not constitute a definitive plant disease diagnosis. Definitive diagnosis relies on Potadi AI Vision leaf classification.",
+        "connecting": "Connecting to GPS and Open-Meteo weather station...",
+        "phytophthoraSpore": "Phytophthora Spores",
+        "alternariaConidia": "Alternaria Conidia",
+        "sync": "Synchronized",
+        "recommendationHeading": "Field Agronomic Recommendation",
+        "humidityDescriptors": {
+          "critical": "Critically Humid",
+          "high": "High Humidity",
+          "optimal": "Optimal Humidity"
+        },
+        "tempDescriptors": {
+          "coolHighland": "Cool Highland",
+          "mildComfort": "Comfortably Mild",
+          "warm": "Warm"
+        },
+        "rainDescriptors": {
+          "activeRain": "Active Rain",
+          "lightPrecip": "Light Precipitation",
+          "noRain": "No Rain"
+        },
+        "recommendations": {
+          "normal": "Normal environmental conditions. Conduct periodic visual inspections of plant beds.",
+          "lateBlightVeryHigh": "Weather conditions are highly favorable for Late Blight development. Inspect lower canopy foliage immediately, prevent waterlogging, and prepare measured protective/systemic fungicide application.",
+          "lateBlightHigh": "Humidity and temperature support Phytophthora spore dispersal. Avoid overhead sprinkler irrigation in the late afternoon and monitor for water-soaked lesions.",
+          "lateBlightModerate": "Moderate risk potential detected. Ensure good bed aeration and clear weeds obstructing air circulation.",
+          "earlyBlightVeryHigh": "Warm, humid conditions strongly trigger Alternaria solani conidia. Prune mature lower canopy leaves and apply protective fungicide containing mancozeb.",
+          "earlyBlightHigh": "Warm temperatures and high humidity promote concentric target-board ring lesions. Inspect mature lower leaves.",
+          "earlyBlightModerate": "Watch for moisture fluctuations across beds triggering dry target-spot infection."
+        },
+        "levels": {
+          "LOW": "Low / Optimal",
+          "MODERATE": "Moderate Warning",
+          "HIGH": "High Alert",
+          "VERY_HIGH": "Very High Threat"
+        }
       },
       "recentDetections": "Recent Detections",
+      "openRecipe": "Open Recipe",
       "noDetections": "No previous scans yet.",
       "startNewDiagnosis": "Start New Diagnosis",
       "viewAllHistory": "View All History"
@@ -416,7 +471,7 @@
         "badge": "DIAGNOSIS STUDIO",
         "title": "Ready to Analyze",
         "desc": "Leaf image is loaded in the viewfinder. Click \"Analyze Leaf Now\" on the left panel to run the AI inference model and receive precision agronomic recommendations.",
-        "actionHint": "Click the emerald action button below the viewfinder to initiate AI diagnosis.",
+        "actionHint": "Click the action button below the viewfinder to initiate AI diagnosis.",
         "feature1": "Instant potato leaf pathogen & disease identification",
         "feature2": "Infection severity assessment and neural model confidence score",
         "feature3": "24-hour emergency mitigation protocol & knapsack spray guidelines"

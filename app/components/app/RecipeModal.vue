@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { ScanRecord } from "~/composables/useDiagnosisHistory";
 
 const props = defineProps<{
   record: ScanRecord | null;

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted } from "vue";
 import AuthLayout from "~/components/auth/AuthLayout.vue";
-import { useAuth } from "~/composables/useAuth";
 import { resetPasswordSchema } from "~/utils/auth-schemas";
 
 const route = useRoute();
