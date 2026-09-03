@@ -209,11 +209,63 @@ export const useDiagnose = () => {
     }
   };
 
+  /**
+   * Clear all diagnosis records and batch delete their images from R2: DELETE /api/v1/diagnose/all
+   */
+  const clearAllDiagnosesApi = async (): Promise<{ success: boolean; deletedCount?: number }> => {
+    try {
+      const endpoint = apiBase
+        ? `${apiBase}/api/v1/diagnose/all`
+        : `/api/v1/diagnose/all`;
+
+      const res = await $fetch<{ success: boolean; data?: { deletedCount: number } }>(endpoint, {
+        method: "DELETE",
+        credentials: "include",
+      });
+
+      return {
+        success: !!res?.success,
+        deletedCount: res?.data?.deletedCount ?? 0,
+      };
+    } catch (err) {
+      console.warn("Failed to clear all diagnoses on backend:", err);
+      return { success: false };
+    }
+  };
+
+  /**
+   * Batch delete specific diagnosis records and their images from R2: POST /api/v1/diagnose/batch-delete
+   */
+  const batchDeleteDiagnosesApi = async (ids: string[]): Promise<{ success: boolean; deletedCount?: number }> => {
+    if (!ids || ids.length === 0) return { success: true, deletedCount: 0 };
+    try {
+      const endpoint = apiBase
+        ? `${apiBase}/api/v1/diagnose/batch-delete`
+        : `/api/v1/diagnose/batch-delete`;
+
+      const res = await $fetch<{ success: boolean; data?: { deletedCount: number } }>(endpoint, {
+        method: "POST",
+        body: { ids },
+        credentials: "include",
+      });
+
+      return {
+        success: !!res?.success,
+        deletedCount: res?.data?.deletedCount ?? 0,
+      };
+    } catch (err) {
+      console.warn("Failed to batch delete diagnoses on backend:", err);
+      return { success: false };
+    }
+  };
+
   return {
     isScanning,
     scanError,
     diagnoseImage,
     fetchUserDiagnoses,
     deleteDiagnosisApi,
+    clearAllDiagnosesApi,
+    batchDeleteDiagnosesApi,
   };
 };

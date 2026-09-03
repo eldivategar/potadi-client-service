@@ -26,6 +26,7 @@ const emit = defineEmits<{
 }>();
 
 const isDragging = ref(false);
+let dragCounter = 0;
 const cameraInputRef = ref<HTMLInputElement | null>(null);
 const fileInputRef = ref<HTMLInputElement | null>(null);
 
@@ -162,11 +163,42 @@ const handleFileSelection = (event: Event) => {
   }
 };
 
+// Anti-flicker Drag and Drop handlers using drag counter
+const onDragEnter = (e: DragEvent) => {
+  e.preventDefault();
+  dragCounter++;
+  if (e.dataTransfer?.items && e.dataTransfer.items.length > 0) {
+    isDragging.value = true;
+  }
+};
+
+const onDragOver = (e: DragEvent) => {
+  e.preventDefault();
+  if (e.dataTransfer) {
+    e.dataTransfer.dropEffect = "copy";
+  }
+  isDragging.value = true;
+};
+
+const onDragLeave = (e: DragEvent) => {
+  e.preventDefault();
+  dragCounter--;
+  if (dragCounter <= 0) {
+    dragCounter = 0;
+    isDragging.value = false;
+  }
+};
+
 const onDrop = (event: DragEvent) => {
+  event.preventDefault();
+  dragCounter = 0;
   isDragging.value = false;
   if (event.dataTransfer?.files && event.dataTransfer.files[0]) {
     photoSource.value = "upload";
     stopCamera();
+    if (props.inputMode !== "real") {
+      emit("update:inputMode", "real");
+    }
     emit("processFile", event.dataTransfer.files[0]);
   }
 };
@@ -256,13 +288,92 @@ onUnmounted(() => {
         </div>
       </div>
 
-      <!-- Optical Viewfinder Frame (4:3 Aspect Ratio with Sunken Reticle) -->
+      <!-- ======================================================================
+           STATE A: UNIFIED BOTANICAL DROPZONE (Real Mode & No Image & Camera Idle)
+           ====================================================================== -->
       <div
+        v-if="inputMode === 'real' && !uploadedImageUrl && !isCameraActive"
+        role="button"
+        tabindex="0"
+        class="relative w-full aspect-[4/3] rounded-3xl neu-inset p-2.5 sm:p-3 overflow-hidden select-none cursor-pointer group transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+        :class="{
+          'border-2 border-emerald-500 ring-4 ring-emerald-500/25 bg-emerald-500/[0.08] dark:bg-emerald-500/[0.15] scale-[1.01]': isDragging
+        }"
+        :aria-label="$t('appStudio.upload.chooseFile')"
+        @click="triggerFileClick"
+        @keydown.enter.prevent="triggerFileClick"
+        @keydown.space.prevent="triggerFileClick"
+        @dragenter="onDragEnter"
+        @dragover="onDragOver"
+        @dragleave="onDragLeave"
+        @drop="onDrop"
+      >
+        <div
+          class="relative w-full h-full rounded-2xl border-2 border-dashed transition-all duration-300 flex flex-col items-center justify-center p-4 sm:p-6 text-center overflow-hidden"
+          :class="
+            isDragging
+              ? 'border-emerald-500 bg-emerald-500/10'
+              : 'border-emerald-600/30 dark:border-emerald-500/25 group-hover:border-emerald-500/60 bg-emerald-500/[0.02] dark:bg-emerald-950/20'
+          "
+        >
+          <!-- Optical Reticle HUD Corners for Botanical Precision (+ / ⌐) -->
+          <div class="absolute inset-3 sm:inset-4 pointer-events-none flex flex-col justify-between z-10 opacity-70 group-hover:opacity-100 transition-opacity">
+            <div class="flex justify-between">
+              <div class="size-3.5 sm:size-4 border-t-2 border-l-2 border-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.7)]" />
+              <div class="size-3.5 sm:size-4 border-t-2 border-r-2 border-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.7)]" />
+            </div>
+            <div class="flex justify-between">
+              <div class="size-3.5 sm:size-4 border-b-2 border-l-2 border-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.7)]" />
+              <div class="size-3.5 sm:size-4 border-b-2 border-r-2 border-emerald-500 shadow-[0_0_6px_rgba(16,185,129,0.7)]" />
+            </div>
+          </div>
+
+          <!-- Dropzone Content -->
+          <div class="flex flex-col items-center justify-center relative z-20 pointer-events-none max-w-xs px-2">
+            <!-- Icon Well -->
+            <div
+              class="size-14 sm:size-16 rounded-2xl neu-convex flex items-center justify-center text-emerald-600 dark:text-emerald-400 shadow-sm transition-all duration-300"
+              :class="isDragging ? 'scale-110 text-emerald-500 shadow-emerald-500/30' : 'group-hover:scale-105 group-hover:text-emerald-500'"
+            >
+              <UIcon
+                :name="isDragging ? 'i-ph-arrow-fat-lines-down-bold' : 'i-ph-cloud-arrow-up-bold'"
+                class="size-7 sm:size-8"
+              />
+            </div>
+
+            <!-- Title: Dropzone instruction -->
+            <h3 class="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-100 mt-3 leading-snug">
+              {{ isDragging ? $t("appStudio.upload.dropToUpload") : $t("appStudio.upload.dropTitle") }}
+            </h3>
+
+            <!-- Unified "Pilih Berkas Citra" button chip inside dropzone -->
+            <div
+              v-if="!isDragging"
+              class="inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 mt-2.5 rounded-xl neu-btn text-[11px] sm:text-xs font-bold text-emerald-700 dark:text-emerald-300 shadow-sm group-hover:shadow transition-all"
+            >
+              <UIcon name="i-ph-folder-open-bold" class="size-3.5 sm:size-4 text-emerald-600 dark:text-emerald-400" />
+              <span>{{ $t("appStudio.upload.chooseFile") }}</span>
+            </div>
+
+            <!-- Supported formats spec -->
+            <p class="text-[10px] sm:text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-2">
+              {{ $t("appStudio.upload.supportedFormats") }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ======================================================================
+           STATE B: VIEWFINDER FRAME (For Live Camera, Uploaded Image, or Preset)
+           ====================================================================== -->
+      <div
+        v-else
         class="relative w-full aspect-[4/3] rounded-3xl neu-inset p-2 overflow-hidden select-none"
         :class="{ 'ring-2 ring-emerald-500': isDragging }"
-        @dragover.prevent="isDragging = true"
-        @dragleave.prevent="isDragging = false"
-        @drop.prevent="onDrop"
+        @dragenter="onDragEnter"
+        @dragover="onDragOver"
+        @dragleave="onDragLeave"
+        @drop="onDrop"
       >
         <div class="relative w-full h-full rounded-2xl overflow-hidden bg-black flex items-center justify-center">
           <!-- 1. Live Camera Stream Video Feed -->
@@ -278,7 +389,7 @@ onUnmounted(() => {
           <!-- 2. Static / Uploaded Leaf Image Preview -->
           <img
             v-else
-            :src="activeViewfinderImage"
+            :src="inputMode === 'real' ? (uploadedImageUrl || '') : activeViewfinderImage"
             :alt="currentDiagnosis ? t(currentDiagnosis.labelKey) : 'Potato Leaf'"
             class="w-full h-full object-cover transition-transform duration-500 ease-out"
             :class="{ 'scale-105': isScanning }"
@@ -302,6 +413,19 @@ onUnmounted(() => {
               <div class="size-4 sm:size-5 border-b-2 border-l-2 border-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
               <div class="size-4 sm:size-5 border-b-2 border-r-2 border-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
             </div>
+          </div>
+
+          <!-- Drag-to-Replace Overlay (Active when user drags another file over image) -->
+          <div
+            v-if="isDragging"
+            class="absolute inset-0 bg-emerald-950/80 backdrop-blur-sm flex flex-col items-center justify-center gap-2.5 z-30 pointer-events-none p-4 text-center"
+          >
+            <div class="size-12 rounded-2xl neu-glass flex items-center justify-center text-emerald-400 animate-bounce shadow-lg">
+              <UIcon name="i-ph-arrows-clockwise-bold" class="size-6" />
+            </div>
+            <span class="text-xs sm:text-sm font-bold text-white font-mono">
+              {{ $t("appStudio.upload.dropToReplace") }}
+            </span>
           </div>
 
           <!-- Scanning Laser Beam Animation -->
@@ -343,7 +467,11 @@ onUnmounted(() => {
         <span class="flex-1">{{ errorMessage || cameraError }}</span>
       </div>
 
-      <!-- Live Camera Active Control Bar (Shutter, Switch, Close) -->
+      <!-- ======================================================================
+           CONTROLS SECTION
+           ====================================================================== -->
+
+      <!-- 1. Live Camera Active Control Bar (Shutter, Switch, Close) -->
       <div v-if="isCameraActive" class="space-y-3">
         <div class="flex items-center gap-3">
           <!-- Main Shutter Button -->
@@ -378,105 +506,103 @@ onUnmounted(() => {
         </div>
       </div>
 
-      <!-- Standard Input Controls: Real Mode (Upload / Camera Trigger) or Preset Selector -->
-      <div v-else-if="inputMode === 'real'" class="space-y-3">
-        <div v-if="!uploadedImageUrl" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <!-- Live Camera Trigger Button (Min. 56px ergonomic touch) -->
-          <button
-            type="button"
-            class="h-14 px-4 rounded-2xl text-xs sm:text-sm font-bold neu-btn text-slate-800 dark:text-slate-200 hover:text-emerald-600 dark:hover:text-emerald-400 active:scale-[0.98] transition-all flex items-center justify-center gap-2.5 cursor-pointer"
-            @click="startCamera"
-          >
-            <UIcon name="i-ph-camera-bold" class="size-5 text-emerald-600 dark:text-emerald-400" />
-            <span>{{ $t("appStudio.upload.openCamera") }}</span>
-          </button>
-
-          <!-- File Picker Trigger Button (Min. 56px ergonomic touch) -->
-          <button
-            type="button"
-            class="h-14 px-4 rounded-2xl text-xs sm:text-sm font-bold neu-btn text-slate-800 dark:text-slate-200 hover:text-emerald-600 dark:hover:text-emerald-400 active:scale-[0.98] transition-all flex items-center justify-center gap-2.5 cursor-pointer"
-            @click="triggerFileClick"
-          >
-            <UIcon name="i-ph-upload-simple-bold" class="size-5 text-emerald-600 dark:text-emerald-400" />
-            <span>{{ $t("appStudio.upload.chooseFile") }}</span>
-          </button>
+      <!-- 2. Real Mode: Empty State Secondary Live Camera Trigger -->
+      <div v-else-if="inputMode === 'real' && !uploadedImageUrl" class="space-y-3 pt-1">
+        <div class="flex items-center gap-3">
+          <div class="flex-1 h-px bg-black/5 dark:bg-white/5" />
+          <span class="text-[10px] sm:text-[11px] font-mono text-slate-400 dark:text-slate-500 uppercase tracking-wider font-semibold">
+            {{ $t("appStudio.upload.orUseCamera") }}
+          </span>
+          <div class="flex-1 h-px bg-black/5 dark:bg-white/5" />
         </div>
 
-        <!-- Uploaded Image Status Card with Change/Remove Actions -->
-        <div
-          v-else
-          class="p-3.5 rounded-2xl neu-emerald-inset flex items-center justify-between gap-3"
+        <button
+          type="button"
+          class="w-full h-12 sm:h-13 px-4 rounded-2xl text-xs sm:text-sm font-bold neu-btn text-slate-800 dark:text-slate-200 hover:text-emerald-600 dark:hover:text-emerald-400 active:scale-[0.98] transition-all flex items-center justify-center gap-2.5 cursor-pointer"
+          @click="startCamera"
         >
-          <div class="flex items-center gap-3 min-w-0">
-            <div class="size-10 rounded-xl overflow-hidden shrink-0 neu-inset p-0.5 bg-black">
-              <img :src="uploadedImageUrl" alt="Uploaded leaf" class="w-full h-full object-cover rounded-lg" />
-            </div>
-            <div class="truncate">
-              <div class="text-xs font-bold text-slate-900 dark:text-white truncate">
-                {{ uploadedFileName || $t("appStudio.upload.customLeafLabel") }}
-              </div>
-              <!-- <div class="text-[10px] font-mono text-emerald-700 dark:text-emerald-400 font-medium">
-                Siap didiagnosa oleh Cloud AI
-              </div> -->
-            </div>
+          <UIcon name="i-ph-camera-bold" class="size-4.5 text-emerald-600 dark:text-emerald-400" />
+          <span>{{ $t("appStudio.upload.openCamera") }}</span>
+        </button>
+      </div>
+
+      <!-- 3. Real Mode: Uploaded Image Status & Action Bar -->
+      <div
+        v-else-if="inputMode === 'real' && uploadedImageUrl"
+        class="p-3 sm:p-3.5 rounded-2xl neu-emerald-inset flex items-center justify-between gap-3"
+      >
+        <div class="flex items-center gap-3 min-w-0">
+          <div class="size-10 sm:size-11 rounded-xl overflow-hidden shrink-0 neu-inset p-0.5 bg-black">
+            <img :src="uploadedImageUrl" alt="Uploaded leaf" class="w-full h-full object-cover rounded-lg" />
           </div>
+          <div class="truncate">
+            <div class="text-xs font-bold text-slate-900 dark:text-white truncate">
+              {{ uploadedFileName || $t("appStudio.upload.customLeafLabel") }}
+            </div>
+            <!-- <div class="text-[10px] font-mono text-emerald-700 dark:text-emerald-400 font-medium flex items-center gap-1.5 mt-0.5">
+              <span class="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span>{{ $t("appStudio.upload.readyToScan") }}</span>
+            </div> -->
+          </div>
+        </div>
 
-          <div class="flex items-center gap-2 shrink-0">
-            <!-- If image was taken from Camera: provide retake via camera + option to choose file -->
-            <template v-if="isCameraPhoto">
-              <button
-                type="button"
-                class="size-9 rounded-xl neu-btn text-emerald-700 dark:text-emerald-300 flex items-center justify-center transition-colors cursor-pointer"
-                :title="$t('appStudio.upload.retakeCamera')"
-                @click="startCamera"
-              >
-                <UIcon name="i-ph-camera-bold" class="size-4" />
-              </button>
-              <button
-                type="button"
-                class="size-9 rounded-xl neu-btn text-slate-700 dark:text-slate-300 flex items-center justify-center transition-colors cursor-pointer"
-                :title="$t('appStudio.upload.switchToFile')"
-                @click="triggerFileClick"
-              >
-                <UIcon name="i-ph-upload-simple-bold" class="size-4" />
-              </button>
-            </template>
-
-            <!-- If image was chosen from Files: provide file change + option to open camera -->
-            <template v-else>
-              <button
-                type="button"
-                class="size-9 rounded-xl neu-btn text-slate-700 dark:text-slate-300 flex items-center justify-center transition-colors cursor-pointer"
-                :title="$t('appStudio.upload.changeImage')"
-                @click="triggerFileClick"
-              >
-                <UIcon name="i-ph-arrows-clockwise-bold" class="size-4" />
-              </button>
-              <button
-                type="button"
-                class="size-9 rounded-xl neu-btn text-emerald-700 dark:text-emerald-300 flex items-center justify-center transition-colors cursor-pointer"
-                :title="$t('appStudio.upload.switchToCamera')"
-                @click="startCamera"
-              >
-                <UIcon name="i-ph-camera-bold" class="size-4" />
-              </button>
-            </template>
-
-            <!-- Trash / Remove Image Button -->
+        <div class="flex items-center gap-2 shrink-0">
+          <!-- If image was taken from Camera: retake camera primary + switch to file secondary -->
+          <template v-if="isCameraPhoto">
             <button
               type="button"
-              class="size-9 rounded-xl neu-btn text-rose-600 dark:text-rose-400 flex items-center justify-center transition-colors cursor-pointer"
-              :title="$t('appStudio.upload.removeImage')"
-              @click="handleRemove"
+              class="h-9 px-3 rounded-xl neu-btn text-emerald-700 dark:text-emerald-300 flex items-center gap-1.5 text-xs font-bold transition-colors cursor-pointer"
+              :title="$t('appStudio.upload.retakeCamera')"
+              @click="startCamera"
             >
-              <UIcon name="i-ph-trash-bold" class="size-4" />
+              <UIcon name="i-ph-camera-bold" class="size-4" />
+              <span class="hidden sm:inline">{{ $t("appStudio.upload.retakeCamera") }}</span>
             </button>
-          </div>
+            <button
+              type="button"
+              class="size-9 rounded-xl neu-btn text-slate-700 dark:text-slate-300 flex items-center justify-center transition-colors cursor-pointer"
+              :title="$t('appStudio.upload.switchToFile')"
+              @click="triggerFileClick"
+            >
+              <UIcon name="i-ph-upload-simple-bold" class="size-4" />
+            </button>
+          </template>
+
+          <!-- If image was chosen from Files: change file primary + switch to camera secondary -->
+          <template v-else>
+            <button
+              type="button"
+              class="h-9 px-3 rounded-xl neu-btn text-slate-800 dark:text-slate-200 hover:text-emerald-600 dark:hover:text-emerald-400 flex items-center gap-1.5 text-xs font-bold transition-colors cursor-pointer"
+              :title="$t('appStudio.upload.changeImage')"
+              @click="triggerFileClick"
+            >
+              <UIcon name="i-ph-arrows-clockwise-bold" class="size-4 text-emerald-600 dark:text-emerald-400" />
+              <span class="hidden sm:inline">{{ $t("appStudio.upload.changeImage") }}</span>
+            </button>
+            <button
+              type="button"
+              class="size-9 rounded-xl neu-btn text-emerald-700 dark:text-emerald-300 flex items-center justify-center transition-colors cursor-pointer"
+              :title="$t('appStudio.upload.switchToCamera')"
+              @click="startCamera"
+            >
+              <UIcon name="i-ph-camera-bold" class="size-4" />
+            </button>
+          </template>
+
+          <!-- Trash / Remove Image Button -->
+          <button
+            type="button"
+            class="size-9 rounded-xl neu-btn text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 flex items-center justify-center transition-colors cursor-pointer"
+            :title="$t('appStudio.upload.removeImage')"
+            @click="handleRemove"
+          >
+            <UIcon name="i-ph-trash-bold" class="size-4" />
+          </button>
         </div>
       </div>
 
-      <!-- Input Controls: Preset Samples Selector (3 Chips) -->
-      <div v-else class="space-y-2.5">
+      <!-- 4. Preset Mode: Preset Samples Selector (3 Chips) -->
+      <div v-else-if="inputMode === 'preset'" class="space-y-2.5">
         <div class="text-[11px] font-mono text-slate-600 dark:text-slate-400">
           {{ $t("appStudio.viewfinder.chooseSampleHint") }}
         </div>
@@ -517,8 +643,9 @@ onUnmounted(() => {
       <button
         v-if="!isCameraActive"
         type="button"
-        class="w-full h-14 rounded-2xl text-sm font-bold neu-btn-primary flex items-center justify-center gap-2.5 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer active:scale-[0.98] transition-all"
+        class="w-full h-14 rounded-2xl text-sm font-bold neu-btn-primary flex items-center justify-center gap-2.5 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer active:scale-[0.98] transition-all"
         :disabled="isScanning || (inputMode === 'real' && !uploadedImageUrl)"
+        :title="inputMode === 'real' && !uploadedImageUrl ? $t('appStudio.upload.chooseFile') : ''"
         @click="emit('triggerScan')"
       >
         <UIcon

@@ -29,9 +29,15 @@ const STORAGE_KEY = "potadi_scan_history_v1";
 const historyRecords = ref<ScanRecord[]>([]);
 const isLoaded = ref(false);
 const isSyncing = ref(false);
+const isClearing = ref(false);
 
 export function useDiagnosisHistory() {
-  const { fetchUserDiagnoses, deleteDiagnosisApi } = useDiagnose();
+  const { 
+    fetchUserDiagnoses, 
+    deleteDiagnosisApi, 
+    clearAllDiagnosesApi, 
+    batchDeleteDiagnosesApi 
+  } = useDiagnose();
 
   const saveToStorage = () => {
     if (!import.meta.client) return;
@@ -84,10 +90,31 @@ export function useDiagnosisHistory() {
     }
   };
 
-  const clearAllHistory = () => {
-    historyRecords.value = [];
-    if (import.meta.client) {
-      localStorage.removeItem(STORAGE_KEY);
+  const batchDeleteRecords = async (ids: string[]) => {
+    if (!ids || ids.length === 0) return;
+    historyRecords.value = historyRecords.value.filter((r) => !ids.includes(r.id));
+    saveToStorage();
+
+    const uuidList = ids.filter((id) =>
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id)
+    );
+    if (uuidList.length > 0) {
+      await batchDeleteDiagnosesApi(uuidList);
+    }
+  };
+
+  const clearAllHistory = async () => {
+    isClearing.value = true;
+    try {
+      historyRecords.value = [];
+      if (import.meta.client) {
+        localStorage.removeItem(STORAGE_KEY);
+      }
+      await clearAllDiagnosesApi();
+    } catch (e) {
+      console.error("Failed to clear all diagnoses history from backend:", e);
+    } finally {
+      isClearing.value = false;
     }
   };
 
@@ -193,10 +220,13 @@ export function useDiagnosisHistory() {
     historyRecords,
     isLoaded,
     isSyncing,
+    isClearing,
     syncWithBackend,
     addRecord,
     deleteRecord,
+    batchDeleteRecords,
     clearAllHistory,
+    clearHistory: clearAllHistory,
     metrics,
   };
 }

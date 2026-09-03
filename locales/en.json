@@ -358,7 +358,7 @@
         "earlyBlightTitle": "Early Blight (Alternaria)",
         "dominantDriver": "Primary Driver",
         "scientificLimitation": "Note: This model estimates pathogen risk based on environmental variables and does not constitute a definitive plant disease diagnosis. Definitive diagnosis relies on Potadi AI Vision leaf classification.",
-        "connecting": "Connecting to GPS and Open-Meteo weather station...",
+        "connecting": "Connecting to GPS and weather station...",
         "phytophthoraSpore": "Phytophthora Spores",
         "alternariaConidia": "Alternaria Conidia",
         "sync": "Synchronized",
@@ -434,7 +434,7 @@
       "dropSub": "or choose a quick option below",
       "openCamera": "Open Live Camera",
       "chooseFile": "Choose Image File",
-      "changeImage": "Change Photo",
+      "changeImage": "Change File",
       "retakeCamera": "Retake with Camera",
       "switchToFile": "Choose from Files",
       "switchToCamera": "Open Camera",
@@ -442,7 +442,11 @@
       "supportedFormats": "Supports JPG, PNG, WEBP (Max 5MB)",
       "maxSizeExceeded": "Image file size is too large. Maximum size is 5MB.",
       "invalidFormat": "Invalid file format. Please select an image file (JPG, PNG, WEBP).",
-      "customLeafLabel": "Custom Leaf Photo"
+      "customLeafLabel": "Custom Leaf Photo",
+      "orUseCamera": "or capture directly with device camera",
+      "dropToUpload": "Drop leaf photo to upload",
+      "dropToReplace": "Drop to replace current photo",
+      "readyToScan": "Ready for AI Vision diagnosis"
     },
     "camera": {
       "liveBadge": "LIVE CAMERA",

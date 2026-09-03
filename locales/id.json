@@ -358,7 +358,7 @@
         "earlyBlightTitle": "Hawar Dini (Early Blight)",
         "dominantDriver": "Pemicu Utama",
         "scientificLimitation": "Catatan: Fitur ini merupakan estimasi risiko perkembangan patogen berbasis variabel cuaca, bukan diagnosis penyakit tanaman. Diagnosis penyakit tetap berasal dari klasifikasi AI Vision Potadi.",
-        "connecting": "Menghubungkan ke GPS dan stasiun cuaca Open-Meteo...",
+        "connecting": "Menghubungkan ke GPS dan stasiun cuaca...",
         "phytophthoraSpore": "Spora Phytophthora",
         "alternariaConidia": "Konidia Alternaria",
         "sync": "Sinkronisasi",
@@ -434,7 +434,7 @@
       "dropSub": "atau gunakan opsi cepat di bawah ini",
       "openCamera": "Buka Kamera (Live)",
       "chooseFile": "Pilih Berkas Citra",
-      "changeImage": "Ganti Foto",
+      "changeImage": "Ganti Berkas",
       "retakeCamera": "Ambil Ulang dari Kamera",
       "switchToFile": "Ganti dengan Berkas",
       "switchToCamera": "Buka Kamera",
@@ -442,7 +442,11 @@
       "supportedFormats": "Mendukung JPG, PNG, WEBP (Maks 5MB)",
       "maxSizeExceeded": "Ukuran gambar terlalu besar. Maksimum 5MB.",
       "invalidFormat": "Format berkas tidak valid. Harap pilih berkas gambar (JPG, PNG, WEBP).",
-      "customLeafLabel": "Foto Daun Kustom"
+      "customLeafLabel": "Foto Daun Kustom",
+      "orUseCamera": "atau ambil langsung dengan kamera",
+      "dropToUpload": "Lepaskan foto daun untuk mengunggah",
+      "dropToReplace": "Lepaskan untuk mengganti foto daun",
+      "readyToScan": "Siap didiagnosa oleh AI Vision"
     },
     "camera": {
       "liveBadge": "KAMERA LANGSUNG",

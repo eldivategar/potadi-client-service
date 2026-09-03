@@ -8,7 +8,7 @@ definePageMeta({
 });
 
 const { t } = useI18n();
-const { historyRecords, isSyncing, syncWithBackend, deleteRecord, clearAllHistory } = useDiagnosisHistory();
+const { historyRecords, isSyncing, isClearing, syncWithBackend, deleteRecord, clearAllHistory } = useDiagnosisHistory();
 
 useHead({
   title: "Riwayat Diagnosa - Potadi Botanical Vision AI",
@@ -55,9 +55,9 @@ const handleDelete = (id: string) => {
   deleteRecord(id);
 };
 
-const handleConfirmClear = () => {
-  clearAllHistory();
+const handleConfirmClear = async () => {
   showConfirmClearModal.value = false;
+  await clearAllHistory();
 };
 
 const formatDate = (isoString: string) => {
@@ -97,11 +97,12 @@ const formatDate = (isoString: string) => {
           <div v-if="historyRecords.length > 0" class="flex items-center gap-2">
             <button
               type="button"
-              class="h-11 px-4 rounded-2xl text-xs font-mono font-bold text-rose-600 dark:text-rose-400 neu-btn transition-all flex items-center gap-2 cursor-pointer active:scale-95"
+              class="h-11 px-4 rounded-2xl text-xs font-mono font-bold text-rose-600 dark:text-rose-400 neu-btn transition-all flex items-center gap-2 cursor-pointer active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+              :disabled="isClearing"
               @click="showConfirmClearModal = true"
             >
-              <UIcon name="i-ph-trash-duotone" class="size-4" />
-              <span>{{ $t("appStudio.history.clearAll") }}</span>
+              <UIcon :name="isClearing ? 'i-ph-spinner-gap-bold' : 'i-ph-trash-duotone'" class="size-4" :class="{ 'animate-spin': isClearing }" />
+              <span>{{ isClearing ? 'Menghapus...' : $t("appStudio.history.clearAll") }}</span>
             </button>
           </div>
         </div>
@@ -319,10 +320,12 @@ const formatDate = (isoString: string) => {
             </button>
             <button
               type="button"
-              class="px-4 py-2 rounded-xl text-xs font-mono font-bold bg-rose-600 hover:bg-rose-500 text-white cursor-pointer active:scale-95 shadow-md"
+              class="px-4 py-2 rounded-xl text-xs font-mono font-bold bg-rose-600 hover:bg-rose-500 text-white cursor-pointer active:scale-95 shadow-md flex items-center gap-1.5 disabled:opacity-50 disabled:cursor-not-allowed"
+              :disabled="isClearing"
               @click="handleConfirmClear"
             >
-              {{ $t("appStudio.history.btnConfirmDelete") }}
+              <UIcon v-if="isClearing" name="i-ph-spinner-gap-bold" class="size-3.5 animate-spin" />
+              <span>{{ isClearing ? 'Menghapus...' : $t("appStudio.history.btnConfirmDelete") }}</span>
             </button>
           </div>
         </div>

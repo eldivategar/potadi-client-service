@@ -163,7 +163,7 @@ const hasInferenceResult = computed(() => !!currentDiagnosis.value);
 // Active display image in viewfinder
 const activeViewfinderImage = computed(() => {
   if (inputMode.value === "real") {
-    return uploadedImageUrl.value || "/images/sample-leafs/early-blight.jpg";
+    return uploadedImageUrl.value || "";
   }
   const selected = sampleList.value.find((s) => s.id === selectedPresetId.value);
   return selected ? selected.image : "/images/sample-leafs/early-blight.jpg";
