@@ -35,35 +35,43 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     return run();
   };
 
-  if (import.meta.server) {
-    await checkAuth();
-  } else {
-    // ponytail: trust verified auth state from SSR hydration or previous check to prevent blocking navigation
-    if (!isAuthChecked.value) {
-      await checkAuth();
-    }
-  }
-
-  // Protected route /app
-  if (to.path.startsWith("/app")) {
-    if (!isAuth.value) {
-      return navigateTo({
-        path: "/auth/login",
-        query: {
-          redirect: to.fullPath !== "/app" ? to.fullPath : undefined,
-        },
-      });
-    }
-  }
-
-  // Redirect logged in user from auth pages
-  const isAuthPage =
+  const isAuthRoute =
     to.path === "/auth/login" ||
     to.path === "/auth/register" ||
     to.path === "/login" ||
     to.path === "/register";
 
-  if (isAuthPage && isAuth.value) {
+  const isProtectedRoute = to.path.startsWith("/app");
+
+  if (import.meta.server) {
+    if (isProtectedRoute || isAuthRoute) {
+      await checkAuth();
+    }
+  } else {
+    // Client-side:
+    // Only check auth if navigating to a protected route and not currently marked auth,
+    // or if navigating to an auth page and never checked before.
+    if (isProtectedRoute && !isAuth.value) {
+      if (!isAuthChecked.value) {
+        await checkAuth();
+      }
+    } else if (isAuthRoute && !isAuthChecked.value) {
+      await checkAuth();
+    }
+  }
+
+  // Protected route /app
+  if (isProtectedRoute && !isAuth.value) {
+    return navigateTo({
+      path: "/auth/login",
+      query: {
+        redirect: to.fullPath !== "/app" ? to.fullPath : undefined,
+      },
+    });
+  }
+
+  // Redirect logged in user from auth pages
+  if (isAuthRoute && isAuth.value) {
     const redirectQuery = (to.query.redirect as string) || "/app";
     return navigateTo(redirectQuery);
   }
