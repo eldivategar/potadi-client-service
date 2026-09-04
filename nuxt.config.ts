@@ -7,6 +7,9 @@ export default defineNuxtConfig({
       authCallbackUrl: ''
     }
   },
+  routeRules: {
+    '/app/**': { ssr: false }
+  },
   app: {
     head: {
       link: [
