@@ -6,6 +6,7 @@ defineProps<{
   subtitle?: string;
 }>();
 
+const currentYear = new Date().getFullYear()
 const colorMode = useColorMode();
 
 const toggleTheme = () => {
@@ -261,7 +262,7 @@ const toggleTheme = () => {
     <!-- Global Minimalist Footer Bar -->
     <footer class="w-full max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2.5 py-2 px-2 text-[11px] text-slate-500 dark:text-slate-400 relative z-20 shrink-0">
       <div>
-        Potadi &copy; 2026. {{ $t("footer.rightsReserved") }}
+        &copy; {{ currentYear }} Potadi. {{ $t('footer.rightsReserved') }}
       </div>
       <div class="flex items-center gap-4 text-[11px]">
         <NuxtLink to="/" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">

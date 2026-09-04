@@ -1,4 +1,7 @@
-import { useAuthClient } from "../utils/auth-client";
+import { useAuthClient } from "~/utils/auth-client";
+
+// Module-level deduplication for client in-flight check
+let clientCheckAuthPromise: Promise<void> | null = null;
 
 export default defineNuxtRouteMiddleware(async (to, from) => {
   const isAuth = useState<boolean>("auth_is_authenticated", () => false);
@@ -7,32 +10,36 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   const authClient = useAuthClient();
 
   const checkAuth = async () => {
-    try {
-      const sessionRes = await authClient.getSession();
-      const raw = sessionRes?.data as any;
-      isAuth.value = !!(raw?.data?.user || raw?.user);
-    } catch (e) {
-      isAuth.value = false;
-    } finally {
-      isAuthChecked.value = true;
+    if (import.meta.client && clientCheckAuthPromise) {
+      return clientCheckAuthPromise;
     }
+
+    const run = async () => {
+      try {
+        const sessionRes = await authClient.getSession();
+        const raw = sessionRes?.data as any;
+        isAuth.value = !!(raw?.data?.user || raw?.user);
+      } catch (e) {
+        isAuth.value = false;
+      } finally {
+        isAuthChecked.value = true;
+        clientCheckAuthPromise = null;
+      }
+    };
+
+    if (import.meta.client) {
+      clientCheckAuthPromise = run();
+      return clientCheckAuthPromise;
+    }
+
+    return run();
   };
 
   if (import.meta.server) {
     await checkAuth();
   } else {
-    const nuxtApp = useNuxtApp();
-    
-    const isAuthRoute = 
-      to.path === "/auth/login" ||
-      to.path === "/auth/register" ||
-      to.path === "/login" ||
-      to.path === "/register";
-
-    // Always double check on client if navigating to protected route OR auth route and not auth
-    if ((to.path.startsWith("/app") || isAuthRoute) && !isAuth.value) {
-      await checkAuth();
-    } else if (!nuxtApp.isHydrating && !isAuthChecked.value) {
+    // ponytail: trust verified auth state from SSR hydration or previous check to prevent blocking navigation
+    if (!isAuthChecked.value) {
       await checkAuth();
     }
   }

@@ -1,9 +1,4 @@
 import { ref, computed } from "vue";
-import {
-  useDiagnose,
-  normalizeDiagnosisLabel,
-  type BackendDiagnosisData,
-} from "./useDiagnose";
 
 export interface ScanRecord {
   id: string;

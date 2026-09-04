@@ -2,6 +2,7 @@
 import LandingNavbar from '~/components/landing/Navbar.vue'
 import LandingBackgroundWaves from '~/components/landing/BackgroundWaves.vue'
 import LandingHeroSection from '~/components/landing/HeroSection.vue'
+import LandingInfiniteMarquee from '~/components/landing/InfiniteMarquee.vue'
 import LandingThreatSection from '~/components/landing/ThreatSection.vue'
 import LandingDiseaseCatalog from '~/components/landing/DiseaseCatalog.vue'
 import LandingHowItWorks from '~/components/landing/HowItWorks.vue'
@@ -41,6 +42,9 @@ useHead({
 
     <!-- Attention: Cinematic Editorial Center Hero & Precision Botanical Telemetry HUD -->
     <LandingHeroSection />
+
+    <!-- Kinetic Telemetry Ribbon: Infinite Smooth Marquee -->
+    <LandingInfiniteMarquee />
 
     <!-- Interest: Problem & 70% Harvest Threat Narrative with Staggered Parallax -->
     <LandingThreatSection />

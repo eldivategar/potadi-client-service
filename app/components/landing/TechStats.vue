@@ -67,7 +67,7 @@ const techSpecs = computed(() => [
             delay: index * 0.06,
             ease: [0.16, 1, 0.3, 1],
           }"
-          class="p-6 rounded-3xl bg-white/95 dark:bg-neutral-900/95 border border-slate-200/80 dark:border-white/10 shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between space-y-4 group"
+          class="p-6 rounded-3xl bg-white/95 dark:bg-neutral-900/95 border border-slate-200/80 dark:border-white/10 shadow-sm hover:shadow-xl hover:border-emerald-500/30 hover:scale-[1.02] transition-all duration-400 ease-out flex flex-col justify-between space-y-4 group"
         >
           <div class="flex items-center justify-between">
             <span

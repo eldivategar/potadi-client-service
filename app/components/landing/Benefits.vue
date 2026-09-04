@@ -78,7 +78,7 @@ const benefits = computed(() => [
           class="h-full transform-gpu"
         >
           <div
-            class="h-full p-6 sm:p-8 rounded-3xl bg-white/95 dark:bg-neutral-900/95 border border-slate-200/80 dark:border-white/10 shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col justify-between space-y-6"
+            class="h-full p-6 sm:p-8 rounded-3xl bg-white/95 dark:bg-neutral-900/95 border border-slate-200/80 dark:border-white/10 shadow-lg hover:shadow-2xl hover:border-emerald-500/30 hover:scale-[1.02] transition-all duration-400 ease-out flex flex-col justify-between space-y-6 group"
           >
             <div class="flex items-center justify-between">
               <div

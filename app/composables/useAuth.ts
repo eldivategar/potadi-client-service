@@ -1,5 +1,5 @@
 import { ref, computed } from "vue";
-import { useAuthClient } from "../utils/auth-client";
+import { useAuthClient } from "~/utils/auth-client";
 
 export interface AuthUser {
   id: string;
@@ -25,12 +25,27 @@ export const useAuth = () => {
 
   const apiBase = ((config.public?.apiBaseUrl as string) || "").replace(/\/+$/, "");
 
-  // Better-Auth reactive session store
-  const session = authClient.useSession();
+  // Global auth states for Nuxt lifecycle & UI feedback
+  const isAuth = useState<boolean>("auth_is_authenticated", () => false);
+  const isLoading = useState<boolean>("auth_loading", () => false);
+  const error = useState<string | null>("auth_error", () => null);
+
+  // ponytail: lazy session store subscription to prevent Better-Auth nanostore from triggering get-session on auth routes
+  let _sessionStore: any = null;
+  const getSessionStore = () => {
+    if (!_sessionStore) {
+      _sessionStore = authClient.useSession();
+    }
+    return _sessionStore;
+  };
+
+  // Better-Auth reactive session store (lazy evaluated)
+  const session = computed(() => getSessionStore().value);
 
   // Reactive user computed directly from Better-Auth useSession()
   const user = computed<AuthUser | null>(() => {
-    const raw = session.value?.data as any;
+    const s = getSessionStore();
+    const raw = s.value?.data as any;
     const rawUser = raw?.data?.user || raw?.user;
     if (!rawUser) return null;
 
@@ -48,19 +63,18 @@ export const useAuth = () => {
 
   // Token representation from Better-Auth session
   const token = computed<string | null>(() => {
-    const raw = session.value?.data as any;
-    const s = raw?.data?.session || raw?.session || raw?.token ? raw : null;
-    return s?.token || (s ? "better-auth-session" : null);
+    const s = getSessionStore();
+    const raw = s.value?.data as any;
+    const sessionObj = raw?.data?.session || raw?.session || raw?.token ? raw : null;
+    return sessionObj?.token || (sessionObj ? "better-auth-session" : null);
   });
 
   const isAuthenticated = computed(() => {
-    const raw = session.value?.data as any;
+    if (isAuth.value) return true;
+    if (!_sessionStore) return false;
+    const raw = _sessionStore.value?.data as any;
     return !!(raw?.data?.user || raw?.user);
   });
-
-  // Global loading & error states for UI feedback
-  const isLoading = useState<boolean>("auth_loading", () => false);
-  const error = useState<string | null>("auth_error", () => null);
 
   /**
    * Helper for raw API requests (backward compatibility)
@@ -127,12 +141,13 @@ export const useAuth = () => {
         return { success: false, message: msg };
       }
 
-      if (session.value?.refetch) {
-        await session.value.refetch();
+      if (_sessionStore?.value?.refetch) {
+        await _sessionStore.value.refetch();
       }
 
       // Sync Nuxt useState so middleware sees auth immediately (avoids reactive cache race)
-      useState("auth_is_authenticated").value = true;
+      isAuth.value = true;
+      useState("auth_is_checked").value = true;
 
       isLoading.value = false;
       return { success: true };
@@ -169,9 +184,12 @@ export const useAuth = () => {
         return { success: false, message: msg };
       }
 
-      if (session.value?.refetch) {
-        await session.value.refetch();
+      if (_sessionStore?.value?.refetch) {
+        await _sessionStore.value.refetch();
       }
+
+      isAuth.value = true;
+      useState("auth_is_checked").value = true;
 
       isLoading.value = false;
       return { success: true };
